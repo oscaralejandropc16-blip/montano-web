@@ -145,7 +145,7 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
                     <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Foto Principal</label>
                     <CldUploadWidget 
                       uploadPreset="ml_default"
-                      onSuccess={(result: any) => setFormData({...formData, image_url: result.info.secure_url})}
+                      onSuccess={(result: any) => setFormData(prev => ({...prev, image_url: result.info.secure_url}))}
                     >
                       {({ open }) => (
                         <div 
@@ -169,7 +169,7 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
                     <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Info Nutricional</label>
                     <CldUploadWidget 
                       uploadPreset="ml_default"
-                      onSuccess={(result: any) => setFormData({...formData, nutrition_url: result.info.secure_url})}
+                      onSuccess={(result: any) => setFormData(prev => ({...prev, nutrition_url: result.info.secure_url}))}
                     >
                       {({ open }) => (
                         <div 

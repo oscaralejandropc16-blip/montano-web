@@ -172,6 +172,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
                   </div>
 
                   {/* Contenido Inferior */}
+                  <div className="px-3 pb-4 flex-1 flex flex-col">
                     <div className="flex items-center justify-between mb-2">
                       <p className="text-primary text-[10px] font-extrabold tracking-[0.2em] uppercase flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
@@ -189,7 +190,8 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
                   </div>
                 </div>
               </Link>
-            )})}
+            );
+          })}
           </div>
         )}
       </section>

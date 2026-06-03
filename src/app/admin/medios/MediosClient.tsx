@@ -47,6 +47,7 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
       <div className="flex justify-end mb-8">
         <CldUploadWidget 
           uploadPreset="ml_default"
+          options={{ resourceType: "auto" }}
           onSuccess={handleUploadSuccess}
           onOpen={() => setIsUploading(true)}
           onClose={() => setIsUploading(false)}
@@ -57,7 +58,7 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
               className="bg-primary text-white px-6 py-3 rounded-xl font-bold text-sm tracking-widest uppercase hover:bg-red-700 transition-colors flex items-center gap-2 shadow-lg shadow-primary/20"
             >
               <UploadCloud className="w-5 h-5" /> 
-              {isUploading ? 'Subiendo...' : 'Subir Imagen'}
+              {isUploading ? 'Subiendo...' : 'Subir Medio'}
             </button>
           )}
         </CldUploadWidget>
@@ -76,7 +77,11 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
           {mediaItems.map(item => (
             <div key={item.id} className="bg-white rounded-2xl border border-gray-100 overflow-hidden group">
               <div className="aspect-square bg-gray-100 relative">
-                <img src={item.url} className="w-full h-full object-cover" alt="Media" />
+                {item.url && item.url.match(/\.(mp4|webm|mov)$/i) ? (
+                  <video src={item.url} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                ) : (
+                  <img src={item.url} className="w-full h-full object-cover" alt="Media" />
+                )}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-sm">
                   <button 
                     onClick={() => copyUrl(item.url, item.id)}

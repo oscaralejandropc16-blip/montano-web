@@ -48,7 +48,8 @@ const translations = {
 
 type Language = "es" | "en" | "it";
 
-export default function HomeClient({ heroVideoUrl }: { heroVideoUrl: string }) {
+export default function HomeClient({ settings }: { settings: Record<string, string> }) {
+  const heroVideoUrl = settings.hero_video_url || "/hero-video.mp4";
   const [isScrolled, setIsScrolled] = useState(false);
   const [lang, setLang] = useState<Language>("es");
   const [langMenuOpen, setLangMenuOpen] = useState(false);
@@ -218,16 +219,23 @@ export default function HomeClient({ heroVideoUrl }: { heroVideoUrl: string }) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {[1,2,3].map(i => (
-                <div key={i} className="aspect-square bg-gray-200 rounded-xl flex items-center justify-center text-gray-400 hover:opacity-80 transition-opacity cursor-pointer overflow-hidden relative group">
-                  <span className="relative z-10">[Foto Galería {i}]</span>
-                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity z-0 flex items-center justify-center">
-                    <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="w-5 h-5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              {[1, 2, 3].map(i => {
+                const img = settings[`gallery_img_${i}`];
+                return (
+                  <div key={i} className="aspect-square bg-gray-200 rounded-xl flex items-center justify-center text-gray-400 hover:opacity-80 transition-opacity cursor-pointer overflow-hidden relative group">
+                    {img ? (
+                      <img src={img} alt={`Galería ${i}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                    ) : (
+                      <span className="relative z-10 font-bold">[Foto Galería {i}]</span>
+                    )}
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity z-0 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="w-5 h-5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -249,8 +257,12 @@ export default function HomeClient({ heroVideoUrl }: { heroVideoUrl: string }) {
                 
                 {/* Imagen Principal */}
                 <div className="relative z-10 w-full aspect-[4/5] bg-gray-100 rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center text-gray-400 font-medium group ring-1 ring-black/5">
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
-                  [Foto de la fábrica o familia]
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+                  {settings.about_img ? (
+                    <img src={settings.about_img} alt="Acerca de Montano Antilia" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  ) : (
+                    <span>[Foto de la fábrica o familia]</span>
+                  )}
                 </div>
                 
                 {/* Tarjeta flotante superpuesta */}

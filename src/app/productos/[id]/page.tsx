@@ -208,10 +208,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             
             {/* Brand Column */}
             <div className="lg:col-span-1">
-              <div className="h-12 mb-6 relative">
-                <img src="/logo.png" alt="Montano Antilia" className="h-full w-auto object-contain brightness-0 invert opacity-80" />
+              <div className="h-16 mb-6 relative">
+                <img src="/logo.png" alt="Montano Antilia" className="h-full w-auto object-contain drop-shadow-md" />
               </div>
-              <p className="text-gray-400 text-sm leading-relaxed mb-6">
+              <p className="text-white/70 text-sm leading-relaxed mb-6">
                 Tradición y calidad superior en cada producto. Llevando a tu mesa el verdadero sabor que conquista desde hace años.
               </p>
             </div>
@@ -220,8 +220,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="lg:col-span-1">
               <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-6">Enlaces Rápidos</h4>
               <ul className="space-y-4">
-                <li><Link href="/" className="text-gray-400 hover:text-primary transition-colors text-sm">Inicio</Link></li>
-                <li><Link href="/productos" className="text-gray-400 hover:text-primary transition-colors text-sm">Productos</Link></li>
+                <li><Link href="/" className="text-white/70 hover:text-white transition-colors text-sm">Inicio</Link></li>
+                <li><Link href="/productos" className="text-white/70 hover:text-white transition-colors text-sm">Productos</Link></li>
               </ul>
             </div>
 
@@ -230,10 +230,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-6">Contacto Directo</h4>
               <ul className="space-y-4">
                 <li className="flex items-start gap-4">
-                  <span className="text-gray-400 text-sm leading-relaxed">Av. Bolívar Oeste N° 314, Carabobo</span>
+                  <span className="text-white/80 text-sm leading-relaxed">Av. Bolívar Oeste N° 314, Carabobo</span>
                 </li>
                 <li className="flex items-center gap-4">
-                  <span className="text-gray-400 text-sm">+58 424-3699740</span>
+                  <span className="text-white/80 text-sm">+58 424-3699740</span>
                 </li>
               </ul>
             </div>
@@ -242,12 +242,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
           {/* Copyright Line */}
           <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-gray-500 text-xs tracking-wider uppercase text-center md:text-left">
+            <p className="text-white/50 text-xs tracking-wider uppercase text-center md:text-left">
               Derechos de autor © 2026 Montano Antilia. Todos los derechos reservados.
             </p>
-            <div className="text-gray-600 text-xs tracking-wider uppercase font-bold">
-              Desarrollado con ♥
-            </div>
           </div>
         </div>
       </footer>

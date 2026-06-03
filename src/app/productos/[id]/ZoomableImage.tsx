@@ -9,7 +9,7 @@ export default function ZoomableImage({ src, alt }: { src: string; alt: string }
   return (
     <>
       <div 
-        className="relative group cursor-pointer rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 p-4 max-w-sm"
+        className="relative group cursor-pointer rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 p-4 w-full h-full flex items-center justify-center"
         onClick={() => setIsOpen(true)}
       >
         <div className="absolute inset-0 bg-black/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 rounded-2xl">
@@ -41,7 +41,7 @@ export default function ZoomableImage({ src, alt }: { src: string; alt: string }
             <img 
               src={src} 
               alt={alt} 
-              className="w-full h-auto max-h-[85vh] object-contain rounded-2xl shadow-2xl" 
+              className="w-full h-auto max-h-[85vh] object-contain rounded-2xl shadow-2xl bg-white p-4" 
             />
           </div>
         </div>

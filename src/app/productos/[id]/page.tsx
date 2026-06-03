@@ -53,21 +53,22 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <span className="text-primary">{product.category}</span>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+          <div className="flex flex-col lg:flex-row gap-16 items-start">
             
-            {/* Columna Izquierda: Imagen */}
-            <div className="w-full lg:w-1/2">
+            {/* Columna Izquierda: Imagen Principal con Zoom */}
+            <div className="w-full lg:w-1/2 lg:sticky lg:top-32">
               <div className="relative group">
-                <div className="absolute -inset-4 bg-primary/5 rounded-3xl transform -rotate-2 group-hover:rotate-0 transition-transform duration-700 z-0"></div>
-                <div className="w-full aspect-square bg-[#F0F0F0] rounded-2xl overflow-hidden shadow-2xl relative z-10 flex items-center justify-center">
+                <div className="absolute -inset-4 bg-primary/5 rounded-[3rem] transform -rotate-1 group-hover:rotate-0 transition-transform duration-700 z-0"></div>
+                <div className="relative z-10 bg-white rounded-[2rem] p-4 shadow-2xl border border-gray-100">
                   {product.image_url ? (
-                    <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
+                    <ZoomableImage src={product.image_url} alt={product.name} />
                   ) : (
-                    <span className="text-gray-300 font-extrabold text-3xl tracking-widest">[FOTO ALTA CALIDAD]</span>
+                    <div className="w-full aspect-square bg-[#F8F8F8] rounded-2xl flex items-center justify-center">
+                      <span className="text-gray-300 font-extrabold text-2xl tracking-widest">[FOTO PENDIENTE]</span>
+                    </div>
                   )}
-                  
                   {/* Etiqueta Calidad */}
-                  <div className="absolute top-6 left-6 z-20">
+                  <div className="absolute top-8 left-8 z-20 pointer-events-none">
                     <span className="bg-black/90 backdrop-blur text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full shadow-lg text-white">
                       Calidad Premium
                     </span>
@@ -76,95 +77,102 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </div>
             </div>
 
-            {/* Columna Derecha: Información del Producto */}
-            <div className="w-full lg:w-1/2 py-4">
+            {/* Columna Derecha: Información y Compra */}
+            <div className="w-full lg:w-1/2 pt-4">
               
-              <span className="text-primary font-extrabold tracking-[0.3em] uppercase text-xs mb-3 block">{product.category}</span>
-              <h1 className="heading text-4xl lg:text-6xl font-extrabold text-black mb-8 leading-tight">
-                {product.name}
-              </h1>
-
-              {/* Tag Formato */}
-              <div className="bg-white border border-gray-100 shadow-sm rounded-xl p-5 mb-10 inline-flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span className="font-serif italic text-xl text-primary font-bold">kg</span>
-                </div>
-                <div>
-                  <p className="text-[10px] text-gray-400 uppercase tracking-[0.2em] font-bold mb-1">Formato / Presentación</p>
-                  <p className="text-base font-extrabold text-black">{product.tag}</p>
+              <div className="mb-8">
+                <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-extrabold tracking-[0.2em] uppercase text-[10px] mb-4">{product.category}</span>
+                <h1 className="text-5xl lg:text-7xl font-extrabold text-black mb-4 leading-[1.1] tracking-tight">
+                  {product.name}
+                </h1>
+                
+                <div className="flex items-center gap-4 mt-6">
+                  <div className="bg-gray-50 border border-gray-100 rounded-2xl px-5 py-3 inline-flex items-center gap-3">
+                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm text-primary font-bold italic font-serif">kg</div>
+                    <div>
+                      <p className="text-[9px] text-gray-400 uppercase tracking-widest font-bold">Presentación</p>
+                      <p className="text-sm font-extrabold text-black">{product.tag}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Descripciones */}
-              <div className="space-y-8">
-                <div>
-                  <h3 className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em] text-black mb-4 border-b border-gray-100 pb-3">
-                    <Info className="w-4 h-4 text-primary" /> Detalles del Producto
-                  </h3>
-                  <p className="text-gray-600 font-light leading-relaxed text-lg">
-                    {product.description}
+              {/* CTA Principal */}
+              <div className="bg-white rounded-3xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100 mb-12 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+                <h3 className="text-xl font-extrabold text-black mb-2">¿Interesado en este producto?</h3>
+                <p className="text-sm text-gray-500 mb-6">Contáctanos vía WhatsApp para confirmar disponibilidad y precios actualizados.</p>
+                
+                <a 
+                  href={`https://wa.me/584243699740?text=${encodeURIComponent(`Hola Montano Antilia, estoy interesado en conocer precios y disponibilidad de: ${product.name} (${product.tag})`)}`}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-xl text-sm font-bold tracking-[0.1em] uppercase hover:bg-[#1DA851] transition-all shadow-lg shadow-[#25D366]/30 hover:-translate-y-0.5"
+                >
+                  <MessageCircle className="w-5 h-5" /> Consultar Precios
+                </a>
+                
+                <div className="mt-5 space-y-2">
+                  <p className="flex items-center gap-2 text-xs text-gray-500 font-medium">
+                    <Check className="w-3.5 h-3.5 text-primary" /> Ventas al mayor y gran mayor disponibles.
+                  </p>
+                  <p className="flex items-center gap-2 text-xs text-gray-500 font-medium">
+                    <Check className="w-3.5 h-3.5 text-primary" /> Ventas al detal en nuestra distribuidora.
                   </p>
                 </div>
+              </div>
+
+              {/* Detalles (Tarjetas Minimalistas) */}
+              <div className="space-y-6">
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {product.description && (
+                  <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100/50">
+                    <h4 className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.2em] text-gray-400 mb-3">
+                      <Info className="w-3.5 h-3.5 text-primary" /> Descripción General
+                    </h4>
+                    <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
+                      {product.description}
+                    </p>
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {product.ingredients && (
-                    <div>
-                      <h3 className="text-xs font-extrabold uppercase tracking-[0.2em] text-black mb-3">
-                        Ingredientes Clave
-                      </h3>
-                      <p className="text-gray-500 font-light leading-relaxed text-sm">
+                    <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100/50">
+                      <h4 className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-gray-400 mb-3">
+                        Ingredientes
+                      </h4>
+                      <p className="text-gray-600 text-sm leading-relaxed">
                         {product.ingredients}
                       </p>
                     </div>
                   )}
+
                   {product.preservation && (
-                    <div>
-                      <h3 className="text-xs font-extrabold uppercase tracking-[0.2em] text-black mb-3">
-                        Modo de Conservación
-                      </h3>
-                      <p className="text-gray-500 font-light leading-relaxed text-sm">
+                    <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100/50">
+                      <h4 className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-gray-400 mb-3">
+                        Conservación
+                      </h4>
+                      <p className="text-gray-600 text-sm leading-relaxed">
                         {product.preservation}
                       </p>
                     </div>
                   )}
                 </div>
 
-                {/* Info Nutricional */}
+                {/* Información Nutricional */}
                 {product.nutrition_url && (
-                  <div className="mt-12 pt-10 border-t border-gray-100">
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                        <Info className="w-5 h-5" />
-                      </div>
-                      <h3 className="text-sm font-extrabold uppercase tracking-[0.2em] text-black">
-                        Información Nutricional
-                      </h3>
+                  <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm mt-8">
+                    <h4 className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-gray-400 mb-6 text-center">
+                      Información Nutricional
+                    </h4>
+                    <div className="max-w-xs mx-auto">
+                      <ZoomableImage src={product.nutrition_url} alt="Información Nutricional" />
                     </div>
-                    <ZoomableImage src={product.nutrition_url} alt="Información Nutricional" />
                   </div>
                 )}
-              </div>
 
-              {/* CTA */}
-              <div className="mt-14 pt-10 border-t border-gray-100">
-                <a 
-                  href={`https://wa.me/584243699740?text=${encodeURIComponent(`Hola Montano Antilia, estoy interesado en conocer la disponibilidad del producto: ${product.name} (${product.tag})`)}`}
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#25D366] text-white px-10 py-5 rounded-xl text-sm font-bold tracking-[0.1em] uppercase hover:bg-[#1DA851] hover:-translate-y-1 transition-all shadow-xl shadow-[#25D366]/30"
-                >
-                  <MessageCircle className="w-5 h-5" /> Consultar Precios
-                </a>
-                <div className="text-xs text-gray-400 mt-4 space-y-1">
-                  <p className="flex items-center gap-2">
-                    <Check className="w-3 h-3 text-primary" /> Ventas al mayor y gran mayor.
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <Check className="w-3 h-3 text-primary" /> También ventas al detal en nuestra distribuidora (Consulta precios).
-                  </p>
-                </div>
               </div>
-
             </div>
           </div>
 

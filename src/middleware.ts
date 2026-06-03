@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/config';
+import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(req: NextRequest) {
@@ -15,9 +15,6 @@ export function middleware(req: NextRequest) {
       }
     }
 
-    const url = req.nextUrl.clone();
-    url.pathname = '/api/auth';
-
     return new NextResponse('Autenticación requerida', {
       status: 401,
       headers: {
@@ -30,5 +27,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/admin', '/admin/:path*'],
 };

@@ -4,11 +4,13 @@ import { useState } from "react";
 import { UploadCloud, Trash2, Copy, Check } from "lucide-react";
 import { CldUploadWidget } from "next-cloudinary";
 import { createMedia, deleteMedia } from "@/lib/actions";
+import ConfirmModal from "@/components/ConfirmModal";
 
 export default function MediosClient({ initialMedia }: { initialMedia: any[] }) {
   const [mediaItems, setMediaItems] = useState(initialMedia);
   const [isUploading, setIsUploading] = useState(false);
   const [copiedId, setCopiedId] = useState<number | null>(null);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
 
   const handleUploadSuccess = async (result: any) => {
     try {
@@ -23,11 +25,15 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
     }
   };
 
-  const handleDelete = async (id: number) => {
-    if (confirm("¿Eliminar esta imagen de la galería? (No se borrará de Cloudinary, solo de este panel).")) {
-      await deleteMedia(id);
-      setMediaItems(mediaItems.filter(m => m.id !== id));
-    }
+  const handleDelete = (id: number) => {
+    setDeleteId(id);
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteId) return;
+    await deleteMedia(deleteId);
+    setMediaItems(mediaItems.filter(m => m.id !== deleteId));
+    setDeleteId(null);
   };
 
   const copyUrl = (url: string, id: number) => {
@@ -92,6 +98,15 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
           ))}
         </div>
       )}
+
+      <ConfirmModal 
+        isOpen={deleteId !== null}
+        onClose={() => setDeleteId(null)}
+        onConfirm={confirmDelete}
+        title="Eliminar Imagen"
+        message="¿Estás seguro de que deseas eliminar esta imagen de la galería? (No se borrará de Cloudinary, solo de este panel)."
+        confirmText="Sí, eliminar"
+      />
     </div>
   );
 }

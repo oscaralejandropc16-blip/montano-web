@@ -1,16 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Trash2, Tag, Bookmark } from "lucide-react";
-import { createCategory, deleteCategory, createBrand, deleteBrand } from "@/lib/actions";
+import { Plus, Trash2, Tag, Bookmark, Edit2, Image as ImageIcon, X } from "lucide-react";
+import { createCategory, deleteCategory, updateCategory, createBrand, deleteBrand, updateBrand } from "@/lib/actions";
+import ConfirmModal from "@/components/ConfirmModal";
+import { CldUploadWidget } from "next-cloudinary";
 
-export default function ClasificacionClient({ initialCategories, initialBrands }: { initialCategories: {id: number, name: string}[], initialBrands: {id: number, name: string}[] }) {
+export default function ClasificacionClient({ initialCategories, initialBrands }: { initialCategories: {id: number, name: string}[], initialBrands: {id: number, name: string, logo_url?: string}[] }) {
   const [categories, setCategories] = useState(initialCategories);
   const [brands, setBrands] = useState(initialBrands);
 
   const [newCat, setNewCat] = useState("");
   const [newBrand, setNewBrand] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Modales
+  const [deleteCatId, setDeleteCatId] = useState<number | null>(null);
+  const [deleteBrandId, setDeleteBrandId] = useState<number | null>(null);
+
+  const [editCat, setEditCat] = useState<{id: number, name: string} | null>(null);
+  const [editBrand, setEditBrand] = useState<{id: number, name: string, logo_url?: string} | null>(null);
 
   const handleAddCategory = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,18 +39,42 @@ export default function ClasificacionClient({ initialCategories, initialBrands }
     window.location.reload();
   };
 
-  const handleDeleteCategory = async (id: number) => {
-    if(confirm("¿Eliminar categoría?")) {
-      await deleteCategory(id);
-      setCategories(categories.filter(c => c.id !== id));
-    }
+  const confirmDeleteCategory = async () => {
+    if (!deleteCatId) return;
+    setLoading(true);
+    await deleteCategory(deleteCatId);
+    setCategories(categories.filter(c => c.id !== deleteCatId));
+    setDeleteCatId(null);
+    setLoading(false);
   };
 
-  const handleDeleteBrand = async (id: number) => {
-    if(confirm("¿Eliminar marca?")) {
-      await deleteBrand(id);
-      setBrands(brands.filter(b => b.id !== id));
-    }
+  const confirmDeleteBrand = async () => {
+    if (!deleteBrandId) return;
+    setLoading(true);
+    await deleteBrand(deleteBrandId);
+    setBrands(brands.filter(b => b.id !== deleteBrandId));
+    setDeleteBrandId(null);
+    setLoading(false);
+  };
+
+  const handleUpdateCategory = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editCat) return;
+    setLoading(true);
+    await updateCategory(editCat.id, editCat.name);
+    setCategories(categories.map(c => c.id === editCat.id ? editCat : c));
+    setEditCat(null);
+    setLoading(false);
+  };
+
+  const handleUpdateBrand = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editBrand) return;
+    setLoading(true);
+    await updateBrand(editBrand.id, editBrand.name, editBrand.logo_url || null);
+    setBrands(brands.map(b => b.id === editBrand.id ? editBrand : b));
+    setEditBrand(null);
+    setLoading(false);
   };
 
   return (
@@ -80,9 +113,14 @@ export default function ClasificacionClient({ initialCategories, initialBrands }
             {categories.map(c => (
               <div key={c.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
                 <span className="font-medium text-black text-sm">{c.name}</span>
-                <button onClick={() => handleDeleteCategory(c.id)} className="text-gray-400 hover:text-red-500 transition-colors p-1">
-                  <Trash2 className="w-4 h-4" />
-                </button>
+                <div className="flex gap-2">
+                  <button onClick={() => setEditCat(c)} className="text-gray-400 hover:text-black transition-colors p-1">
+                    <Edit2 className="w-4 h-4" />
+                  </button>
+                  <button onClick={() => setDeleteCatId(c.id)} className="text-gray-400 hover:text-red-500 transition-colors p-1">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             ))}
             {categories.length === 0 && <p className="text-sm text-gray-400 text-center py-4">No hay categorías</p>}
@@ -115,10 +153,24 @@ export default function ClasificacionClient({ initialCategories, initialBrands }
           <div className="space-y-3">
             {brands.map(b => (
               <div key={b.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
-                <span className="font-medium text-black text-sm">{b.name}</span>
-                <button onClick={() => handleDeleteBrand(b.id)} className="text-gray-400 hover:text-red-500 transition-colors p-1">
-                  <Trash2 className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-3">
+                  {b.logo_url ? (
+                    <img src={b.logo_url} alt={b.name} className="w-8 h-8 object-contain rounded-md bg-white border border-gray-200 p-1" />
+                  ) : (
+                    <div className="w-8 h-8 rounded-md bg-gray-200 flex items-center justify-center">
+                      <ImageIcon className="w-4 h-4 text-gray-400" />
+                    </div>
+                  )}
+                  <span className="font-medium text-black text-sm">{b.name}</span>
+                </div>
+                <div className="flex gap-2">
+                  <button onClick={() => setEditBrand(b)} className="text-gray-400 hover:text-black transition-colors p-1">
+                    <Edit2 className="w-4 h-4" />
+                  </button>
+                  <button onClick={() => setDeleteBrandId(b.id)} className="text-gray-400 hover:text-red-500 transition-colors p-1">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             ))}
             {brands.length === 0 && <p className="text-sm text-gray-400 text-center py-4">No hay marcas</p>}
@@ -126,6 +178,91 @@ export default function ClasificacionClient({ initialCategories, initialBrands }
         </div>
 
       </div>
+
+      {/* Edit Category Modal */}
+      {editCat && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 relative">
+            <button onClick={() => setEditCat(null)} className="absolute top-4 right-4 text-gray-400 hover:text-black">
+              <X className="w-5 h-5" />
+            </button>
+            <h3 className="text-xl font-bold text-black mb-4">Editar Categoría</h3>
+            <form onSubmit={handleUpdateCategory} className="flex flex-col gap-4">
+              <input 
+                type="text" required
+                value={editCat.name} onChange={e => setEditCat({...editCat, name: e.target.value})}
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-primary"
+              />
+              <button disabled={loading} type="submit" className="w-full py-3 bg-black text-white rounded-xl font-bold text-sm hover:bg-primary transition-colors">
+                Guardar Cambios
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Brand Modal */}
+      {editBrand && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 relative">
+            <button onClick={() => setEditBrand(null)} className="absolute top-4 right-4 text-gray-400 hover:text-black">
+              <X className="w-5 h-5" />
+            </button>
+            <h3 className="text-xl font-bold text-black mb-4">Editar Marca</h3>
+            <form onSubmit={handleUpdateBrand} className="flex flex-col gap-4">
+              <div>
+                <label className="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Nombre</label>
+                <input 
+                  type="text" required
+                  value={editBrand.name} onChange={e => setEditBrand({...editBrand, name: e.target.value})}
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-primary"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Logo de la Marca</label>
+                {editBrand.logo_url && (
+                  <div className="mb-4 bg-gray-50 p-4 rounded-xl border border-gray-100 flex justify-center">
+                    <img src={editBrand.logo_url} alt="Logo" className="max-h-20 object-contain" />
+                  </div>
+                )}
+                <CldUploadWidget 
+                  uploadPreset="ml_default"
+                  onSuccess={(res: any) => setEditBrand({...editBrand, logo_url: res.info.secure_url})}
+                >
+                  {({ open }) => (
+                    <button type="button" onClick={() => open()} className="w-full border-2 border-dashed border-gray-300 rounded-xl p-4 flex flex-col items-center justify-center text-gray-500 hover:bg-gray-50 hover:border-primary hover:text-primary transition-colors">
+                      <ImageIcon className="w-6 h-6 mb-2" />
+                      <span className="text-sm font-medium">Subir / Cambiar Logo</span>
+                    </button>
+                  )}
+                </CldUploadWidget>
+              </div>
+
+              <button disabled={loading} type="submit" className="w-full py-3 bg-black text-white rounded-xl font-bold text-sm hover:bg-primary transition-colors mt-2">
+                Guardar Cambios
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Modals */}
+      <ConfirmModal 
+        isOpen={deleteCatId !== null}
+        onClose={() => setDeleteCatId(null)}
+        onConfirm={confirmDeleteCategory}
+        title="Eliminar Categoría"
+        message="¿Estás seguro de que deseas eliminar esta categoría? Si hay productos asociados a ella, podrían quedarse sin categoría."
+      />
+
+      <ConfirmModal 
+        isOpen={deleteBrandId !== null}
+        onClose={() => setDeleteBrandId(null)}
+        onConfirm={confirmDeleteBrand}
+        title="Eliminar Marca"
+        message="¿Estás seguro de que deseas eliminar esta marca? Los productos asociados podrían quedarse sin marca."
+      />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { ArrowLeft, Search, Filter, X, Info, ChevronRight, MessageCircle } from 
 
 const categories = ["Todos", "Jamones", "Ahumados", "Fiambres", "Especialidades"];
 
-export default function CatalogClient({ catalog, dbCategories }: { catalog: any[], dbCategories?: any[] }) {
+export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: { catalog: any[], dbCategories?: any[], dbBrands?: any[] }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [searchQuery, setSearchQuery] = useState("");
@@ -136,13 +136,15 @@ export default function CatalogClient({ catalog, dbCategories }: { catalog: any[
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-10">
-            {filteredProducts.map((prod, idx) => (
-              <Link 
-                href={`/productos/${prod.id}`}
-                key={prod.id} 
-                className={`group cursor-pointer transition-all duration-700 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}
-                style={{ transitionDelay: `${idx * 100}ms` }}
-              >
+            {filteredProducts.map((prod, idx) => {
+              const brandObj = dbBrands.find(b => b.name === prod.brand);
+              return (
+                <Link 
+                  href={`/productos/${prod.id}`}
+                  key={prod.id} 
+                  className={`group cursor-pointer transition-all duration-700 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}
+                  style={{ transitionDelay: `${idx * 100}ms` }}
+                >
                 {/* Tarjeta del Producto Rediseñada */}
                 <div className="bg-white rounded-3xl p-3 shadow-sm border border-gray-100 transition-all duration-500 group-hover:shadow-[0_25px_50px_rgba(0,0,0,0.08)] group-hover:-translate-y-2 h-full flex flex-col relative">
                   
@@ -170,18 +172,24 @@ export default function CatalogClient({ catalog, dbCategories }: { catalog: any[
                   </div>
 
                   {/* Contenido Inferior */}
-                  <div className="px-3 pb-4 flex-1 flex flex-col">
-                    <p className="text-primary text-[10px] font-extrabold tracking-[0.2em] uppercase mb-2 flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                      {prod.tag}
-                    </p>
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-primary text-[10px] font-extrabold tracking-[0.2em] uppercase flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                        {prod.tag}
+                      </p>
+                      {brandObj && brandObj.logo_url && (
+                        <div className="h-6 w-auto bg-white/50 backdrop-blur-sm rounded px-1 flex items-center justify-center pointer-events-none">
+                          <img src={brandObj.logo_url} alt={brandObj.name} className="h-full w-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
+                        </div>
+                      )}
+                    </div>
                     <h3 className="heading font-bold text-xl text-black leading-tight group-hover:text-primary transition-colors">
                       {prod.name}
                     </h3>
                   </div>
                 </div>
               </Link>
-            ))}
+            )})}
           </div>
         )}
       </section>

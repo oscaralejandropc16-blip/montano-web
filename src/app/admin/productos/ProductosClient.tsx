@@ -4,11 +4,15 @@ import { useState } from "react";
 import { Plus, Edit2, Trash2, X, Image as ImageIcon } from "lucide-react";
 import { createProduct, updateProduct, deleteProduct } from "@/lib/actions";
 import { CldUploadWidget } from "next-cloudinary";
+import { useRouter } from "next/navigation";
+import ConfirmModal from "@/components/ConfirmModal";
 
 export default function ProductosClient({ initialProducts, dbCategories, dbBrands }: { initialProducts: any[], dbCategories?: any[], dbBrands?: any[] }) {
   const [products, setProducts] = useState(initialProducts);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const defaultCats = dbCategories && dbCategories.length > 0 ? dbCategories.map(c => c.name) : ["Jamones", "Ahumados", "Fiambres", "Especialidades"];
   const defaultBrands = dbBrands && dbBrands.length > 0 ? dbBrands.map(b => b.name) : ["Montano Antilia", "Vicosa", "Don Vincenzo", "Delium"];
@@ -16,7 +20,6 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
   const [formData, setFormData] = useState({
     name: "", brand: defaultBrands[0] || "Montano Antilia", category: defaultCats[0] || "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: "", nutrition_url: ""
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleOpenModal = (prod: any = null) => {
     if (prod) {
@@ -43,7 +46,6 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
         setProducts(products.map(p => p.id === editingId ? { ...p, ...formData } : p));
       } else {
         await createProduct(formData);
-        // Recargar la página simple para actualizar ID
         window.location.reload();
       }
       setIsModalOpen(false);
@@ -56,10 +58,16 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
   };
 
   const handleDelete = async (id: number) => {
-    if (confirm("¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.")) {
-      await deleteProduct(id);
-      setProducts(products.filter(p => p.id !== id));
-    }
+    setDeleteId(id);
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteId) return;
+    setIsSubmitting(true);
+    await deleteProduct(deleteId);
+    setProducts(products.filter(p => p.id !== deleteId));
+    setIsSubmitting(false);
+    setDeleteId(null);
   };
 
   return (
@@ -73,7 +81,6 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
         </button>
       </div>
 
-      {/* Tabla de Productos */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <table className="w-full text-left">
           <thead className="bg-gray-50 border-b border-gray-100">
@@ -118,7 +125,6 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
         </table>
       </div>
 
-      {/* Modal CRUD */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
@@ -253,6 +259,15 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
           </div>
         </div>
       )}
+
+      <ConfirmModal 
+        isOpen={deleteId !== null}
+        onClose={() => setDeleteId(null)}
+        onConfirm={confirmDelete}
+        title="Eliminar Producto"
+        message="¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer y el producto desaparecerá del catálogo público."
+        confirmText="Sí, eliminar"
+      />
     </div>
   );
 }

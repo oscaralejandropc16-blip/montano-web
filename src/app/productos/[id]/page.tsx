@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Info, MessageCircle, ChevronRight, Check } from "lucide-react";
-import { getProducts } from "@/lib/actions";
+import { getProducts, getBrands } from "@/lib/actions";
 import ZoomableImage from "./ZoomableImage";
 
 export const revalidate = 0;
@@ -9,7 +9,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const resolvedParams = await params;
   const id = Number(resolvedParams.id);
   const catalog = await getProducts();
+  const brands = await getBrands();
   const product = catalog.find(p => Number(p.id) === id);
+  const brandObj = product ? brands.find(b => b.name === product.brand) : null;
 
   if (!product) {
     return (
@@ -81,7 +83,14 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="w-full lg:w-1/2 pt-4">
               
               <div className="mb-8">
-                <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-extrabold tracking-[0.2em] uppercase text-[10px] mb-4">{product.category}</span>
+                <div className="flex items-center gap-4 mb-4">
+                  <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-extrabold tracking-[0.2em] uppercase text-[10px]">{product.category}</span>
+                  {brandObj && brandObj.logo_url && (
+                    <div className="h-8 w-auto bg-white border border-gray-100 rounded px-2 flex items-center justify-center">
+                      <img src={brandObj.logo_url} alt={brandObj.name} className="h-full w-auto object-contain mix-blend-multiply opacity-80" />
+                    </div>
+                  )}
+                </div>
                 <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-black mb-4 leading-[1.1] tracking-tight">
                   {product.name}
                 </h1>
@@ -183,12 +192,27 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 {relatedProducts.map(rel => (
                   <Link href={`/productos/${rel.id}`} key={rel.id} className="group cursor-pointer">
-                    <div className="bg-white rounded-2xl p-3 shadow-sm border border-gray-100 transition-all duration-500 group-hover:shadow-xl group-hover:-translate-y-2 h-full flex flex-col">
+                    <div className="bg-white rounded-2xl p-3 shadow-sm border border-gray-100 transition-all duration-500 group-hover:shadow-xl group-hover:-translate-y-2 h-full flex flex-col relative">
                       <div className="w-full aspect-[4/5] bg-[#F8F8F8] rounded-xl overflow-hidden relative mb-4 flex items-center justify-center group-hover:bg-gray-100 transition-colors">
-                        <span className="text-gray-300 font-bold text-sm">[FOTO {rel.id}]</span>
+                        {rel.image_url ? (
+                          <img src={rel.image_url} alt={rel.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                        ) : (
+                          <span className="text-gray-300 font-bold text-sm">[FOTO {rel.id}]</span>
+                        )}
                       </div>
                       <div className="px-2 pb-2">
-                        <p className="text-primary text-[9px] font-extrabold tracking-widest uppercase mb-1">{rel.tag}</p>
+                        <div className="flex justify-between items-center mb-1">
+                          <p className="text-primary text-[9px] font-extrabold tracking-widest uppercase">{rel.tag}</p>
+                          {(() => {
+                            const b = brands.find(b => b.name === rel.brand);
+                            if (b && b.logo_url) {
+                              return (
+                                <img src={b.logo_url} alt={b.name} className="h-4 w-auto mix-blend-multiply opacity-70 group-hover:opacity-100 transition-opacity" />
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
                         <h4 className="font-bold text-black group-hover:text-primary transition-colors">{rel.name}</h4>
                       </div>
                     </div>

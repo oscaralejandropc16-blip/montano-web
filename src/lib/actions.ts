@@ -94,6 +94,11 @@ export async function createCategory(name: string) {
   revalidatePath('/admin');
 }
 
+export async function updateCategory(id: number, name: string) {
+  await sql`UPDATE montano_categories SET name = ${name} WHERE id = ${id}`;
+  revalidatePath('/admin');
+}
+
 export async function deleteCategory(id: number) {
   await sql`DELETE FROM montano_categories WHERE id = ${id}`;
   revalidatePath('/admin');
@@ -103,8 +108,13 @@ export async function getBrands() {
   return await sql`SELECT * FROM montano_brands ORDER BY name ASC`;
 }
 
-export async function createBrand(name: string) {
-  await sql`INSERT INTO montano_brands (name) VALUES (${name}) ON CONFLICT DO NOTHING`;
+export async function createBrand(name: string, logo_url: string | null = null) {
+  await sql`INSERT INTO montano_brands (name, logo_url) VALUES (${name}, ${logo_url}) ON CONFLICT DO NOTHING`;
+  revalidatePath('/admin');
+}
+
+export async function updateBrand(id: number, name: string, logo_url: string | null = null) {
+  await sql`UPDATE montano_brands SET name = ${name}, logo_url = ${logo_url} WHERE id = ${id}`;
   revalidatePath('/admin');
 }
 

@@ -187,20 +187,17 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
                   <div className="flex gap-4">
                     <div className="w-1/2">
                       <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Marca *</label>
-                      <input 
-                        type="text" 
+                      <select 
                         required 
-                        list="brands-list"
                         value={formData.brand} 
                         onChange={e => setFormData({...formData, brand: e.target.value})} 
-                        placeholder="Vicosa, Montano Antilia..."
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" 
-                      />
-                      <datalist id="brands-list">
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer" 
+                      >
+                        <option value="" disabled>Selecciona una marca...</option>
                         {Array.from(new Set([...products.map(p => p.brand).filter(Boolean), ...defaultBrands])).map(brand => (
-                          <option key={brand} value={brand} />
+                          <option key={brand as string} value={brand as string}>{brand as string}</option>
                         ))}
-                      </datalist>
+                      </select>
                     </div>
                     <div className="w-1/2">
                       <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Nombre del Producto *</label>
@@ -210,20 +207,17 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
                   <div className="flex gap-4">
                     <div className="w-1/2">
                       <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Categoría *</label>
-                      <input 
-                        type="text" 
+                      <select 
                         required 
-                        list="categories-list"
                         value={formData.category} 
                         onChange={e => setFormData({...formData, category: e.target.value})} 
-                        placeholder="Escribe o selecciona..."
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" 
-                      />
-                      <datalist id="categories-list">
-                        {Array.from(new Set([...products.map(p => p.category), ...defaultCats])).map(cat => (
-                          <option key={cat} value={cat} />
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer" 
+                      >
+                        <option value="" disabled>Selecciona una categoría...</option>
+                        {Array.from(new Set([...products.map(p => p.category).filter(Boolean), ...defaultCats])).map(cat => (
+                          <option key={cat as string} value={cat as string}>{cat as string}</option>
                         ))}
-                      </datalist>
+                      </select>
                     </div>
                     <div className="w-1/2">
                       <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Formato (Ej. Cilindro 3Kg)</label>

@@ -34,6 +34,16 @@ export default function AjustesClient({ settings }: { settings: Record<string, s
     }
   };
 
+  const handleDelete = async (key: string) => {
+    try {
+      await saveSetting(key, "");
+      toast.success("Medio eliminado correctamente");
+      setTimeout(() => window.location.reload(), 1500);
+    } catch (error) {
+      toast.error("Error al eliminar el medio");
+    }
+  };
+
   const renderPreview = (url: string) => {
     if (!url) return <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center text-xs text-gray-400">Vacío</div>;
     if (url.match(/\.(mp4|webm|mov)$/i)) {
@@ -66,9 +76,14 @@ export default function AjustesClient({ settings }: { settings: Record<string, s
             <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Foto Preview (Inicio) - Fábrica o Familia</label>
             <input type="text" value={settings.about_img || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
           </div>
-          <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_img", res)}>
-            {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
-          </CldUploadWidget>
+          <div className="flex gap-2">
+            {settings.about_img && (
+              <button type="button" onClick={() => handleDelete("about_img")} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-100 transition-colors">Eliminar</button>
+            )}
+            <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_img", res)}>
+              {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
+            </CldUploadWidget>
+          </div>
         </div>
 
         <div className="mb-6 flex items-center gap-6">
@@ -77,9 +92,14 @@ export default function AjustesClient({ settings }: { settings: Record<string, s
             <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Banner Superior (Página Nosotros)</label>
             <input type="text" value={settings.about_hero_img || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
           </div>
-          <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_hero_img", res)}>
-            {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
-          </CldUploadWidget>
+          <div className="flex gap-2">
+            {settings.about_hero_img && (
+              <button type="button" onClick={() => handleDelete("about_hero_img")} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-100 transition-colors">Eliminar</button>
+            )}
+            <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_hero_img", res)}>
+              {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
+            </CldUploadWidget>
+          </div>
         </div>
 
         <div className="mb-6 flex items-center gap-6">
@@ -88,9 +108,14 @@ export default function AjustesClient({ settings }: { settings: Record<string, s
             <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Foto Interior (Página Nosotros)</label>
             <input type="text" value={settings.about_page_img || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
           </div>
-          <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_page_img", res)}>
-            {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
-          </CldUploadWidget>
+          <div className="flex gap-2">
+            {settings.about_page_img && (
+              <button type="button" onClick={() => handleDelete("about_page_img")} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-100 transition-colors">Eliminar</button>
+            )}
+            <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_page_img", res)}>
+              {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
+            </CldUploadWidget>
+          </div>
         </div>
       </div>
 
@@ -104,9 +129,14 @@ export default function AjustesClient({ settings }: { settings: Record<string, s
               <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Medio Galería {i}</label>
               <input type="text" value={settings[`gallery_img_${i}`] || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
             </div>
-            <CldUploadWidget options={{ resourceType: "auto" }} uploadPreset="ml_default" onSuccess={(res) => handleUpload(`gallery_img_${i}`, res)}>
-              {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
-            </CldUploadWidget>
+            <div className="flex gap-2">
+              {settings[`gallery_img_${i}`] && (
+                <button type="button" onClick={() => handleDelete(`gallery_img_${i}`)} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-100 transition-colors">Eliminar</button>
+              )}
+              <CldUploadWidget options={{ resourceType: "auto" }} uploadPreset="ml_default" onSuccess={(res) => handleUpload(`gallery_img_${i}`, res)}>
+                {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
+              </CldUploadWidget>
+            </div>
           </div>
         ))}
       </div>

@@ -84,7 +84,7 @@ export default function CatalogClient({ catalog, dbCategories }: { catalog: any[
       </section>
 
       {/* BARRA DE FILTROS FLOTANTE */}
-      <section className="sticky top-[72px] sm:top-[80px] z-30 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 py-4 shadow-[0_10px_40px_rgba(0,0,0,0.03)] transform -translate-y-2">
+      <section className="relative z-30 bg-white border-b border-gray-200/50 py-4 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
           
           {/* Categorías (Píldoras Elegantes) */}

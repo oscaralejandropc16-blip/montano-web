@@ -4,8 +4,9 @@ import { getProducts } from "@/lib/actions";
 
 export const revalidate = 0;
 
-export default async function ProductDetailPage({ params }: { params: { id: string } }) {
-  const id = Number(params.id);
+export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const id = Number(resolvedParams.id);
   const catalog = await getProducts();
   const product = catalog.find(p => Number(p.id) === id);
 

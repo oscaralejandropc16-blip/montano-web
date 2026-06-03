@@ -70,3 +70,20 @@ export async function deleteMedia(id: number) {
   await sql`DELETE FROM montano_media WHERE id = ${id}`;
   revalidatePath('/admin/medios');
 }
+
+import { cookies } from 'next/headers';
+
+export async function adminLogin(password: string) {
+  if (password === 'montano2026') {
+    const cookieStore = await cookies();
+    cookieStore.set('admin_token', 'authenticated', { secure: true, httpOnly: true, path: '/', maxAge: 60 * 60 * 24 * 7 });
+    return { success: true };
+  }
+  return { success: false };
+}
+
+export async function adminLogout() {
+  const cookieStore = await cookies();
+  cookieStore.delete('admin_token');
+  revalidatePath('/admin');
+}

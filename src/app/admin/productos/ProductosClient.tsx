@@ -10,7 +10,7 @@ export default function ProductosClient({ initialProducts }: { initialProducts: 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
-    name: "", category: "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: ""
+    name: "", brand: "Montano Antilia", category: "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -18,13 +18,13 @@ export default function ProductosClient({ initialProducts }: { initialProducts: 
     if (prod) {
       setEditingId(prod.id);
       setFormData({
-        name: prod.name, category: prod.category, tag: prod.tag || "",
+        name: prod.name, brand: prod.brand || "Montano Antilia", category: prod.category, tag: prod.tag || "",
         description: prod.description || "", ingredients: prod.ingredients || "",
         preservation: prod.preservation || "", image_url: prod.image_url || ""
       });
     } else {
       setEditingId(null);
-      setFormData({ name: "", category: "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: "" });
+      setFormData({ name: "", brand: "Montano Antilia", category: "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: "" });
     }
     setIsModalOpen(true);
   };
@@ -154,9 +154,28 @@ export default function ProductosClient({ initialProducts }: { initialProducts: 
                 </div>
                 
                 <div className="w-2/3 space-y-4">
-                  <div>
-                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Nombre del Producto *</label>
-                    <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                  <div className="flex gap-4">
+                    <div className="w-1/2">
+                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Marca *</label>
+                      <input 
+                        type="text" 
+                        required 
+                        list="brands-list"
+                        value={formData.brand} 
+                        onChange={e => setFormData({...formData, brand: e.target.value})} 
+                        placeholder="Vicosa, Montano Antilia..."
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" 
+                      />
+                      <datalist id="brands-list">
+                        {Array.from(new Set([...products.map(p => p.brand).filter(Boolean), "Montano Antilia", "Vicosa", "Don Vincenzo", "Delium"])).map(brand => (
+                          <option key={brand} value={brand} />
+                        ))}
+                      </datalist>
+                    </div>
+                    <div className="w-1/2">
+                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Nombre del Producto *</label>
+                      <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                    </div>
                   </div>
                   <div className="flex gap-4">
                     <div className="w-1/2">

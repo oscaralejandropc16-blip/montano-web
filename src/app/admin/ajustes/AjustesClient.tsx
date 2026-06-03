@@ -36,13 +36,37 @@ export default function AjustesClient({ settings }: { settings: Record<string, s
         </div>
       </div>
 
-      <div className="mb-8">
-        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Foto "Acerca De" (Fábrica/Familia)</label>
-        <div className="flex gap-4 mb-2">
-          <input type="text" value={settings.about_img || ""} onChange={(e) => {}} className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black" readOnly />
-          <CldUploadWidget uploadPreset="ml_default" onSuccess={async (result: any) => { await saveSetting("about_img", result.info.secure_url); alert("Foto guardada"); window.location.reload(); }}>
-            {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-3 rounded-xl font-bold text-sm hover:bg-gray-200 transition-colors whitespace-nowrap">Cambiar Foto</button>}
-          </CldUploadWidget>
+      <div className="mb-8 border-b border-gray-100 pb-8">
+        <h3 className="text-lg font-bold text-black mb-4">Sección "Acerca De" (Página Inicio y Página Nosotros)</h3>
+        
+        <div className="mb-4">
+          <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Foto Preview (Inicio) - Fábrica o Familia</label>
+          <div className="flex gap-4 mb-2">
+            <input type="text" value={settings.about_img || ""} onChange={(e) => {}} className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black" readOnly />
+            <CldUploadWidget uploadPreset="ml_default" onSuccess={async (result: any) => { await saveSetting("about_img", result.info.secure_url); alert("Foto guardada"); window.location.reload(); }}>
+              {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-3 rounded-xl font-bold text-sm hover:bg-gray-200 transition-colors whitespace-nowrap">Cambiar Foto</button>}
+            </CldUploadWidget>
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Banner Superior (Página Nosotros)</label>
+          <div className="flex gap-4 mb-2">
+            <input type="text" value={settings.about_hero_img || ""} onChange={(e) => {}} className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black" readOnly />
+            <CldUploadWidget uploadPreset="ml_default" onSuccess={async (result: any) => { await saveSetting("about_hero_img", result.info.secure_url); alert("Foto guardada"); window.location.reload(); }}>
+              {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-3 rounded-xl font-bold text-sm hover:bg-gray-200 transition-colors whitespace-nowrap">Cambiar Banner</button>}
+            </CldUploadWidget>
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Foto Interior (Página Nosotros) - Plato de Embutidos</label>
+          <div className="flex gap-4 mb-2">
+            <input type="text" value={settings.about_page_img || ""} onChange={(e) => {}} className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black" readOnly />
+            <CldUploadWidget uploadPreset="ml_default" onSuccess={async (result: any) => { await saveSetting("about_page_img", result.info.secure_url); alert("Foto guardada"); window.location.reload(); }}>
+              {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-3 rounded-xl font-bold text-sm hover:bg-gray-200 transition-colors whitespace-nowrap">Cambiar Foto Interior</button>}
+            </CldUploadWidget>
+          </div>
         </div>
       </div>
 

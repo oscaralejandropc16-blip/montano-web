@@ -133,7 +133,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#25D366] text-white px-10 py-5 rounded-xl text-sm font-bold tracking-[0.1em] uppercase hover:bg-[#1DA851] hover:-translate-y-1 transition-all shadow-xl shadow-[#25D366]/30"
                 >
-                  <MessageCircle className="w-5 h-5" /> Consultar al Mayor
+                  <MessageCircle className="w-5 h-5" /> Consultar Precios
                 </a>
                 <div className="text-xs text-gray-400 mt-4 space-y-1">
                   <p className="flex items-center gap-2">

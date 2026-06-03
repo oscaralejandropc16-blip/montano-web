@@ -101,7 +101,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     <Info className="w-4 h-4 text-primary" /> Detalles del Producto
                   </h3>
                   <p className="text-gray-600 font-light leading-relaxed text-lg">
-                    {product.desc}
+                    {product.description}
                   </p>
                 </div>
                 
@@ -135,9 +135,14 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 >
                   <MessageCircle className="w-5 h-5" /> Consultar al Mayor
                 </a>
-                <p className="text-xs text-gray-400 mt-4 flex items-center gap-2">
-                  <Check className="w-3 h-3 text-primary" /> Venta exclusiva al mayor y gran mayor.
-                </p>
+                <div className="text-xs text-gray-400 mt-4 space-y-1">
+                  <p className="flex items-center gap-2">
+                    <Check className="w-3 h-3 text-primary" /> Ventas al mayor y gran mayor.
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <Check className="w-3 h-3 text-primary" /> También ventas al detal en nuestra distribuidora (Consulta precios).
+                  </p>
+                </div>
               </div>
 
             </div>

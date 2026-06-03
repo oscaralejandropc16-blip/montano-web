@@ -1,12 +1,14 @@
-import { getSettings } from "@/lib/actions";
+import { getSettings, getProducts } from "@/lib/actions";
 import HomeClient from "./HomeClient";
 
 export const revalidate = 0;
 
 export default async function Home() {
   const settings = await getSettings();
+  const allProducts = await getProducts();
+  const featuredProducts = allProducts.slice(0, 3);
   
   return (
-    <HomeClient settings={settings} />
+    <HomeClient settings={settings} featuredProducts={featuredProducts} />
   );
 }

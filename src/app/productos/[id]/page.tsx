@@ -30,17 +30,36 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     <div className="min-h-screen bg-[#FAFAFA] text-foreground font-sans">
       
       {/* NAVEGACIÓN */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl py-3 shadow-md">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl py-3 shadow-sm border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <Link href="/productos" className="flex items-center gap-4 transition-colors group text-black hover:text-primary">
-            <div className="p-2.5 rounded-full group-hover:-translate-x-1 transition-transform border bg-black/5 border-black/10">
-              <ArrowLeft className="w-4 h-4" />
-            </div>
-            <span className="font-bold tracking-[0.2em] text-xs uppercase hidden sm:block">Volver al Catálogo</span>
-          </Link>
-          <div className="h-12 md:h-14 relative">
-            <img src="/logo.png" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-sm" />
+          <div className="flex items-center gap-6">
+            <Link href="/productos" className="flex items-center gap-2 transition-colors group text-gray-500 hover:text-primary">
+              <div className="p-2 rounded-full group-hover:-translate-x-1 transition-transform border bg-gray-50 border-gray-200">
+                <ArrowLeft className="w-4 h-4" />
+              </div>
+              <span className="font-bold tracking-[0.2em] text-[10px] uppercase hidden sm:block">Volver</span>
+            </Link>
+            <div className="h-8 md:h-10 w-[1px] bg-gray-200 hidden sm:block"></div>
+            <Link href="/" className="flex items-center">
+              <div className="h-12 md:h-14 relative">
+                <img src="/logo.png" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-sm" />
+              </div>
+            </Link>
           </div>
+          
+          <div className="hidden lg:flex items-center gap-8">
+            <Link href="/" className="text-gray-600 hover:text-primary transition-colors font-bold tracking-widest text-xs uppercase">Inicio</Link>
+            <Link href="/productos" className="text-primary font-bold transition-colors tracking-widest text-xs uppercase border-b-2 border-primary pb-1">Catálogo</Link>
+            <Link href="/about" className="text-gray-600 hover:text-primary transition-colors font-bold tracking-widest text-xs uppercase">Nosotros</Link>
+            <a href="/#contacto" className="text-gray-600 hover:text-primary transition-colors font-bold tracking-widest text-xs uppercase">Contacto</a>
+          </div>
+
+          <Link href="/productos" className="lg:hidden flex items-center gap-2 text-gray-500 hover:text-primary transition-colors group">
+            <div className="bg-gray-100 p-2 rounded-full border border-gray-200">
+              <ArrowLeft className="w-3 h-3" />
+            </div>
+            <span className="font-bold tracking-[0.2em] text-[10px] uppercase">Catálogo</span>
+          </Link>
         </div>
       </nav>
 
@@ -87,8 +106,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 <div className="flex items-center gap-6 mb-4">
                   <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-extrabold tracking-[0.2em] uppercase text-[10px]">{product.category}</span>
                   {brandObj && brandObj.logo_url && (
-                    <div className="h-12 w-auto flex items-center justify-center">
-                      <img src={brandObj.logo_url} alt={brandObj.name} className="h-full w-auto object-contain drop-shadow-sm" />
+                    <div className="h-20 w-auto flex items-center justify-center">
+                      <img src={brandObj.logo_url} alt={brandObj.name} className="h-full w-auto object-contain drop-shadow-md" />
                     </div>
                   )}
                 </div>

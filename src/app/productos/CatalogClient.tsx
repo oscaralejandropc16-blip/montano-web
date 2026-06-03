@@ -48,15 +48,25 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
       {/* NAVEGACIÓN MODERNA */}
       <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${isScrolled ? "bg-black/80 backdrop-blur-xl py-3 shadow-[0_10px_30px_rgba(0,0,0,0.1)] border-b border-white/5" : "bg-transparent py-6"}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-4 text-white hover:text-primary transition-colors group">
-            <div className="bg-white/10 backdrop-blur-md p-2.5 rounded-full group-hover:-translate-x-1 transition-transform border border-white/10">
-              <ArrowLeft className="w-4 h-4" />
+          <Link href="/" className="flex items-center">
+            <div className={`transition-all duration-500 relative ${isScrolled ? 'h-10' : 'h-14'}`}>
+              <img src="/logo.png" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-2xl" />
             </div>
-            <span className="font-bold tracking-[0.2em] text-xs uppercase">Volver al Inicio</span>
           </Link>
-          <div className={`transition-all duration-500 relative ${isScrolled ? 'h-10' : 'h-14'}`}>
-            <img src="/logo.png" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-2xl" />
+          
+          <div className="hidden lg:flex items-center gap-8">
+            <Link href="/" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">Inicio</Link>
+            <Link href="/productos" className="text-white font-bold transition-colors tracking-widest text-xs uppercase drop-shadow-md border-b-2 border-primary pb-1">Catálogo</Link>
+            <Link href="/about" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">Nosotros</Link>
+            <a href="/#contacto" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">Contacto</a>
           </div>
+
+          <Link href="/" className="lg:hidden flex items-center gap-2 text-white hover:text-primary transition-colors group">
+            <div className="bg-white/10 backdrop-blur-md p-2 rounded-full border border-white/10">
+              <ArrowLeft className="w-3 h-3" />
+            </div>
+            <span className="font-bold tracking-[0.2em] text-[10px] uppercase">Volver</span>
+          </Link>
         </div>
       </nav>
 
@@ -180,7 +190,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
                         {prod.tag}
                       </p>
                       {brandObj && brandObj.logo_url && (
-                        <div className="h-8 w-auto flex items-center justify-center">
+                        <div className="h-12 w-auto flex items-center justify-center">
                           <img src={brandObj.logo_url} alt={brandObj.name} className="h-full w-auto object-contain drop-shadow-sm transition-transform group-hover:scale-105" />
                         </div>
                       )}

@@ -49,7 +49,7 @@ const translations = {
 
 type Language = "es" | "en" | "it";
 
-export default function HomeClient({ settings }: { settings: Record<string, string> }) {
+export default function HomeClient({ settings, featuredProducts = [] }: { settings: Record<string, string>, featuredProducts?: any[] }) {
   const heroVideoUrl = settings.hero_video_url || "/hero-video.mp4";
   const [isScrolled, setIsScrolled] = useState(false);
   const [lang, setLang] = useState<Language>("es");
@@ -81,6 +81,15 @@ export default function HomeClient({ settings }: { settings: Record<string, stri
   };
 
   const t = translations[lang];
+
+  // Si no hay productos de base de datos, usamos los defaults
+  const displayProducts = featuredProducts.length > 0 
+    ? featuredProducts.slice(0, 3) 
+    : [
+        { name: t.products.items[0], tag: t.products.shape1, image_url: null, id: 1 },
+        { name: t.products.items[1], tag: t.products.shape2, image_url: null, id: 2 },
+        { name: t.products.items[2], tag: t.products.shape3, image_url: null, id: 3 }
+      ];
 
   return (
     <div className="min-h-screen bg-white text-foreground overflow-hidden">
@@ -217,21 +226,21 @@ export default function HomeClient({ settings }: { settings: Record<string, stri
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {[
-              { name: t.products.items[0], shape: t.products.shape1 },
-              { name: t.products.items[1], shape: t.products.shape2 },
-              { name: t.products.items[2], shape: t.products.shape3 }
-            ].map((prod, idx) => (
-              <div key={idx} className="group cursor-pointer">
+            {displayProducts.map((prod, idx) => (
+              <Link href={`/productos/${prod.id}`} key={idx} className="group cursor-pointer block">
                 <div className="w-full aspect-[4/5] mb-8 bg-gray-50 flex items-center justify-center p-6 rounded-2xl border border-gray-100 group-hover:border-primary/20 group-hover:bg-white group-hover:shadow-2xl group-hover:shadow-black/5 transition-all duration-500 relative overflow-hidden transform group-hover:-translate-y-2">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="relative z-10 flex flex-col items-center">
-                    <span className="text-gray-300 text-sm mb-2 font-bold">[Foto de producto {idx+1}]</span>
-                    <span className="text-xs text-gray-400">{prod.shape}</span>
+                  <div className="relative z-10 flex flex-col items-center w-full h-full">
+                    {prod.image_url ? (
+                      <img src={prod.image_url} alt={prod.name} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
+                    ) : (
+                      <span className="text-gray-300 text-sm mb-2 font-bold">[Foto de producto {idx+1}]</span>
+                    )}
+                    {!prod.image_url && <span className="text-xs text-gray-400">{prod.tag}</span>}
                   </div>
                 </div>
                 <h3 className="heading font-bold text-2xl text-center text-black group-hover:text-primary transition-colors tracking-tight">{prod.name}</h3>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
@@ -273,11 +282,7 @@ export default function HomeClient({ settings }: { settings: Record<string, stri
                     ) : (
                       <span className="relative z-10 font-bold">[Medio Galería {i}]</span>
                     )}
-                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity z-0 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="w-5 h-5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                      </div>
-                    </div>
+
                   </div>
                 );
               })}

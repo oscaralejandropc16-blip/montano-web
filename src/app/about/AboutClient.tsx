@@ -1,9 +1,51 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import Footer from "@/components/Footer";
+
+function AnimatedCounter({ end, prefix = "", suffix = "", duration = 2000 }: { end: number, prefix?: string, suffix?: string, duration?: number }) {
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.1 });
+    
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    
+    let startTime: number | null = null;
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const percentage = Math.min(progress / duration, 1);
+      
+      const easeOut = 1 - Math.pow(1 - percentage, 3);
+      setCount(Math.floor(easeOut * end));
+      
+      if (percentage < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setCount(end);
+      }
+    };
+    
+    requestAnimationFrame(animate);
+  }, [isVisible, end, duration]);
+
+  return <span ref={ref}>{prefix}{count}{suffix}</span>;
+}
 
 export default function AboutClient({ settings }: { settings: Record<string, string> }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -141,19 +183,27 @@ export default function AboutClient({ settings }: { settings: Record<string, str
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
               <div className="flex flex-col items-center">
-                <span className="text-4xl md:text-5xl font-extrabold text-[#D4AF37] mb-2">+30</span>
+                <span className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-[0_0_15px_rgba(213,43,42,0.8)] mb-2">
+                  <AnimatedCounter end={30} prefix="+" />
+                </span>
                 <span className="text-sm tracking-widest uppercase text-white/70">Años de Experiencia</span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="text-4xl md:text-5xl font-extrabold text-[#D4AF37] mb-2">100%</span>
+                <span className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-[0_0_15px_rgba(213,43,42,0.8)] mb-2">
+                  <AnimatedCounter end={100} suffix="%" />
+                </span>
                 <span className="text-sm tracking-widest uppercase text-white/70">Calidad Premium</span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="text-4xl md:text-5xl font-extrabold text-[#D4AF37] mb-2">+50</span>
+                <span className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-[0_0_15px_rgba(213,43,42,0.8)] mb-2">
+                  <AnimatedCounter end={50} prefix="+" />
+                </span>
                 <span className="text-sm tracking-widest uppercase text-white/70">Productos Únicos</span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="text-4xl md:text-5xl font-extrabold text-[#D4AF37] mb-2">1</span>
+                <span className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-[0_0_15px_rgba(213,43,42,0.8)] mb-2">
+                  <AnimatedCounter end={1} />
+                </span>
                 <span className="text-sm tracking-widest uppercase text-white/70">Sabor Inigualable</span>
               </div>
             </div>

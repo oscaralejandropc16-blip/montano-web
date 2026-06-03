@@ -61,6 +61,32 @@ export async function saveSetting(key: string, value: string) {
   revalidatePath('/', 'layout');
 }
 
+export async function getCloudinaryMedia() {
+  try {
+    const [images, videos] = await Promise.all([
+      cloudinary.api.resources({ type: 'upload', resource_type: 'image', max_results: 100 }),
+      cloudinary.api.resources({ type: 'upload', resource_type: 'video', max_results: 50 })
+    ]);
+    const allResources = [...images.resources, ...videos.resources];
+    allResources.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    return allResources;
+  } catch (error) {
+    console.error("Cloudinary error:", error);
+    return [];
+  }
+}
+
+export async function deleteCloudinaryMedia(publicId: string, resourceType: string) {
+  try {
+    await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
+    revalidatePath('/admin/medios');
+    return { success: true };
+  } catch (error) {
+    console.error("Delete cloudinary error:", error);
+    return { success: false };
+  }
+}
+
 export async function getMedia() {
   const rows = await sql`SELECT * FROM montano_media ORDER BY created_at DESC`;
   return rows;

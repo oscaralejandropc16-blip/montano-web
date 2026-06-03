@@ -66,7 +66,7 @@ export default function AjustesClient({ settings }: { settings: Record<string, s
             <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Foto Preview (Inicio) - Fábrica o Familia</label>
             <input type="text" value={settings.about_img || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
           </div>
-          <CldUploadWidget uploadPreset="ml_default" onSuccess={(res) => handleUpload("about_img", res)}>
+          <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_img", res)}>
             {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
           </CldUploadWidget>
         </div>
@@ -77,7 +77,7 @@ export default function AjustesClient({ settings }: { settings: Record<string, s
             <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Banner Superior (Página Nosotros)</label>
             <input type="text" value={settings.about_hero_img || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
           </div>
-          <CldUploadWidget uploadPreset="ml_default" onSuccess={(res) => handleUpload("about_hero_img", res)}>
+          <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_hero_img", res)}>
             {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
           </CldUploadWidget>
         </div>
@@ -88,7 +88,7 @@ export default function AjustesClient({ settings }: { settings: Record<string, s
             <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Foto Interior (Página Nosotros)</label>
             <input type="text" value={settings.about_page_img || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
           </div>
-          <CldUploadWidget uploadPreset="ml_default" onSuccess={(res) => handleUpload("about_page_img", res)}>
+          <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_page_img", res)}>
             {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
           </CldUploadWidget>
         </div>

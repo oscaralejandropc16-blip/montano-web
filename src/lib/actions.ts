@@ -58,8 +58,7 @@ export async function saveSetting(key: string, value: string) {
     INSERT INTO montano_settings (key, value) VALUES (${key}, ${value})
     ON CONFLICT (key) DO UPDATE SET value = ${value}
   `;
-  revalidatePath('/');
-  revalidatePath('/admin');
+  revalidatePath('/', 'layout');
 }
 
 export async function getMedia() {

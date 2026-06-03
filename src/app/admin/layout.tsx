@@ -14,6 +14,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: "Ajustes", href: "/admin/ajustes", icon: Settings },
   ];
 
+  if (pathname === '/admin/login') {
+    return <div className="min-h-screen bg-[#FAFAFA] font-sans">{children}</div>;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 flex font-sans">
       {/* Sidebar */}

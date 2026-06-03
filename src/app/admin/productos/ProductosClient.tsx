@@ -161,12 +161,20 @@ export default function ProductosClient({ initialProducts }: { initialProducts: 
                   <div className="flex gap-4">
                     <div className="w-1/2">
                       <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Categoría *</label>
-                      <select required value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                        <option value="Jamones">Jamones</option>
-                        <option value="Ahumados">Ahumados</option>
-                        <option value="Fiambres">Fiambres</option>
-                        <option value="Especialidades">Especialidades</option>
-                      </select>
+                      <input 
+                        type="text" 
+                        required 
+                        list="categories-list"
+                        value={formData.category} 
+                        onChange={e => setFormData({...formData, category: e.target.value})} 
+                        placeholder="Escribe o selecciona..."
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" 
+                      />
+                      <datalist id="categories-list">
+                        {Array.from(new Set([...products.map(p => p.category), "Jamones", "Ahumados", "Fiambres", "Especialidades"])).map(cat => (
+                          <option key={cat} value={cat} />
+                        ))}
+                      </datalist>
                     </div>
                     <div className="w-1/2">
                       <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Formato (Ej. Cilindro 3Kg)</label>

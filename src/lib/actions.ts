@@ -15,7 +15,7 @@ export async function createProduct(data: any) {
     VALUES (${name}, ${brand || 'Montano Antilia'}, ${category}, ${tag}, ${description}, ${ingredients}, ${preservation}, ${image_url})
   `;
   revalidatePath('/admin/productos');
-  revalidatePath('/productos');
+  revalidatePath('/productos', 'layout');
 }
 
 export async function updateProduct(id: number, data: any) {
@@ -27,14 +27,14 @@ export async function updateProduct(id: number, data: any) {
     WHERE id = ${id}
   `;
   revalidatePath('/admin/productos');
-  revalidatePath('/productos');
+  revalidatePath('/productos', 'layout');
   revalidatePath(`/productos/${id}`);
 }
 
 export async function deleteProduct(id: number) {
   await sql`DELETE FROM montano_products WHERE id = ${id}`;
   revalidatePath('/admin/productos');
-  revalidatePath('/productos');
+  revalidatePath('/productos', 'layout');
 }
 
 export async function getSettings() {

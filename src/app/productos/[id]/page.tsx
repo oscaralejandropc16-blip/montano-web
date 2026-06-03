@@ -7,7 +7,7 @@ export const revalidate = 0;
 export default async function ProductDetailPage({ params }: { params: { id: string } }) {
   const id = Number(params.id);
   const catalog = await getProducts();
-  const product = catalog.find(p => p.id === id);
+  const product = catalog.find(p => Number(p.id) === id);
 
   if (!product) {
     return (

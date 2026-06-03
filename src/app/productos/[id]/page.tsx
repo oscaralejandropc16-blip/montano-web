@@ -84,11 +84,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="w-full lg:w-1/2 pt-4">
               
               <div className="mb-8">
-                <div className="flex items-center gap-4 mb-4">
+                <div className="flex items-center gap-6 mb-4">
                   <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-extrabold tracking-[0.2em] uppercase text-[10px]">{product.category}</span>
                   {brandObj && brandObj.logo_url && (
-                    <div className="h-8 w-auto bg-white border border-gray-100 rounded px-2 flex items-center justify-center">
-                      <img src={brandObj.logo_url} alt={brandObj.name} className="h-full w-auto object-contain mix-blend-multiply opacity-80" />
+                    <div className="h-12 w-auto flex items-center justify-center">
+                      <img src={brandObj.logo_url} alt={brandObj.name} className="h-full w-auto object-contain drop-shadow-sm" />
                     </div>
                   )}
                 </div>
@@ -208,7 +208,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                             const b = brands.find(b => b.name === rel.brand);
                             if (b && b.logo_url) {
                               return (
-                                <img src={b.logo_url} alt={b.name} className="h-4 w-auto mix-blend-multiply opacity-70 group-hover:opacity-100 transition-opacity" />
+                                <img src={b.logo_url} alt={b.name} className="h-6 w-auto object-contain transition-transform group-hover:scale-105" />
                               );
                             }
                             return null;

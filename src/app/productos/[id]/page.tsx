@@ -106,23 +106,39 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="text-xs font-extrabold uppercase tracking-[0.2em] text-black mb-3">
-                      Ingredientes Clave
-                    </h3>
-                    <p className="text-gray-500 font-light leading-relaxed text-sm">
-                      {product.ingredients}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-extrabold uppercase tracking-[0.2em] text-black mb-3">
-                      Modo de Conservación
-                    </h3>
-                    <p className="text-gray-500 font-light leading-relaxed text-sm">
-                      {product.preservation}
-                    </p>
-                  </div>
+                  {product.ingredients && (
+                    <div>
+                      <h3 className="text-xs font-extrabold uppercase tracking-[0.2em] text-black mb-3">
+                        Ingredientes Clave
+                      </h3>
+                      <p className="text-gray-500 font-light leading-relaxed text-sm">
+                        {product.ingredients}
+                      </p>
+                    </div>
+                  )}
+                  {product.preservation && (
+                    <div>
+                      <h3 className="text-xs font-extrabold uppercase tracking-[0.2em] text-black mb-3">
+                        Modo de Conservación
+                      </h3>
+                      <p className="text-gray-500 font-light leading-relaxed text-sm">
+                        {product.preservation}
+                      </p>
+                    </div>
+                  )}
                 </div>
+
+                {/* Info Nutricional */}
+                {product.nutrition_url && (
+                  <div className="mt-8">
+                    <h3 className="text-xs font-extrabold uppercase tracking-[0.2em] text-black mb-4">
+                      Información Nutricional
+                    </h3>
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-2 max-w-sm">
+                      <img src={product.nutrition_url} alt="Información Nutricional" className="w-full h-auto rounded-lg object-contain" />
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* CTA */}

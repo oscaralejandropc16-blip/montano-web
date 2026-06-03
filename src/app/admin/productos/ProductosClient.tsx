@@ -14,7 +14,7 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
   const defaultBrands = dbBrands && dbBrands.length > 0 ? dbBrands.map(b => b.name) : ["Montano Antilia", "Vicosa", "Don Vincenzo", "Delium"];
 
   const [formData, setFormData] = useState({
-    name: "", brand: defaultBrands[0] || "Montano Antilia", category: defaultCats[0] || "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: ""
+    name: "", brand: defaultBrands[0] || "Montano Antilia", category: defaultCats[0] || "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: "", nutrition_url: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -24,11 +24,11 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
       setFormData({
         name: prod.name, brand: prod.brand || "Montano Antilia", category: prod.category, tag: prod.tag || "",
         description: prod.description || "", ingredients: prod.ingredients || "",
-        preservation: prod.preservation || "", image_url: prod.image_url || ""
+        preservation: prod.preservation || "", image_url: prod.image_url || "", nutrition_url: prod.nutrition_url || ""
       });
     } else {
       setEditingId(null);
-      setFormData({ name: "", brand: defaultBrands[0] || "Montano Antilia", category: defaultCats[0] || "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: "" });
+      setFormData({ name: "", brand: defaultBrands[0] || "Montano Antilia", category: defaultCats[0] || "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: "", nutrition_url: "" });
     }
     setIsModalOpen(true);
   };
@@ -133,28 +133,54 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
             <form onSubmit={handleSubmit} className="space-y-6">
               
               <div className="flex gap-6">
-                <div className="w-1/3">
-                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Foto Principal</label>
-                  <CldUploadWidget 
-                    uploadPreset="ml_default" // Asumiendo un upload preset por defecto abierto o crearemos uno
-                    onSuccess={(result: any) => setFormData({...formData, image_url: result.info.secure_url})}
-                  >
-                    {({ open }) => (
-                      <div 
-                        onClick={() => open()}
-                        className="w-full aspect-square border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-400 hover:border-primary hover:text-primary hover:bg-primary/5 transition-colors cursor-pointer overflow-hidden relative"
-                      >
-                        {formData.image_url ? (
-                          <img src={formData.image_url} className="absolute inset-0 w-full h-full object-cover" alt="Preview" />
-                        ) : (
-                          <>
-                            <ImageIcon className="w-8 h-8 mb-2" />
-                            <span className="text-xs font-bold">Subir Foto</span>
-                          </>
-                        )}
-                      </div>
-                    )}
-                  </CldUploadWidget>
+                <div className="w-1/3 space-y-6">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Foto Principal</label>
+                    <CldUploadWidget 
+                      uploadPreset="ml_default"
+                      onSuccess={(result: any) => setFormData({...formData, image_url: result.info.secure_url})}
+                    >
+                      {({ open }) => (
+                        <div 
+                          onClick={() => open()}
+                          className="w-full aspect-square border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-400 hover:border-primary hover:text-primary hover:bg-primary/5 transition-colors cursor-pointer overflow-hidden relative"
+                        >
+                          {formData.image_url ? (
+                            <img src={formData.image_url} className="absolute inset-0 w-full h-full object-cover" alt="Preview" />
+                          ) : (
+                            <>
+                              <ImageIcon className="w-8 h-8 mb-2" />
+                              <span className="text-xs font-bold text-center">Subir Foto<br/>Principal</span>
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </CldUploadWidget>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Info Nutricional</label>
+                    <CldUploadWidget 
+                      uploadPreset="ml_default"
+                      onSuccess={(result: any) => setFormData({...formData, nutrition_url: result.info.secure_url})}
+                    >
+                      {({ open }) => (
+                        <div 
+                          onClick={() => open()}
+                          className="w-full h-32 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-400 hover:border-primary hover:text-primary hover:bg-primary/5 transition-colors cursor-pointer overflow-hidden relative"
+                        >
+                          {formData.nutrition_url ? (
+                            <img src={formData.nutrition_url} className="absolute inset-0 w-full h-full object-contain bg-gray-50" alt="Nutricional" />
+                          ) : (
+                            <>
+                              <ImageIcon className="w-6 h-6 mb-1" />
+                              <span className="text-xs font-bold text-center">Subir Tabla<br/>Nutricional</span>
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </CldUploadWidget>
+                  </div>
                 </div>
                 
                 <div className="w-2/3 space-y-4">

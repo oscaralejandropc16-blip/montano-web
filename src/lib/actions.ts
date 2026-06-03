@@ -9,21 +9,21 @@ export async function getProducts() {
 }
 
 export async function createProduct(data: any) {
-  const { name, brand, category, tag, description, ingredients, preservation, image_url } = data;
+  const { name, brand, category, tag, description, ingredients, preservation, image_url, nutrition_url } = data;
   await sql`
-    INSERT INTO montano_products (name, brand, category, tag, description, ingredients, preservation, image_url)
-    VALUES (${name}, ${brand || 'Montano Antilia'}, ${category}, ${tag}, ${description}, ${ingredients}, ${preservation}, ${image_url})
+    INSERT INTO montano_products (name, brand, category, tag, description, ingredients, preservation, image_url, nutrition_url)
+    VALUES (${name}, ${brand || 'Montano Antilia'}, ${category}, ${tag}, ${description}, ${ingredients}, ${preservation}, ${image_url}, ${nutrition_url})
   `;
   revalidatePath('/admin/productos');
   revalidatePath('/productos', 'layout');
 }
 
 export async function updateProduct(id: number, data: any) {
-  const { name, brand, category, tag, description, ingredients, preservation, image_url } = data;
+  const { name, brand, category, tag, description, ingredients, preservation, image_url, nutrition_url } = data;
   await sql`
     UPDATE montano_products
     SET name = ${name}, brand = ${brand || 'Montano Antilia'}, category = ${category}, tag = ${tag}, description = ${description}, 
-        ingredients = ${ingredients}, preservation = ${preservation}, image_url = ${image_url}
+        ingredients = ${ingredients}, preservation = ${preservation}, image_url = ${image_url}, nutrition_url = ${nutrition_url}
     WHERE id = ${id}
   `;
   revalidatePath('/admin/productos');

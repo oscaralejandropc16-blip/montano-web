@@ -35,8 +35,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </div>
             <span className="font-bold tracking-[0.2em] text-xs uppercase hidden sm:block">Volver al Catálogo</span>
           </Link>
-          <div className="h-10 relative">
-            <img src="/logo.png" alt="Montano Antilia Logo" className="h-full w-auto object-contain filter invert drop-shadow-none" />
+          <div className="h-12 md:h-14 relative">
+            <img src="/logo.png" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-sm" />
           </div>
         </div>
       </nav>
@@ -82,7 +82,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               
               <div className="mb-8">
                 <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-extrabold tracking-[0.2em] uppercase text-[10px] mb-4">{product.category}</span>
-                <h1 className="text-5xl lg:text-7xl font-extrabold text-black mb-4 leading-[1.1] tracking-tight">
+                <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-black mb-4 leading-[1.1] tracking-tight">
                   {product.name}
                 </h1>
                 

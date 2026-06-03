@@ -55,6 +55,9 @@ export default function HomeClient({ settings }: { settings: Record<string, stri
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
   
+  // Estado para el menú móvil
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   // Estado para el formulario de contacto
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
 
@@ -121,7 +124,44 @@ export default function HomeClient({ settings }: { settings: Record<string, stri
               <Link href="/admin" className="text-[10px] uppercase tracking-widest font-bold text-white/50 hover:text-white transition-colors ml-2 border border-white/20 hover:border-white px-3 py-1.5 rounded">Admin</Link>
             </div>
           </div>
+
+          {/* Menú Hamburguesa para Móvil */}
+          <button 
+            className="lg:hidden text-white p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
+
+        {/* Dropdown Menú Móvil */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-t border-white/10 shadow-2xl animate-fade-in-down">
+            <div className="flex flex-col px-6 py-6 gap-6">
+              <a href="#inicio" onClick={() => setMobileMenuOpen(false)} className="text-white text-sm font-bold tracking-widest uppercase">{t.nav.home}</a>
+              <Link href="/productos" onClick={() => setMobileMenuOpen(false)} className="text-white text-sm font-bold tracking-widest uppercase">{t.nav.products}</Link>
+              <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-white text-sm font-bold tracking-widest uppercase">{t.nav.about}</Link>
+              <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-white text-sm font-bold tracking-widest uppercase">{t.nav.contact}</a>
+              
+              <div className="h-px w-full bg-white/10 my-2"></div>
+              
+              <div className="flex flex-col gap-4">
+                <span className="text-white/50 text-xs tracking-widest uppercase">Idioma</span>
+                <button onClick={() => { setLang("es"); setMobileMenuOpen(false); }} className={`text-left text-sm font-bold ${lang === 'es' ? 'text-primary' : 'text-white'}`}>🇪🇸 Español</button>
+                <button onClick={() => { setLang("en"); setMobileMenuOpen(false); }} className={`text-left text-sm font-bold ${lang === 'en' ? 'text-primary' : 'text-white'}`}>🇺🇸 English</button>
+                <button onClick={() => { setLang("it"); setMobileMenuOpen(false); }} className={`text-left text-sm font-bold ${lang === 'it' ? 'text-primary' : 'text-white'}`}>🇮🇹 Italiano</button>
+              </div>
+
+              <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="mt-4 text-center bg-white/10 text-white py-3 rounded-lg text-xs font-bold tracking-widest uppercase">Panel de Admin</Link>
+            </div>
+          </div>
+        )}
       </nav>
 
       <main>
@@ -145,10 +185,10 @@ export default function HomeClient({ settings }: { settings: Record<string, stri
           </div>
 
           <div className="relative z-30 px-6 max-w-5xl mx-auto flex flex-col items-center mt-16">
-            <h1 className={`heading font-extrabold text-6xl md:text-8xl text-white mb-2 tracking-tighter drop-shadow-2xl transition-all duration-1000 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <h1 className={`heading font-extrabold text-4xl sm:text-6xl md:text-8xl text-white mb-2 tracking-tighter drop-shadow-2xl transition-all duration-1000 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               {t.hero.title}
             </h1>
-            <p className={`text-2xl md:text-4xl text-white/90 font-light italic mb-12 tracking-wider drop-shadow-lg transition-all duration-1000 delay-300 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <p className={`text-xl sm:text-2xl md:text-4xl text-white/90 font-light italic mb-12 tracking-wider drop-shadow-lg transition-all duration-1000 delay-300 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               {t.hero.subtitle}
             </p>
             <div className={`transition-all duration-1000 delay-500 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>

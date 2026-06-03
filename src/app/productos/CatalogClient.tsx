@@ -74,7 +74,7 @@ export default function CatalogClient({ catalog, dbCategories }: { catalog: any[
             <span className="text-primary font-bold tracking-[0.4em] uppercase text-xs">Colección 2026</span>
             <div className="h-[1px] w-8 bg-primary"></div>
           </div>
-          <h1 className="heading text-5xl md:text-8xl font-extrabold mb-6 tracking-tighter drop-shadow-2xl">
+          <h1 className="heading text-4xl sm:text-5xl md:text-8xl font-extrabold mb-6 tracking-tighter drop-shadow-2xl">
             Catálogo <span className="font-light italic text-white/80">Premium</span>
           </h1>
           <p className="text-gray-300 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">

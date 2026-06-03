@@ -467,9 +467,71 @@ export default function HomeClient({ settings }: { settings: Record<string, stri
         </section>
       </main>
 
-      {/* FOOTER */}
-      <footer className="bg-black text-white/50 py-8 px-6 text-center text-xs tracking-wider">
-        <p>{t.footer}</p>
+      {/* FOOTER PREMIUM */}
+      <footer className="bg-[#0A0A0A] pt-20 pb-10 px-6 border-t border-white/10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            
+            {/* Brand Column */}
+            <div className="lg:col-span-1">
+              <div className="h-12 mb-6 relative">
+                <img src="/logo.png" alt="Montano Antilia" className="h-full w-auto object-contain brightness-0 invert opacity-80" />
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                Tradición y calidad superior en cada producto. Llevando a tu mesa el verdadero sabor que conquista desde hace años.
+              </p>
+              <div className="flex items-center gap-4">
+                <a href={contactInfo.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors text-white">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </a>
+                <a href={contactInfo.tiktok} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors text-white">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" /></svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div className="lg:col-span-1">
+              <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-6">Enlaces Rápidos</h4>
+              <ul className="space-y-4">
+                <li><a href="#inicio" className="text-gray-400 hover:text-primary transition-colors text-sm">{t.nav.home}</a></li>
+                <li><Link href="/productos" className="text-gray-400 hover:text-primary transition-colors text-sm">{t.nav.products}</Link></li>
+                <li><Link href="/about" className="text-gray-400 hover:text-primary transition-colors text-sm">{t.nav.about}</Link></li>
+                <li><a href="#contacto" className="text-gray-400 hover:text-primary transition-colors text-sm">{t.nav.contact}</a></li>
+              </ul>
+            </div>
+
+            {/* Contact Info */}
+            <div className="lg:col-span-2">
+              <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-6">Contacto Directo</h4>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-4">
+                  <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <span className="text-gray-400 text-sm leading-relaxed">{contactInfo.mapAddress}</span>
+                </li>
+                <li className="flex items-center gap-4">
+                  <Phone className="w-5 h-5 text-primary shrink-0" />
+                  <span className="text-gray-400 text-sm">{contactInfo.whatsappDisplay}</span>
+                </li>
+                <li className="flex items-center gap-4">
+                  <Mail className="w-5 h-5 text-primary shrink-0" />
+                  <span className="text-gray-400 text-sm">{contactInfo.email}</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          {/* Copyright Line */}
+          <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-gray-500 text-xs tracking-wider uppercase text-center md:text-left">
+              {t.footer}
+            </p>
+            <div className="text-gray-600 text-xs tracking-wider uppercase font-bold">
+              Desarrollado con ♥
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );

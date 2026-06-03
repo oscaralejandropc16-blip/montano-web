@@ -186,13 +186,54 @@ export default function CatalogClient({ catalog, dbCategories }: { catalog: any[
         )}
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-black text-white/50 py-10 px-6 mt-10">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="h-8 relative opacity-50 grayscale">
-            <img src="/logo.png" alt="Montano Antilia Logo" className="h-full w-auto object-contain" />
+      {/* FOOTER PREMIUM */}
+      <footer className="bg-[#0A0A0A] pt-20 pb-10 px-6 border-t border-white/10 mt-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            
+            {/* Brand Column */}
+            <div className="lg:col-span-1">
+              <div className="h-12 mb-6 relative">
+                <img src="/logo.png" alt="Montano Antilia" className="h-full w-auto object-contain brightness-0 invert opacity-80" />
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                Tradición y calidad superior en cada producto. Llevando a tu mesa el verdadero sabor que conquista desde hace años.
+              </p>
+            </div>
+
+            {/* Quick Links */}
+            <div className="lg:col-span-1">
+              <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-6">Enlaces Rápidos</h4>
+              <ul className="space-y-4">
+                <li><Link href="/" className="text-gray-400 hover:text-primary transition-colors text-sm">Inicio</Link></li>
+                <li><Link href="/productos" className="text-gray-400 hover:text-primary transition-colors text-sm">Productos</Link></li>
+              </ul>
+            </div>
+
+            {/* Contact Info */}
+            <div className="lg:col-span-2">
+              <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-6">Contacto Directo</h4>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-4">
+                  <span className="text-gray-400 text-sm leading-relaxed">Av. Bolívar Oeste N° 314, Carabobo</span>
+                </li>
+                <li className="flex items-center gap-4">
+                  <span className="text-gray-400 text-sm">+58 424-3699740</span>
+                </li>
+              </ul>
+            </div>
+
           </div>
-          <p className="text-xs tracking-wider uppercase">Copyright © 2026 Montano Antilia. Todos los derechos reservados.</p>
+
+          {/* Copyright Line */}
+          <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-gray-500 text-xs tracking-wider uppercase text-center md:text-left">
+              Derechos de autor © 2026 Montano Antilia. Todos los derechos reservados.
+            </p>
+            <div className="text-gray-600 text-xs tracking-wider uppercase font-bold">
+              Desarrollado con ♥
+            </div>
+          </div>
         </div>
       </footer>
     </div>

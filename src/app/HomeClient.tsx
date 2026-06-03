@@ -265,9 +265,13 @@ export default function HomeClient({ settings }: { settings: Record<string, stri
                 return (
                   <div key={i} className="aspect-square bg-gray-200 rounded-xl flex items-center justify-center text-gray-400 hover:opacity-80 transition-opacity cursor-pointer overflow-hidden relative group">
                     {img ? (
-                      <img src={img} alt={`Galería ${i}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                      img.match(/\.(mp4|webm|mov)$/i) ? (
+                        <video src={img} autoPlay loop muted playsInline className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                      ) : (
+                        <img src={img} alt={`Galería ${i}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                      )
                     ) : (
-                      <span className="relative z-10 font-bold">[Foto Galería {i}]</span>
+                      <span className="relative z-10 font-bold">[Medio Galería {i}]</span>
                     )}
                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity z-0 flex items-center justify-center">
                       <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">

@@ -2,6 +2,15 @@
 
 import { sql } from "./db";
 import { revalidatePath } from "next/cache";
+import { v2 as cloudinary } from 'cloudinary';
+
+// Configure cloudinary with env variables. It will automatically use CLOUDINARY_URL if it exists.
+// Otherwise we try to use individual variables if the user sets them up.
+cloudinary.config({
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 export async function getProducts() {
   const rows = await sql`SELECT * FROM montano_products ORDER BY created_at DESC`;
@@ -64,6 +73,30 @@ export async function createMedia(url: string) {
 }
 
 export async function deleteMedia(id: number) {
+  try {
+    // 1. Obtener la URL antes de borrar
+    const mediaRows = await sql`SELECT url FROM montano_media WHERE id = ${id}`;
+    if (mediaRows.length > 0 && mediaRows[0].url) {
+      const url = mediaRows[0].url;
+      // 2. Extraer el public_id de la URL de Cloudinary
+      // Ej: https://res.cloudinary.com/.../upload/v12345/folder/image.png -> folder/image
+      const parts = url.split('/upload/');
+      if (parts.length === 2) {
+        const withoutVersion = parts[1].replace(/^v\d+\//, '');
+        const publicId = withoutVersion.substring(0, withoutVersion.lastIndexOf('.'));
+        
+        // 3. Borrar de Cloudinary
+        if (publicId) {
+          await cloudinary.uploader.destroy(publicId);
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Error eliminando imagen de Cloudinary:", error);
+    // Continuar para borrar de la base de datos aunque falle Cloudinary
+  }
+
+  // 4. Borrar de la base de datos local
   await sql`DELETE FROM montano_media WHERE id = ${id}`;
   revalidatePath('/admin/medios');
 }

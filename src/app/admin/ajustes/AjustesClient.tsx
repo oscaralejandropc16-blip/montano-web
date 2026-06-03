@@ -47,13 +47,13 @@ export default function AjustesClient({ settings }: { settings: Record<string, s
       </div>
 
       <div className="mb-8">
-        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Fotos Preview del Catálogo (Inicio)</label>
+        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Medios Preview del Catálogo (Inicio - Soporta Fotos y Videos)</label>
         
         {[1, 2, 3].map(i => (
           <div key={i} className="flex gap-4 mb-4">
-            <input type="text" value={settings[`gallery_img_${i}`] || ""} className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black" readOnly placeholder={`Foto Galería ${i}`} />
-            <CldUploadWidget uploadPreset="ml_default" onSuccess={async (result: any) => { await saveSetting(`gallery_img_${i}`, result.info.secure_url); alert("Foto guardada"); window.location.reload(); }}>
-              {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-3 rounded-xl font-bold text-sm hover:bg-gray-200 transition-colors whitespace-nowrap">Foto {i}</button>}
+            <input type="text" value={settings[`gallery_img_${i}`] || ""} className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black" readOnly placeholder={`Medio Galería ${i}`} />
+            <CldUploadWidget options={{ resourceType: "auto" }} uploadPreset="ml_default" onSuccess={async (result: any) => { await saveSetting(`gallery_img_${i}`, result.info.secure_url); alert("Medio guardado"); window.location.reload(); }}>
+              {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-3 rounded-xl font-bold text-sm hover:bg-gray-200 transition-colors whitespace-nowrap">Cambiar {i}</button>}
             </CldUploadWidget>
           </div>
         ))}

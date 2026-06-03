@@ -1,8 +1,12 @@
-import { getProducts } from "@/lib/actions";
+import { getProducts, getCategories, getBrands } from "@/lib/actions";
 import ProductosClient from "./ProductosClient";
+
+export const revalidate = 0;
 
 export default async function ProductosPage() {
   const products = await getProducts();
+  const categories = await getCategories();
+  const brands = await getBrands();
   
   return (
     <div className="p-10">
@@ -11,7 +15,7 @@ export default async function ProductosPage() {
         <p className="text-gray-500">Añade, edita o elimina productos de tu catálogo público.</p>
       </div>
 
-      <ProductosClient initialProducts={products} />
+      <ProductosClient initialProducts={products} dbCategories={categories} dbBrands={brands} />
     </div>
   );
 }

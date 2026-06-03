@@ -89,15 +89,15 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
           
           {/* Categorías (Píldoras Elegantes) */}
-          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 hide-scrollbar mask-edges">
-            <Filter className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0" />
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 flex-1 w-full">
+            <Filter className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0 hidden md:block" />
             {displayCategories.map(cat => (
               <button 
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`whitespace-nowrap px-6 py-2.5 rounded-full text-xs font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
+                className={`px-5 py-2 rounded-full text-[10px] md:text-xs font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
                   activeCategory === cat 
-                    ? 'bg-primary text-white shadow-[0_5px_15px_rgba(213,43,42,0.4)] transform scale-105' 
+                    ? 'bg-primary text-white shadow-[0_5px_15px_rgba(213,43,42,0.4)] transform md:scale-105' 
                     : 'bg-white text-gray-500 border border-gray-200 hover:border-primary/50 hover:text-primary'
                 }`}
               >

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { MapPin, Mail, Phone, ChevronDown, Check } from "lucide-react";
+import { MapPin, Mail, Phone, ChevronDown, Check, Globe } from "lucide-react";
 import Footer from "@/components/Footer";
 
 // --- DATOS DE CONTACTO ---
@@ -118,20 +118,26 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
             <div className="flex items-center gap-4 border-l border-white/20 pl-4 ml-2 relative">
               <button 
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="text-white font-bold flex items-center gap-2 cursor-pointer hover:text-primary transition-colors text-xs tracking-widest uppercase bg-white/10 px-3 py-1.5 rounded"
+                className="text-white font-bold flex items-center gap-2 cursor-pointer hover:bg-white/10 transition-all text-xs tracking-widest uppercase px-4 py-2 rounded-full border border-white/10 hover:border-white/30 shadow-sm backdrop-blur-sm group"
               >
-                {t.nav.lang} <span className="text-[10px]">▼</span>
+                <Globe className="w-3.5 h-3.5 text-white/70 group-hover:text-primary transition-colors" />
+                <span>{t.nav.lang.split(" ")[1]}</span> 
+                <ChevronDown className={`w-3.5 h-3.5 opacity-70 transition-transform duration-300 ${langMenuOpen ? 'rotate-180' : ''}`} />
               </button>
               
               {langMenuOpen && (
-                <div className="absolute top-full mt-4 right-0 w-32 bg-white rounded shadow-2xl overflow-hidden flex flex-col py-2 border border-gray-100 animate-fade-in-up">
-                  <button onClick={() => { setLang("es"); setLangMenuOpen(false); }} className={`px-4 py-2 text-sm text-left hover:bg-gray-50 ${lang === 'es' ? 'font-bold text-primary' : 'text-gray-700'}`}>🇪🇸 Español</button>
-                  <button onClick={() => { setLang("en"); setLangMenuOpen(false); }} className={`px-4 py-2 text-sm text-left hover:bg-gray-50 ${lang === 'en' ? 'font-bold text-primary' : 'text-gray-700'}`}>🇺🇸 English</button>
-                  <button onClick={() => { setLang("it"); setLangMenuOpen(false); }} className={`px-4 py-2 text-sm text-left hover:bg-gray-50 ${lang === 'it' ? 'font-bold text-primary' : 'text-gray-700'}`}>🇮🇹 Italiano</button>
+                <div className="absolute top-full mt-4 right-0 w-40 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden flex flex-col py-2 border border-gray-100/50 animate-fade-in-up origin-top-right">
+                  <button onClick={() => { setLang("es"); setLangMenuOpen(false); }} className={`px-5 py-3 text-sm text-left transition-colors flex items-center gap-3 ${lang === 'es' ? 'font-bold text-primary bg-primary/5' : 'text-gray-600 hover:bg-gray-50 hover:text-black'}`}>
+                    <span className="text-lg">🇪🇸</span> Español
+                  </button>
+                  <button onClick={() => { setLang("en"); setLangMenuOpen(false); }} className={`px-5 py-3 text-sm text-left transition-colors flex items-center gap-3 ${lang === 'en' ? 'font-bold text-primary bg-primary/5' : 'text-gray-600 hover:bg-gray-50 hover:text-black'}`}>
+                    <span className="text-lg">🇺🇸</span> English
+                  </button>
+                  <button onClick={() => { setLang("it"); setLangMenuOpen(false); }} className={`px-5 py-3 text-sm text-left transition-colors flex items-center gap-3 ${lang === 'it' ? 'font-bold text-primary bg-primary/5' : 'text-gray-600 hover:bg-gray-50 hover:text-black'}`}>
+                    <span className="text-lg">🇮🇹</span> Italiano
+                  </button>
                 </div>
               )}
-
-              <Link href="/admin" className="text-[10px] uppercase tracking-widest font-bold text-white/50 hover:text-white transition-colors ml-2 border border-white/20 hover:border-white px-3 py-1.5 rounded">Admin</Link>
             </div>
           </div>
 
@@ -168,7 +174,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                 <button onClick={() => { setLang("it"); setMobileMenuOpen(false); }} className={`text-left text-sm font-bold ${lang === 'it' ? 'text-primary' : 'text-white'}`}>🇮🇹 Italiano</button>
               </div>
 
-              <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="mt-4 text-center bg-white/10 text-white py-3 rounded-lg text-xs font-bold tracking-widest uppercase">Panel de Admin</Link>
+
             </div>
           </div>
         )}

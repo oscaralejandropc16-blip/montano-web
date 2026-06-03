@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Plus, Trash2, Tag, Bookmark } from "lucide-react";
 import { createCategory, deleteCategory, createBrand, deleteBrand } from "@/lib/actions";
 
-export default function ClasificacionClient({ initialCategories, initialBrands }: { initialCategories: any[], initialBrands: any[] }) {
+export default function ClasificacionClient({ initialCategories, initialBrands }: { initialCategories: {id: number, name: string}[], initialBrands: {id: number, name: string}[] }) {
   const [categories, setCategories] = useState(initialCategories);
   const [brands, setBrands] = useState(initialBrands);
 

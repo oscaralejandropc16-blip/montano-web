@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, Info, MessageCircle, ChevronRight, Check } from "lucide-react";
 import { getProducts } from "@/lib/actions";
+import ZoomableImage from "./ZoomableImage";
 
 export const revalidate = 0;
 
@@ -130,13 +131,16 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
                 {/* Info Nutricional */}
                 {product.nutrition_url && (
-                  <div className="mt-8">
-                    <h3 className="text-xs font-extrabold uppercase tracking-[0.2em] text-black mb-4">
-                      Información Nutricional
-                    </h3>
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-2 max-w-sm">
-                      <img src={product.nutrition_url} alt="Información Nutricional" className="w-full h-auto rounded-lg object-contain" />
+                  <div className="mt-12 pt-10 border-t border-gray-100">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                        <Info className="w-5 h-5" />
+                      </div>
+                      <h3 className="text-sm font-extrabold uppercase tracking-[0.2em] text-black">
+                        Información Nutricional
+                      </h3>
                     </div>
+                    <ZoomableImage src={product.nutrition_url} alt="Información Nutricional" />
                   </div>
                 )}
               </div>

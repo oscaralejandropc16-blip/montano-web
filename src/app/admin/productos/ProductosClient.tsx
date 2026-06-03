@@ -6,6 +6,7 @@ import { createProduct, updateProduct, deleteProduct } from "@/lib/actions";
 import { CldUploadWidget } from "next-cloudinary";
 import { useRouter } from "next/navigation";
 import ConfirmModal from "@/components/ConfirmModal";
+import { toast } from "react-hot-toast";
 
 export default function ProductosClient({ initialProducts, dbCategories, dbBrands }: { initialProducts: any[], dbCategories?: any[], dbBrands?: any[] }) {
   const [products, setProducts] = useState(initialProducts);
@@ -49,9 +50,9 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
         window.location.reload();
       }
       setIsModalOpen(false);
-    } catch (error) {
-      console.error(error);
-      alert("Error al guardar el producto");
+    } catch (e) {
+      console.error(e);
+      toast.error("Error al guardar el producto");
     } finally {
       setIsSubmitting(false);
     }

@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   description: "Montano Antilia elabora embutidos de calidad superior, fusionando tradición e innovación para ofrecer productos frescos y con sabor auténtico.",
 };
 
+import { Toaster } from 'react-hot-toast';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,6 +31,7 @@ export default function RootLayout({
       <body
         className={`${headingFont.variable} ${bodyFont.variable} antialiased`}
       >
+        <Toaster position="bottom-right" toastOptions={{ style: { background: '#333', color: '#fff', borderRadius: '10px' } }} />
         {children}
       </body>
     </html>

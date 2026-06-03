@@ -259,8 +259,8 @@ export default function HomeClient({ settings }: { settings: Record<string, stri
               </a>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {[1, 2, 3].map(i => {
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[1, 2, 3, 4].map(i => {
                 const img = settings[`gallery_img_${i}`];
                 return (
                   <div key={i} className="aspect-square bg-gray-200 rounded-xl flex items-center justify-center text-gray-400 hover:opacity-80 transition-opacity cursor-pointer overflow-hidden relative group">

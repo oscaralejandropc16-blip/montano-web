@@ -5,6 +5,7 @@ import { UploadCloud, Trash2, Copy, Check } from "lucide-react";
 import { CldUploadWidget } from "next-cloudinary";
 import { createMedia, deleteMedia } from "@/lib/actions";
 import ConfirmModal from "@/components/ConfirmModal";
+import { toast } from "react-hot-toast";
 
 export default function MediosClient({ initialMedia }: { initialMedia: any[] }) {
   const [mediaItems, setMediaItems] = useState(initialMedia);
@@ -18,10 +19,11 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
       // We will let the server action update the DB and revalidate, 
       // but we can optionally optimism-add it. The easiest is reloading.
       await createMedia(newUrl);
-      window.location.reload();
+      toast.success("Medio subido correctamente");
+      setTimeout(() => window.location.reload(), 1000);
     } catch (e) {
       console.error(e);
-      alert("Error guardando imagen en la base de datos.");
+      toast.error("Error guardando imagen en la base de datos.");
     }
   };
 

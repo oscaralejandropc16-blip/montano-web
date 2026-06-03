@@ -8,8 +8,14 @@ export default function ZoomableImage({ src, alt }: { src: string; alt: string }
   const [position, setPosition] = useState({ x: 50, y: 50 });
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const handleMouseEnter = () => {
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      setIsZoomed(true);
+    }
+  };
+
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || !isZoomed) return;
     const { left, top, width, height } = containerRef.current.getBoundingClientRect();
     const x = ((e.clientX - left) / width) * 100;
     const y = ((e.clientY - top) / height) * 100;
@@ -19,8 +25,8 @@ export default function ZoomableImage({ src, alt }: { src: string; alt: string }
   return (
     <div 
       ref={containerRef}
-      className="relative w-full aspect-[4/5] sm:aspect-square rounded-xl overflow-hidden bg-white cursor-crosshair group"
-      onMouseEnter={() => setIsZoomed(true)}
+      className={`relative w-full aspect-[4/5] sm:aspect-square rounded-xl overflow-hidden bg-white group ${isZoomed ? 'cursor-crosshair' : 'cursor-default lg:cursor-crosshair'}`}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setIsZoomed(false)}
       onMouseMove={handleMouseMove}
     >

@@ -24,7 +24,7 @@ const translations = {
     products: { title: "Nuestros Productos", btn: "Explora Nuestros Productos", items: ["Jamón Cocido 500gr", "Jamón Cocido 3,8 Kgs", "Jamón Cocido 6 Kgs"], shape1: "cilindro", shape2: "bloque rectangular", shape3: "forma tradicional" },
     social: { title: "¡Síguenos en Redes Sociales!", sub: "Descubre recetas, novedades y mucho más." },
     about: { title: "Nosotros", text1: "Somos una empresa familiar con sólida trayectoria en la ", text2: "elaboración de embutidos y productos alimenticios de alta calidad", text3: ". Fundada por el empresario Álvaro Cozzo T., nuestra misión es ofrecer alimentos que destaquen por su ", text4: "sabor auténtico, calidad superior y amplia variedad", text5: ", llevando a cada mesa el verdadero sabor que conquista.", btn: "Saber Más" },
-    contact: { title: "¡Escríbenos o visítanos!", name: "Nombre completo", email: "Correo electrónico", msg: "Mensaje", send: "Enviar Mensaje", map: "Visítanos en nuestra sede" },
+    contact: { title: "Atención y Ventas", name: "Nombre completo", email: "Correo electrónico", msg: "Mensaje", send: "Enviar Mensaje", map: "Visítanos en nuestra sede" },
     footer: "Derechos de autor © 2026 Montano Antilia. Todos los derechos reservados."
   },
   en: {
@@ -33,7 +33,7 @@ const translations = {
     products: { title: "Our Products", btn: "Explore Our Products", items: ["Cooked Ham 500g", "Cooked Ham 3.8 Kg", "Cooked Ham 6 Kg"], shape1: "cylinder", shape2: "rectangular block", shape3: "traditional shape" },
     social: { title: "Follow us on Social Media!", sub: "Discover recipes, news and much more." },
     about: { title: "About Us", text1: "We are a family business with a solid track record in the ", text2: "production of high quality cold cuts and food products", text3: ". Founded by entrepreneur Álvaro Cozzo T., our mission is to offer foods that stand out for their ", text4: "authentic flavor, superior quality and wide variety", text5: ", bringing to every table the true flavor that conquers.", btn: "Learn More" },
-    contact: { title: "Write to us or visit us!", name: "Full Name", email: "Email Address", msg: "Message", send: "Send Message", map: "Visit our headquarters" },
+    contact: { title: "Sales & Support", name: "Full Name", email: "Email Address", msg: "Message", send: "Send Message", map: "Visit our headquarters" },
     footer: "Copyright © 2026 Montano Antilia. All rights reserved."
   },
   it: {
@@ -42,7 +42,7 @@ const translations = {
     products: { title: "I Nostri Prodotti", btn: "Esplora i Nostri Prodotti", items: ["Prosciutto Cotto 500g", "Prosciutto Cotto 3,8 Kg", "Prosciutto Cotto 6 Kg"], shape1: "cilindro", shape2: "blocco rettangolare", shape3: "forma tradizionale" },
     social: { title: "Seguici sui Social Media!", sub: "Scopri ricette, novità e molto altro." },
     about: { title: "Chi Siamo", text1: "Siamo un'azienda familiare con una solida esperienza nella ", text2: "produzione di salumi e prodotti alimentari di alta qualità", text3: ". Fondata dall'imprenditore Álvaro Cozzo T., la nostra missione è offrire cibi che si distinguono per il loro ", text4: "sapore autentico, qualità superiore e grande varietà", text5: ", portando su ogni tavola il vero sapore che conquista.", btn: "Scopri di Più" },
-    contact: { title: "Scrivici o vieni a trovarci!", name: "Nome completo", email: "Indirizzo Email", msg: "Messaggio", send: "Invia Messaggio", map: "Vieni a trovarci" },
+    contact: { title: "Assistenza e Vendite", name: "Nome completo", email: "Indirizzo Email", msg: "Messaggio", send: "Invia Messaggio", map: "Vieni a trovarci" },
     footer: "Copyright © 2026 Montano Antilia. Tutti i diritti riservati."
   }
 };
@@ -64,7 +64,13 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
 
   useEffect(() => {
     setLoaded(true);
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+      if (window.scrollY > 50) {
+        setMobileMenuOpen(false);
+        setLangMenuOpen(false);
+      }
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -366,7 +372,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
             
             <div className="text-center mb-16">
               <span className="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-4 block">Contacto</span>
-              <h2 className="heading text-5xl font-extrabold text-black">Estamos para ti</h2>
+              <h2 className="heading text-5xl font-extrabold text-black">{t.contact.title}</h2>
             </div>
 
             <div className="flex flex-col lg:flex-row rounded-[2.5rem] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.08)] bg-white ring-1 ring-gray-100">

@@ -84,3 +84,31 @@ export async function adminLogout() {
   cookieStore.delete('admin_token');
   revalidatePath('/admin');
 }
+
+export async function getCategories() {
+  return await sql`SELECT * FROM montano_categories ORDER BY name ASC`;
+}
+
+export async function createCategory(name: string) {
+  await sql`INSERT INTO montano_categories (name) VALUES (${name}) ON CONFLICT DO NOTHING`;
+  revalidatePath('/admin');
+}
+
+export async function deleteCategory(id: number) {
+  await sql`DELETE FROM montano_categories WHERE id = ${id}`;
+  revalidatePath('/admin');
+}
+
+export async function getBrands() {
+  return await sql`SELECT * FROM montano_brands ORDER BY name ASC`;
+}
+
+export async function createBrand(name: string) {
+  await sql`INSERT INTO montano_brands (name) VALUES (${name}) ON CONFLICT DO NOTHING`;
+  revalidatePath('/admin');
+}
+
+export async function deleteBrand(id: number) {
+  await sql`DELETE FROM montano_brands WHERE id = ${id}`;
+  revalidatePath('/admin');
+}

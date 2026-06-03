@@ -5,12 +5,16 @@ import { Plus, Edit2, Trash2, X, Image as ImageIcon } from "lucide-react";
 import { createProduct, updateProduct, deleteProduct } from "@/lib/actions";
 import { CldUploadWidget } from "next-cloudinary";
 
-export default function ProductosClient({ initialProducts }: { initialProducts: any[] }) {
+export default function ProductosClient({ initialProducts, dbCategories, dbBrands }: { initialProducts: any[], dbCategories?: any[], dbBrands?: any[] }) {
   const [products, setProducts] = useState(initialProducts);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
+  
+  const defaultCats = dbCategories && dbCategories.length > 0 ? dbCategories.map(c => c.name) : ["Jamones", "Ahumados", "Fiambres", "Especialidades"];
+  const defaultBrands = dbBrands && dbBrands.length > 0 ? dbBrands.map(b => b.name) : ["Montano Antilia", "Vicosa", "Don Vincenzo", "Delium"];
+
   const [formData, setFormData] = useState({
-    name: "", brand: "Montano Antilia", category: "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: ""
+    name: "", brand: defaultBrands[0] || "Montano Antilia", category: defaultCats[0] || "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -24,7 +28,7 @@ export default function ProductosClient({ initialProducts }: { initialProducts: 
       });
     } else {
       setEditingId(null);
-      setFormData({ name: "", brand: "Montano Antilia", category: "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: "" });
+      setFormData({ name: "", brand: defaultBrands[0] || "Montano Antilia", category: defaultCats[0] || "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: "" });
     }
     setIsModalOpen(true);
   };
@@ -167,7 +171,7 @@ export default function ProductosClient({ initialProducts }: { initialProducts: 
                         className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" 
                       />
                       <datalist id="brands-list">
-                        {Array.from(new Set([...products.map(p => p.brand).filter(Boolean), "Montano Antilia", "Vicosa", "Don Vincenzo", "Delium"])).map(brand => (
+                        {Array.from(new Set([...products.map(p => p.brand).filter(Boolean), ...defaultBrands])).map(brand => (
                           <option key={brand} value={brand} />
                         ))}
                       </datalist>
@@ -190,7 +194,7 @@ export default function ProductosClient({ initialProducts }: { initialProducts: 
                         className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" 
                       />
                       <datalist id="categories-list">
-                        {Array.from(new Set([...products.map(p => p.category), "Jamones", "Ahumados", "Fiambres", "Especialidades"])).map(cat => (
+                        {Array.from(new Set([...products.map(p => p.category), ...defaultCats])).map(cat => (
                           <option key={cat} value={cat} />
                         ))}
                       </datalist>

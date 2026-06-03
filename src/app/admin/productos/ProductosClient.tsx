@@ -191,7 +191,7 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
                         required 
                         value={formData.brand} 
                         onChange={e => setFormData({...formData, brand: e.target.value})} 
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer" 
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer" 
                       >
                         <option value="" disabled>Selecciona una marca...</option>
                         {Array.from(new Set([...products.map(p => p.brand).filter(Boolean), ...defaultBrands])).map(brand => (
@@ -211,7 +211,7 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
                         required 
                         value={formData.category} 
                         onChange={e => setFormData({...formData, category: e.target.value})} 
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer" 
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer" 
                       >
                         <option value="" disabled>Selecciona una categoría...</option>
                         {Array.from(new Set([...products.map(p => p.category).filter(Boolean), ...defaultCats])).map(cat => (

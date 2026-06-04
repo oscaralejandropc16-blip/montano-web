@@ -89,7 +89,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
             <div className="h-[1px] w-8 bg-primary"></div>
           </div>
           <h1 className="heading text-4xl sm:text-5xl md:text-8xl font-extrabold mb-6 tracking-tighter drop-shadow-2xl">
-            Catálogo <span className="font-light italic text-white/80">Premium</span>
+            Catálogo <span className="font-light italic text-white/80">de Embutidos</span>
           </h1>
           <p className="text-gray-300 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
             Descubre nuestra línea completa de embutidos elaborados bajo estrictos estándares de calidad y la tradición familiar que nos caracteriza.

@@ -2,46 +2,69 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, Search, Filter, X, Info, ChevronRight, MessageCircle } from "lucide-react";
+import { ArrowLeft, Search, Filter, ChevronDown, Check } from "lucide-react";
 import Footer from "@/components/Footer";
 import { getOptimizedUrl } from "@/lib/optimizeUrl";
+import { translations, Language } from "@/lib/translations";
 
-const categories = ["Todos", "Jamones", "Ahumados", "Fiambres", "Especialidades"];
+const defaultCategories = ["Todos", "Jamones", "Ahumados", "Fiambres", "Especialidades"];
+
+const translateProductData = (text: string, lang: Language) => {
+  if (!text || lang === 'es') return text;
+  const dict: Record<string, Record<string, string>> = {
+    "Jamón Cocido": { en: "Cooked Ham", it: "Prosciutto Cotto", pt: "Presunto Cozido", fr: "Jambon Cuit", de: "Kochschinken" },
+    "Jamones": { en: "Hams", it: "Prosciutti", pt: "Presuntos", fr: "Jambons", de: "Schinken" },
+    "Ahumados": { en: "Smoked", it: "Affumicati", pt: "Defumados", fr: "Fumés", de: "Geräuchert" },
+    "Fiambres": { en: "Cold Cuts", it: "Salumi", pt: "Frios", fr: "Charcuterie", de: "Aufschnitt" },
+    "Especialidades": { en: "Specialties", it: "Specialità", pt: "Especialidades", fr: "Spécialités", de: "Spezialitäten" },
+    "Chorizos": { en: "Chorizos", it: "Chorizo", pt: "Chouriços", fr: "Chorizos", de: "Chorizos" },
+    "Mortadelas": { en: "Mortadellas", it: "Mortadella", pt: "Mortadelas", fr: "Mortadelles", de: "Mortadella" },
+    "Pepperoni": { en: "Pepperoni", it: "Pepperoni", pt: "Pepperoni", fr: "Pepperoni", de: "Pepperoni" },
+    "Salchichas": { en: "Sausages", it: "Salsicce", pt: "Salsichas", fr: "Saucisses", de: "Würstchen" }
+  };
+  return dict[text]?.[lang] || text;
+};
 
 export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: { catalog: any[], dbCategories?: any[], dbBrands?: any[] }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState<any>(null); // Estado para el Modal
   const [loaded, setLoaded] = useState(false);
+  const [lang, setLang] = useState<Language>("es");
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
 
-  // Categorías dinámicas
+  // Categorías dinámicas (en español de la base de datos)
   const dynamicCategories = ["Todos", ...Array.from(new Set([...(dbCategories?.map(c => c.name) || []), ...catalog.map(p => p.category)]))];
-  const displayCategories = dynamicCategories.length > 1 ? dynamicCategories : categories;
+  const displayCategories = dynamicCategories.length > 1 ? dynamicCategories : defaultCategories;
 
   useEffect(() => {
-    setLoaded(true);
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    
-    // Evitar scroll en el body cuando el modal está abierto
-    if (selectedProduct) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+    const savedLang = localStorage.getItem('montano_lang') as Language;
+    if (savedLang && ['es', 'en', 'it', 'pt', 'fr', 'de'].includes(savedLang)) {
+      setLang(savedLang);
     }
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      document.body.style.overflow = 'unset';
+    setLoaded(true);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+      if (window.scrollY > 20) setLangMenuOpen(false);
     };
-  }, [selectedProduct]);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleLanguageChange = (l: Language) => {
+    setLang(l);
+    localStorage.setItem('montano_lang', l);
+    setLangMenuOpen(false);
+  };
 
   const normalize = (str: string) => str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
 
+  const t = translations[lang];
+
   const filteredProducts = catalog.filter(p => {
     const matchCategory = activeCategory === "Todos" || p.category === activeCategory;
-    const matchSearch = normalize(p.name).includes(normalize(searchQuery));
+    const prodNameTrans = translateProductData(p.name, lang);
+    const matchSearch = normalize(prodNameTrans).includes(normalize(searchQuery)) || normalize(p.name).includes(normalize(searchQuery));
     return matchCategory && matchSearch;
   });
 
@@ -58,17 +81,41 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
           </Link>
           
           <div className="hidden lg:flex items-center gap-8">
-            <Link href="/" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">Inicio</Link>
-            <Link href="/productos" className="text-white font-bold transition-colors tracking-widest text-xs uppercase drop-shadow-md border-b-2 border-primary pb-1">Catálogo</Link>
-            <Link href="/about" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">Nosotros</Link>
-            <a href="/#contacto" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">Contacto</a>
+            <Link href="/" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">{t.nav.home}</Link>
+            <Link href="/productos" className="text-white font-bold transition-colors tracking-widest text-xs uppercase drop-shadow-md border-b-2 border-primary pb-1">{t.nav.catalog}</Link>
+            <Link href="/about" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">{t.nav.about}</Link>
+            <a href="/#contacto" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">{t.nav.contact}</a>
+            
+            {/* Language Selector */}
+            <div className="relative">
+              <button 
+                onClick={() => setLangMenuOpen(!langMenuOpen)}
+                className="flex items-center gap-2 text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md"
+              >
+                <Globe className="w-3.5 h-3.5" />
+                {lang.toUpperCase()}
+                <ChevronDown className="w-3 h-3" />
+              </button>
+              {langMenuOpen && (
+                <div className="absolute top-full right-0 mt-4 bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl py-2 px-1 flex flex-col gap-1 w-32 animate-in fade-in slide-in-from-top-2 z-50">
+                  {(['es', 'en', 'it', 'pt', 'fr', 'de'] as Language[]).map((l) => (
+                    <button
+                      key={l}
+                      onClick={() => handleLanguageChange(l)}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase transition-all ${lang === l ? 'bg-primary text-white' : 'text-gray-400 hover:text-white hover:bg-white/10'}`}
+                    >
+                      {l} {lang === l && <Check className="w-3 h-3 ml-auto" />}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <Link href="/" className="lg:hidden flex items-center gap-2 text-white hover:text-primary transition-colors group">
             <div className="bg-white/10 backdrop-blur-md p-2 rounded-full border border-white/10">
               <ArrowLeft className="w-3 h-3" />
             </div>
-            <span className="font-bold tracking-[0.2em] text-[10px] uppercase">Volver</span>
           </Link>
         </div>
       </nav>
@@ -85,14 +132,14 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
         <div className={`relative z-10 max-w-4xl mx-auto transition-all duration-1000 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <div className="inline-flex items-center gap-4 mb-6">
             <div className="h-[1px] w-8 bg-primary"></div>
-            <span className="text-primary font-bold tracking-[0.4em] uppercase text-xs">Colección 2026</span>
+            <span className="text-primary font-bold tracking-[0.4em] uppercase text-xs">{t.catalogPage.badge}</span>
             <div className="h-[1px] w-8 bg-primary"></div>
           </div>
           <h1 className="heading text-4xl sm:text-5xl md:text-8xl font-extrabold mb-6 tracking-tighter drop-shadow-2xl">
-            Catálogo <span className="font-light italic text-white/80">de Embutidos</span>
+            {t.catalogPage.title} <span className="font-light italic text-white/80">{t.catalogPage.subtitle}</span>
           </h1>
           <p className="text-gray-300 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
-            Descubre nuestra línea completa de embutidos elaborados bajo estrictos estándares de calidad y la tradición familiar que nos caracteriza.
+            {t.catalogPage.desc}
           </p>
         </div>
       </section>
@@ -114,7 +161,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
                     : 'bg-white text-gray-500 border border-gray-200 hover:border-primary/50 hover:text-primary'
                 }`}
               >
-                {cat}
+                {cat === "Todos" ? t.catalogPage.all : translateProductData(cat, lang)}
               </button>
             ))}
           </div>
@@ -124,7 +171,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-primary transition-colors" />
             <input 
               type="text" 
-              placeholder="Buscar por nombre..." 
+              placeholder={t.catalogPage.search}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-gray-50 border border-gray-200 rounded-full py-3 pl-12 pr-6 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all focus:bg-white"
@@ -142,10 +189,10 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
             <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-6">
               <Search className="w-8 h-8 text-gray-300" />
             </div>
-            <h3 className="text-2xl font-bold text-black mb-2">Sin resultados</h3>
-            <p className="text-gray-500 font-light">No encontramos productos que coincidan con tu búsqueda.</p>
+            <h3 className="text-2xl font-bold text-black mb-2">{t.catalogPage.emptyTitle}</h3>
+            <p className="text-gray-500 font-light">{t.catalogPage.emptyDesc}</p>
             <button onClick={() => {setSearchQuery(""); setActiveCategory("Todos");}} className="mt-8 text-primary font-bold uppercase tracking-widest text-xs hover:underline">
-              Limpiar filtros
+              {t.catalogPage.clearBtn}
             </button>
           </div>
         ) : (
@@ -159,24 +206,20 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
                   className={`group cursor-pointer transition-all duration-700 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}
                   style={{ transitionDelay: `${idx * 100}ms` }}
                 >
-                {/* Tarjeta del Producto Rediseñada */}
                 <div className="bg-white rounded-3xl p-3 shadow-sm border border-gray-100 transition-all duration-500 group-hover:shadow-[0_25px_50px_rgba(0,0,0,0.08)] group-hover:-translate-y-2 h-full flex flex-col relative">
                   
-                  {/* Etiqueta Flotante (Tag) */}
                   <div className="absolute top-6 left-6 z-20 pointer-events-none">
                     <span className="bg-white/95 backdrop-blur-md text-[9px] font-extrabold uppercase tracking-[0.2em] px-4 py-2 rounded-full shadow-lg text-black border border-gray-100">
-                      {prod.category}
+                      {translateProductData(prod.category, lang)}
                     </span>
                   </div>
 
-                  {/* Icono de + al hacer hover */}
                   <div className="absolute top-6 right-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:scale-110 pointer-events-none">
                     <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center shadow-lg">
                       <span className="text-lg leading-none">+</span>
                     </div>
                   </div>
 
-                  {/* Imagen del Producto */}
                   <div className="w-full aspect-[4/5] bg-[#F8F8F8] rounded-2xl overflow-hidden relative mb-5 flex items-center justify-center group-hover:bg-gray-100 transition-colors">
                     {prod.image_url ? (
                       <img src={getOptimizedUrl(prod.image_url, 400)} alt={prod.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
@@ -185,12 +228,11 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
                     )}
                   </div>
 
-                  {/* Contenido Inferior */}
                   <div className="px-3 pb-4 flex-1 flex flex-col">
                     <div className="flex items-center justify-between mb-2">
                       <p className="text-primary text-[10px] font-extrabold tracking-[0.2em] uppercase flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                        {prod.tag}
+                        {translateProductData(prod.tag, lang)}
                       </p>
                       {brandObj && brandObj.logo_url && (
                         <div className="h-8 w-20 flex items-center justify-end">
@@ -199,7 +241,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
                       )}
                     </div>
                     <h3 className="heading font-bold text-xl text-black leading-tight group-hover:text-primary transition-colors">
-                      {prod.name}
+                      {translateProductData(prod.name, lang)}
                     </h3>
                   </div>
                 </div>

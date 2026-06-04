@@ -10,6 +10,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const nav = [
     { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
     { name: "Mensajes", href: "/admin/mensajes", icon: Mail },
+    { name: "Newsletter", href: "/admin/newsletter", icon: Mail },
     { name: "Catálogo", href: "/admin/productos", icon: Package },
     { name: "Medios y Banners", href: "/admin/medios", icon: ImageIcon },
     { name: "Clasificación", href: "/admin/clasificacion", icon: Tag },

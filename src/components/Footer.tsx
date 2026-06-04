@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { MapPin, Phone, Mail, ArrowRight } from "lucide-react";
+import { MapPin, Phone, Mail, ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
+import { subscribeNewsletter } from "@/lib/actions";
 
 interface FooterProps {
   texts?: {
@@ -48,6 +50,22 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
   const mergedTexts = { ...defaultTexts, ...texts };
   const navTexts = mergedTexts.nav || defaultTexts.nav;
 
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const handleSubscribe = async () => {
+    if (!email || !email.includes('@')) return;
+    setSubmitting(true);
+    const res = await subscribeNewsletter(email);
+    setSubmitting(false);
+    if (res.success) {
+      setSuccess(true);
+      setEmail("");
+      setTimeout(() => setSuccess(false), 5000);
+    }
+  };
+
   return (
     <footer className="relative bg-[#050505] pt-24 pb-12 overflow-hidden border-t border-white/5">
       
@@ -70,17 +88,28 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
             </p>
           </div>
           <div className="w-full md:w-auto flex flex-col sm:flex-row gap-3">
-            <input 
-              type="email" 
-              placeholder={mergedTexts.emailPlaceholder} 
-              className="bg-black/50 border border-white/10 text-white px-6 py-4 rounded-xl focus:outline-none focus:border-primary/50 transition-colors w-full md:w-72"
-            />
-            <button 
-              onClick={() => alert("¡Gracias por suscribirte!")}
-              className="bg-primary text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-primary/90 transition-transform hover:scale-105 active:scale-95 whitespace-nowrap"
-            >
-              {mergedTexts.subscribeBtn} <ArrowRight className="w-4 h-4" />
-            </button>
+            {success ? (
+              <div className="bg-green-500/10 border border-green-500/20 text-green-400 px-6 py-4 rounded-xl flex items-center justify-center gap-2 w-full md:w-[350px]">
+                <CheckCircle2 className="w-5 h-5" /> ¡Gracias por suscribirte!
+              </div>
+            ) : (
+              <>
+                <input 
+                  type="email" 
+                  placeholder={mergedTexts.emailPlaceholder} 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="bg-black/50 border border-white/10 text-white px-6 py-4 rounded-xl focus:outline-none focus:border-primary/50 transition-colors w-full md:w-72"
+                />
+                <button 
+                  onClick={handleSubscribe}
+                  disabled={submitting || !email}
+                  className="bg-primary text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-primary/90 transition-transform hover:scale-105 active:scale-95 whitespace-nowrap disabled:opacity-50 disabled:hover:scale-100"
+                >
+                  {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <>{mergedTexts.subscribeBtn} <ArrowRight className="w-4 h-4" /></>}
+                </button>
+              </>
+            )}
           </div>
         </div>
 

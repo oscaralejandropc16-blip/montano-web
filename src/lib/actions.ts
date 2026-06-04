@@ -24,6 +24,25 @@ export async function getContactMessages() {
   return rows;
 }
 
+export async function subscribeNewsletter(email: string) {
+  try {
+    await sql`
+      INSERT INTO montano_newsletter (email)
+      VALUES (${email})
+      ON CONFLICT (email) DO NOTHING
+    `;
+    return { success: true };
+  } catch (error) {
+    console.error("Error subscribing to newsletter:", error);
+    return { success: false, error };
+  }
+}
+
+export async function getNewsletterSubscribers() {
+  const rows = await sql`SELECT * FROM montano_newsletter ORDER BY fecha DESC`;
+  return rows;
+}
+
 export async function markMessageAsRead(id: number) {
   await sql`UPDATE mensajes_contacto SET leido = true WHERE id = ${id}`;
   revalidatePath('/admin/mensajes');

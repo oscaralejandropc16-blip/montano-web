@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Edit2, Trash2, X, Image as ImageIcon } from "lucide-react";
+import { Plus, Edit2, Trash2, X, Image as ImageIcon, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { createProduct, updateProduct, deleteProduct } from "@/lib/actions";
 import { CldUploadWidget } from "next-cloudinary";
 import { useRouter } from "next/navigation";
@@ -15,8 +15,29 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 10;
+  
   const defaultCats = dbCategories && dbCategories.length > 0 ? dbCategories.map(c => c.name) : ["Jamones", "Ahumados", "Fiambres", "Especialidades"];
   const defaultBrands = dbBrands && dbBrands.length > 0 ? dbBrands.map(b => b.name) : ["Montano Antilia", "Vicosa", "Don Vincenzo", "Delium"];
+
+  const allCategories = Array.from(new Set([...products.map(p => p.category).filter(Boolean), ...defaultCats]));
+  const allBrands = Array.from(new Set([...products.map(p => p.brand).filter(Boolean), ...defaultBrands]));
+
+  const filteredProducts = products.filter(prod => {
+    const matchesSearch = prod.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          (prod.tag && prod.tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesCategory = selectedCategory ? prod.category === selectedCategory : true;
+    const matchesBrand = selectedBrand ? prod.brand === selectedBrand : true;
+    return matchesSearch && matchesCategory && matchesBrand;
+  });
+
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE) || 1;
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const [formData, setFormData] = useState({
     name: "", brand: defaultBrands[0] || "Montano Antilia", category: defaultCats[0] || "Jamones", tag: "", description: "", ingredients: "", preservation: "", image_url: "", nutrition_url: ""
@@ -73,10 +94,43 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
 
   return (
     <div>
-      <div className="flex justify-end mb-6">
+      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center mb-6 gap-4">
+        <div className="flex flex-col md:flex-row gap-4 w-full xl:w-auto flex-1">
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input 
+              type="text" 
+              placeholder="Buscar producto..." 
+              value={searchTerm}
+              onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
+              className="w-full bg-white border border-gray-200 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+            />
+          </div>
+          <select
+            value={selectedCategory}
+            onChange={(e) => { setSelectedCategory(e.target.value); setCurrentPage(1); }}
+            className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer min-w-[160px]"
+          >
+            <option value="">Todas las categorías</option>
+            {allCategories.map(cat => (
+              <option key={cat as string} value={cat as string}>{cat as string}</option>
+            ))}
+          </select>
+          <select
+            value={selectedBrand}
+            onChange={(e) => { setSelectedBrand(e.target.value); setCurrentPage(1); }}
+            className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer min-w-[160px]"
+          >
+            <option value="">Todas las marcas</option>
+            {allBrands.map(brand => (
+              <option key={brand as string} value={brand as string}>{brand as string}</option>
+            ))}
+          </select>
+        </div>
+
         <button 
           onClick={() => handleOpenModal()}
-          className="bg-primary text-white px-6 py-3 rounded-xl font-bold text-sm tracking-widest uppercase hover:bg-red-700 transition-colors flex items-center gap-2 shadow-lg shadow-primary/20"
+          className="bg-primary text-white px-6 py-3 rounded-xl font-bold text-sm tracking-widest uppercase hover:bg-red-700 transition-colors flex items-center gap-2 shadow-lg shadow-primary/20 whitespace-nowrap w-full md:w-auto justify-center"
         >
           <Plus className="w-5 h-5" /> Nuevo Producto
         </button>
@@ -94,10 +148,10 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {products.length === 0 ? (
-              <tr><td colSpan={5} className="p-8 text-center text-gray-400">No hay productos registrados.</td></tr>
+            {paginatedProducts.length === 0 ? (
+              <tr><td colSpan={5} className="p-8 text-center text-gray-400">No hay productos encontrados.</td></tr>
             ) : (
-              products.map(prod => (
+              paginatedProducts.map(prod => (
                 <tr key={prod.id} className="hover:bg-gray-50/50 transition-colors">
                   <td className="p-4">
                     <div className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden flex items-center justify-center">
@@ -125,6 +179,56 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
           </tbody>
         </table>
       </div>
+
+      {totalPages > 1 && (
+        <div className="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
+          <span className="text-sm text-gray-500">
+            Mostrando {startIndex + 1} a {Math.min(startIndex + ITEMS_PER_PAGE, filteredProducts.length)} de {filteredProducts.length} productos
+          </span>
+          <div className="flex gap-2 overflow-x-auto pb-2 max-w-full">
+            <button
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors bg-white flex-shrink-0"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            {Array.from({ length: totalPages }).map((_, idx) => {
+              const pageNumber = idx + 1;
+              const isNearCurrent = Math.abs(currentPage - pageNumber) <= 2;
+              const isEdge = pageNumber === 1 || pageNumber === totalPages;
+              
+              if (!isNearCurrent && !isEdge) {
+                if (pageNumber === 2 || pageNumber === totalPages - 1) {
+                  return <span key={idx} className="px-2 py-2 text-gray-400 flex-shrink-0">...</span>;
+                }
+                return null;
+              }
+
+              return (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentPage(pageNumber)}
+                  className={`min-w-[40px] h-10 rounded-lg text-sm font-bold transition-colors flex-shrink-0 ${
+                    currentPage === pageNumber 
+                      ? 'bg-primary text-white shadow-md shadow-primary/20' 
+                      : 'border border-gray-200 text-gray-600 hover:bg-gray-50 bg-white'
+                  }`}
+                >
+                  {pageNumber}
+                </button>
+              );
+            })}
+            <button
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors bg-white flex-shrink-0"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      )}
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -201,7 +305,7 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
                         className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer" 
                       >
                         <option value="" disabled>Selecciona una marca...</option>
-                        {Array.from(new Set([...products.map(p => p.brand).filter(Boolean), ...defaultBrands])).map(brand => (
+                        {allBrands.map(brand => (
                           <option key={brand as string} value={brand as string}>{brand as string}</option>
                         ))}
                       </select>
@@ -221,7 +325,7 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
                         className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer" 
                       >
                         <option value="" disabled>Selecciona una categoría...</option>
-                        {Array.from(new Set([...products.map(p => p.category).filter(Boolean), ...defaultCats])).map(cat => (
+                        {allCategories.map(cat => (
                           <option key={cat as string} value={cat as string}>{cat as string}</option>
                         ))}
                       </select>

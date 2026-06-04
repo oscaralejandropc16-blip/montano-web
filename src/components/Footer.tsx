@@ -8,7 +8,7 @@ interface FooterProps {
     aboutText?: string;
     quickLinksTitle?: string;
     contactTitle?: string;
-    nav?: { home: string, products: string, about: string, contact: string };
+    nav?: { home: string, catalog: string, about: string, contact: string };
     footer?: string;
     newsletterTitle?: string;
     newsletterDesc?: string;
@@ -36,7 +36,7 @@ const defaultTexts = {
   aboutText: "Tradición y calidad superior en cada producto. Llevando a tu mesa el verdadero sabor que conquista desde hace años.",
   quickLinksTitle: "Navegación",
   contactTitle: "Contacto Directo",
-  nav: { home: "Inicio", products: "Productos", about: "Acerca de", contact: "Contacto" },
+  nav: { home: "Inicio", catalog: "Catálogo", about: "Acerca de", contact: "Contacto" },
   footer: "Derechos de autor © 2026 Montano Antilia. Todos los derechos reservados.",
   newsletterTitle: "Únete a nuestra familia",
   newsletterDesc: "Recibe nuestras últimas novedades y promociones exclusivas directamente en tu correo.",
@@ -117,7 +117,7 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
             <ul className="space-y-4">
               {[
                 { label: navTexts.home, href: "/#inicio" },
-                { label: navTexts.products, href: "/productos" },
+                { label: navTexts.catalog, href: "/productos" },
                 { label: navTexts.about, href: "/about" },
                 { label: navTexts.contact, href: "/#contacto" }
               ].map((link, idx) => (

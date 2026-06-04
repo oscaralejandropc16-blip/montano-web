@@ -12,6 +12,14 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
   const [isUploading, setIsUploading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [deleteData, setDeleteData] = useState<{publicId: string, resourceType: string} | null>(null);
+  const [visibleCount, setVisibleCount] = useState(20);
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 20);
+  };
+
+  const visibleItems = mediaItems.slice(0, visibleCount);
+  const hasMore = visibleCount < mediaItems.length;
 
   const handleUploadSuccess = async (result: any) => {
     toast.success("Medio subido correctamente");
@@ -72,8 +80,9 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
           <p className="text-gray-400">Sube tu primera imagen para usarla como banner o donde quieras.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {mediaItems.map(item => (
+        <>
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-8">
+          {visibleItems.map(item => (
             <div key={item.public_id} className="bg-white rounded-2xl border border-gray-100 overflow-hidden group">
               <div className="aspect-square bg-gray-100 relative">
                 {item.resource_type === 'video' ? (
@@ -101,6 +110,17 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
             </div>
           ))}
         </div>
+        {hasMore && (
+          <div className="flex justify-center mt-8">
+            <button 
+              onClick={handleLoadMore}
+              className="bg-white border border-gray-200 text-black px-8 py-3 rounded-full font-bold text-sm tracking-widest uppercase hover:border-primary hover:text-primary transition-colors shadow-sm"
+            >
+              Cargar más imágenes ({mediaItems.length - visibleCount} restantes)
+            </button>
+          </div>
+        )}
+        </>
       )}
 
       <ConfirmModal 

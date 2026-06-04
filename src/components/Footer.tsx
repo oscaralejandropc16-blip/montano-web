@@ -58,7 +58,7 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
           <div className="max-w-xl">
             <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-3">Únete a nuestra familia</h3>
             <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-              Recibe nuestras últimas novedades, promociones exclusivas y deliciosas recetas directamente en tu correo.
+              Recibe nuestras últimas novedades y promociones exclusivas directamente en tu correo.
             </p>
           </div>
           <div className="w-full md:w-auto flex flex-col sm:flex-row gap-3">

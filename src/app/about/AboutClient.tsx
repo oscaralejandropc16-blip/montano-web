@@ -60,18 +60,27 @@ export default function AboutClient({ settings }: { settings: Record<string, str
 
   return (
     <div className="min-h-screen bg-white text-foreground overflow-hidden">
-      {/* NAVEGACIÓN SIMPLIFICADA */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-black/90 backdrop-blur-lg py-3 shadow-lg" : "bg-black/50 backdrop-blur-sm py-4"}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-black/90 backdrop-blur-lg py-3 shadow-lg border-b border-white/5" : "bg-black/50 backdrop-blur-sm py-4"}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-4 text-white/90 hover:text-white transition-colors group">
-            <div className="bg-white/10 p-2 rounded-full group-hover:-translate-x-1 transition-transform">
-              <ArrowLeft className="w-5 h-5" />
+          <Link href="/" className="flex items-center">
+            <div className={`transition-all duration-500 relative ${isScrolled ? 'h-10' : 'h-14'}`}>
+              <img src="/logo.png" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-2xl" />
             </div>
-            <span className="font-bold tracking-widest text-xs uppercase">Volver al Inicio</span>
           </Link>
-          <div className="h-10 relative">
-            <img src="/logo.png" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-md" />
+          
+          <div className="hidden lg:flex items-center gap-8">
+            <Link href="/" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">Inicio</Link>
+            <Link href="/productos" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">Catálogo</Link>
+            <Link href="/about" className="text-white font-bold transition-colors tracking-widest text-xs uppercase drop-shadow-md border-b-2 border-primary pb-1">Nosotros</Link>
+            <a href="/#contacto" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">Contacto</a>
           </div>
+
+          <Link href="/" className="lg:hidden flex items-center gap-2 text-white hover:text-primary transition-colors group">
+            <div className="bg-white/10 backdrop-blur-md p-2 rounded-full border border-white/10">
+              <ArrowLeft className="w-3 h-3" />
+            </div>
+            <span className="font-bold tracking-[0.2em] text-[10px] uppercase">Volver</span>
+          </Link>
         </div>
       </nav>
 

@@ -21,34 +21,61 @@ const contactInfo = {
 const translations = {
   es: {
     nav: { home: "Inicio", products: "Productos", about: "Acerca de", contact: "Contacto", lang: "🇪🇸 Español" },
-    hero: { title: "Montano Antilia", subtitle: '"El sabor que conquista"', btn: "Explora Nuestro Catálogo" },
+    hero: { badge: "Fábrica de Embutidos", title: "Montano Antilia", subtitle: '"El sabor que conquista"', btn: "Explora Nuestro Catálogo" },
     products: { title: "Nuestros Productos", btn: "Explora Nuestros Productos", items: ["Jamón Cocido 500gr", "Jamón Cocido 3,8 Kgs", "Jamón Cocido 6 Kgs"], shape1: "cilindro", shape2: "bloque rectangular", shape3: "forma tradicional" },
     social: { title: "¡Síguenos en Redes Sociales!", sub: "Descubre recetas, novedades y mucho más." },
     about: { title: "Nosotros", text1: "Somos una empresa familiar con sólida trayectoria en la ", text2: "elaboración de embutidos y productos alimenticios de alta calidad", text3: ". Fundada por el empresario Álvaro Cozzo T., nuestra misión es ofrecer alimentos que destaquen por su ", text4: "sabor auténtico, calidad superior y amplia variedad", text5: ", llevando a cada mesa el verdadero sabor que conquista.", btn: "Saber Más" },
-    contact: { title: "Atención y Ventas", name: "Nombre completo", email: "Correo electrónico", msg: "Mensaje", send: "Enviar Mensaje", map: "Visítanos en nuestra sede" },
+    contact: { badge: "Soporte y Ventas", title: "Atención y Ventas", desc: "Estamos aquí para atender tus pedidos y resolver cualquier inquietud. Comunícate con nuestros asesores para recibir atención personalizada.", emailLabel: "Correo Electrónico", waLabel: "WhatsApp Ventas", mapLabel: "Sede Principal", mapAddress: "Av. Bolívar Oeste N° 314<br/>Carabobo, Venezuela", formTitle: "Envíanos un mensaje", name: "Tu Nombre", namePlaceholder: "Ej: Carlos Pérez", email: "Tu Correo Electrónico", emailPlaceholder: "correo@empresa.com", msg: "Tu Mensaje", msgPlaceholder: "¿En qué podemos ayudarte?", send: "Enviar Mensaje", map: "Visítanos en nuestra sede" },
     footer: "Derechos de autor © 2026 Montano Antilia. Todos los derechos reservados."
   },
   en: {
     nav: { home: "Home", products: "Products", about: "About Us", contact: "Contact", lang: "🇺🇸 English" },
-    hero: { title: "Montano Antilia", subtitle: '"The flavor that conquers"', btn: "Explore Our Catalog" },
+    hero: { badge: "Sausage Factory", title: "Montano Antilia", subtitle: '"The flavor that conquers"', btn: "Explore Our Catalog" },
     products: { title: "Our Products", btn: "Explore Our Products", items: ["Cooked Ham 500g", "Cooked Ham 3.8 Kg", "Cooked Ham 6 Kg"], shape1: "cylinder", shape2: "rectangular block", shape3: "traditional shape" },
     social: { title: "Follow us on Social Media!", sub: "Discover recipes, news and much more." },
     about: { title: "About Us", text1: "We are a family business with a solid track record in the ", text2: "production of high quality cold cuts and food products", text3: ". Founded by entrepreneur Álvaro Cozzo T., our mission is to offer foods that stand out for their ", text4: "authentic flavor, superior quality and wide variety", text5: ", bringing to every table the true flavor that conquers.", btn: "Learn More" },
-    contact: { title: "Sales & Support", name: "Full Name", email: "Email Address", msg: "Message", send: "Send Message", map: "Visit our headquarters" },
+    contact: { badge: "Support & Sales", title: "Sales & Support", desc: "We are here to take your orders and resolve any concerns. Contact our advisors for personalized attention.", emailLabel: "Email Address", waLabel: "WhatsApp Sales", mapLabel: "Headquarters", mapAddress: "314 West Bolivar Ave<br/>Carabobo, Venezuela", formTitle: "Send us a message", name: "Your Name", namePlaceholder: "E.g. John Doe", email: "Your Email", emailPlaceholder: "email@company.com", msg: "Your Message", msgPlaceholder: "How can we help you?", send: "Send Message", map: "Visit our headquarters" },
     footer: "Copyright © 2026 Montano Antilia. All rights reserved."
   },
   it: {
     nav: { home: "Inizio", products: "Prodotti", about: "Chi Siamo", contact: "Contatto", lang: "🇮🇹 Italiano" },
-    hero: { title: "Montano Antilia", subtitle: '"Il sapore che conquista"', btn: "Esplora il Nostro Catalogo" },
+    hero: { badge: "Fabbrica di Salumi", title: "Montano Antilia", subtitle: '"Il sapore che conquista"', btn: "Esplora il Nostro Catalogo" },
     products: { title: "I Nostri Prodotti", btn: "Esplora i Nostri Prodotti", items: ["Prosciutto Cotto 500g", "Prosciutto Cotto 3,8 Kg", "Prosciutto Cotto 6 Kg"], shape1: "cilindro", shape2: "blocco rettangolare", shape3: "forma tradizionale" },
     social: { title: "Seguici sui Social Media!", sub: "Scopri ricette, novità e molto altro." },
     about: { title: "Chi Siamo", text1: "Siamo un'azienda familiare con una solida esperienza nella ", text2: "produzione di salumi e prodotti alimentari di alta qualità", text3: ". Fondata dall'imprenditore Álvaro Cozzo T., la nostra missione è offrire cibi che si distinguono per il loro ", text4: "sapore autentico, qualità superiore e grande varietà", text5: ", portando su ogni tavola il vero sapore che conquista.", btn: "Scopri di Più" },
-    contact: { title: "Assistenza e Vendite", name: "Nome completo", email: "Indirizzo Email", msg: "Messaggio", send: "Invia Messaggio", map: "Vieni a trovarci" },
+    contact: { badge: "Supporto e Vendite", title: "Vendite e Assistenza", desc: "Siamo qui per gestire i tuoi ordini e risolvere ogni dubbio. Contatta i nostri consulenti per un'attenzione personalizzata.", emailLabel: "Indirizzo Email", waLabel: "WhatsApp Vendite", mapLabel: "Sede Principale", mapAddress: "Viale Bolívar Ovest N° 314<br/>Carabobo, Venezuela", formTitle: "Inviaci un messaggio", name: "Il Tuo Nome", namePlaceholder: "Es: Mario Rossi", email: "La Tua Email", emailPlaceholder: "email@azienda.com", msg: "Il Tuo Messaggio", msgPlaceholder: "Come possiamo aiutarti?", send: "Invia Messaggio", map: "Vieni a trovarci" },
     footer: "Copyright © 2026 Montano Antilia. Tutti i diritti riservati."
+  },
+  pt: {
+    nav: { home: "Início", products: "Produtos", about: "Sobre Nós", contact: "Contato", lang: "🇵🇹 Português" },
+    hero: { badge: "Fábrica de Embutidos", title: "Montano Antilia", subtitle: '"O sabor que conquista"', btn: "Explore Nosso Catálogo" },
+    products: { title: "Nossos Produtos", btn: "Explore Nossos Produtos", items: ["Presunto Cozido 500g", "Presunto Cozido 3,8 Kg", "Presunto Cozido 6 Kg"], shape1: "cilindro", shape2: "bloco retangular", shape3: "forma tradicional" },
+    social: { title: "Siga-nos nas Redes Sociais!", sub: "Descubra receitas, novidades e muito mais." },
+    about: { title: "Sobre Nós", text1: "Somos uma empresa familiar com sólida experiência na ", text2: "produção de embutidos e produtos alimentícios de alta qualidade", text3: ". Fundada pelo empresário Álvaro Cozzo T., nossa missão é oferecer alimentos que se destaquem por seu ", text4: "sabor autêntico, qualidade superior e grande variedade", text5: ", levando a cada mesa o verdadeiro sabor que conquista.", btn: "Saber Mais" },
+    contact: { badge: "Suporte e Vendas", title: "Vendas e Atendimento", desc: "Estamos aqui para atender seus pedidos e esclarecer qualquer dúvida. Entre em contato com nossos consultores para um atendimento personalizado.", emailLabel: "Correio Eletrônico", waLabel: "WhatsApp Vendas", mapLabel: "Sede Principal", mapAddress: "Av. Bolívar Oeste N° 314<br/>Carabobo, Venezuela", formTitle: "Envie-nos uma mensagem", name: "Seu Nome", namePlaceholder: "Ex: João Silva", email: "Seu E-mail", emailPlaceholder: "email@empresa.com", msg: "Sua Mensagem", msgPlaceholder: "Como podemos ajudar?", send: "Enviar Mensagem", map: "Visite-nos em nossa sede" },
+    footer: "Direitos autorais © 2026 Montano Antilia. Todos os direitos reservados."
+  },
+  fr: {
+    nav: { home: "Accueil", products: "Produits", about: "À Propos", contact: "Contact", lang: "🇫🇷 Français" },
+    hero: { badge: "Fabrique de Charcuterie", title: "Montano Antilia", subtitle: '"La saveur qui conquiert"', btn: "Explorez Notre Catalogue" },
+    products: { title: "Nos Produits", btn: "Explorez Nos Produits", items: ["Jambon Cuit 500g", "Jambon Cuit 3,8 Kg", "Jambon Cuit 6 Kg"], shape1: "cylindre", shape2: "bloc rectangulaire", shape3: "forme traditionnelle" },
+    social: { title: "Suivez-nous sur les Réseaux Sociaux!", sub: "Découvrez des recettes, des nouveautés et bien plus encore." },
+    about: { title: "À Propos", text1: "Nous sommes une entreprise familiale avec une solide expérience dans la ", text2: "production de charcuterie et de produits alimentaires de haute qualité", text3: ". Fondée par l'entrepreneur Álvaro Cozzo T., notre mission est d'offrir des aliments qui se distinguent par leur ", text4: "saveur authentique, qualité supérieure et grande variété", text5: ", apportant à chaque table la véritable saveur qui conquiert.", btn: "En Savoir Plus" },
+    contact: { badge: "Support et Ventes", title: "Ventes et Assistance", desc: "Nous sommes là pour prendre vos commandes et répondre à vos questions. Contactez nos conseillers pour une attention personnalisée.", emailLabel: "Adresse E-mail", waLabel: "Ventes WhatsApp", mapLabel: "Siège Social", mapAddress: "Av. Bolívar Ouest N° 314<br/>Carabobo, Venezuela", formTitle: "Envoyez-nous un message", name: "Votre Nom", namePlaceholder: "Ex: Jean Dupont", email: "Votre E-mail", emailPlaceholder: "email@entreprise.com", msg: "Votre Message", msgPlaceholder: "Comment pouvons-nous vous aider ?", send: "Envoyer le Message", map: "Visitez notre siège" },
+    footer: "Droits d'auteur © 2026 Montano Antilia. Tous droits réservés."
+  },
+  de: {
+    nav: { home: "Startseite", products: "Produkte", about: "Über Uns", contact: "Kontakt", lang: "🇩🇪 Deutsch" },
+    hero: { badge: "Wurstfabrik", title: "Montano Antilia", subtitle: '"Der Geschmack, der erobert"', btn: "Entdecken Sie unseren Katalog" },
+    products: { title: "Unsere Produkte", btn: "Entdecken Sie unsere Produkte", items: ["Kochschinken 500g", "Kochschinken 3,8 Kg", "Kochschinken 6 Kg"], shape1: "Zylinder", shape2: "rechteckiger Block", shape3: "traditionelle Form" },
+    social: { title: "Folgen Sie uns auf Social Media!", sub: "Entdecken Sie Rezepte, Neuigkeiten und vieles mehr." },
+    about: { title: "Über Uns", text1: "Wir sind ein Familienunternehmen mit langjähriger Erfahrung in der ", text2: "Herstellung von hochwertigen Wurstwaren und Lebensmitteln", text3: ". Gegründet vom Unternehmer Álvaro Cozzo T., ist es unsere Mission, Lebensmittel anzubieten, die sich durch ", text4: "authentischen Geschmack, hervorragende Qualität und große Vielfalt", text5: " auszeichnen und den wahren Geschmack, der erobert, auf jeden Tisch bringen.", btn: "Mehr Erfahren" },
+    contact: { badge: "Support & Vertrieb", title: "Vertrieb & Kundendienst", desc: "Wir sind hier, um Ihre Bestellungen entgegenzunehmen und Fragen zu klären. Kontaktieren Sie unsere Berater für eine persönliche Betreuung.", emailLabel: "E-Mail-Adresse", waLabel: "WhatsApp Vertrieb", mapLabel: "Hauptsitz", mapAddress: "Bolívar Westallee N° 314<br/>Carabobo, Venezuela", formTitle: "Senden Sie uns eine Nachricht", name: "Ihr Name", namePlaceholder: "Z.B. Max Mustermann", email: "Ihre E-Mail-Adresse", emailPlaceholder: "email@unternehmen.com", msg: "Ihre Nachricht", msgPlaceholder: "Wie können wir Ihnen helfen?", send: "Nachricht Senden", map: "Besuchen Sie unseren Hauptsitz" },
+    footer: "Urheberrecht © 2026 Montano Antilia. Alle Rechte vorbehalten."
   }
 };
 
-type Language = "es" | "en" | "it";
+type Language = "es" | "en" | "it" | "pt" | "fr" | "de";
 
 export default function HomeClient({ settings, featuredProducts = [] }: { settings: Record<string, string>, featuredProducts?: any[] }) {
   const heroVideoUrl = settings.hero_video_url || "/hero-video.mp4";
@@ -130,10 +157,10 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
               </button>
               
               {langMenuOpen && (
-                <div className="absolute top-full mt-4 right-0 w-32 bg-[#111] backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden flex flex-col py-2 border border-white/5 animate-fade-in-up">
-                  {['es', 'en', 'it'].map((l) => (
-                    <button key={l} onClick={() => { setLang(l as Language); setLangMenuOpen(false); }} className={`px-4 py-2.5 text-xs text-left transition-colors flex items-center gap-2 ${lang === l ? 'text-primary bg-white/5' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
-                      {l === 'es' ? '🇪🇸 Español' : l === 'en' ? '🇺🇸 English' : '🇮🇹 Italiano'}
+                <div className="absolute top-full mt-4 right-0 w-36 bg-[#111] backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden flex flex-col py-2 border border-white/5 animate-fade-in-up">
+                  {(['es', 'en', 'it', 'pt', 'fr', 'de'] as Language[]).map((l) => (
+                    <button key={l} onClick={() => { setLang(l); setLangMenuOpen(false); }} className={`px-4 py-2.5 text-xs text-left transition-colors flex items-center gap-2 ${lang === l ? 'text-primary bg-white/5' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
+                      {translations[l].nav.lang}
                     </button>
                   ))}
                 </div>
@@ -160,10 +187,10 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
           <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.contact}</a>
           
           <div className="h-px w-full bg-white/10 my-4"></div>
-          <div className="flex gap-6">
-            <button onClick={() => { setLang("es"); setMobileMenuOpen(false); }} className={`text-sm font-bold ${lang === 'es' ? 'text-primary' : 'text-gray-500'}`}>ES</button>
-            <button onClick={() => { setLang("en"); setMobileMenuOpen(false); }} className={`text-sm font-bold ${lang === 'en' ? 'text-primary' : 'text-gray-500'}`}>EN</button>
-            <button onClick={() => { setLang("it"); setMobileMenuOpen(false); }} className={`text-sm font-bold ${lang === 'it' ? 'text-primary' : 'text-gray-500'}`}>IT</button>
+          <div className="flex gap-4 flex-wrap">
+            {(['es', 'en', 'it', 'pt', 'fr', 'de'] as Language[]).map((l) => (
+              <button key={l} onClick={() => { setLang(l); setMobileMenuOpen(false); }} className={`text-sm font-bold uppercase ${lang === l ? 'text-primary' : 'text-gray-500'}`}>{l}</button>
+            ))}
           </div>
         </div>
       </div>
@@ -180,7 +207,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
 
           <div className="relative z-10 px-6 w-full max-w-5xl mx-auto flex flex-col items-center mt-12">
             <p className={`text-primary font-bold tracking-[0.4em] text-xs md:text-sm uppercase mb-6 transition-all duration-1000 delay-100 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-              Fábrica de Embutidos
+              {t.hero.badge}
             </p>
             <h1 className={`heading font-extrabold text-6xl md:text-8xl lg:text-[10rem] text-white tracking-tighter leading-none mb-6 drop-shadow-2xl transition-all duration-1000 delay-300 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               MONTANO
@@ -336,10 +363,10 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
               
               <div className="w-full lg:w-5/12">
-                <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Soporte y Ventas</span>
+                <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs mb-4 block">{t.contact.badge}</span>
                 <h2 className="heading text-5xl font-extrabold text-white mb-8">{t.contact.title}</h2>
                 <p className="text-gray-400 font-light leading-relaxed mb-12">
-                  Estamos aquí para atender tus pedidos y resolver cualquier inquietud. Comunícate con nuestros asesores para recibir atención personalizada.
+                  {t.contact.desc}
                 </p>
 
                 <div className="space-y-8">
@@ -348,7 +375,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                       <Mail className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Correo Electrónico</p>
+                      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">{t.contact.emailLabel}</p>
                       <p className="text-white text-lg font-medium group-hover:text-primary transition-colors break-all">{contactInfo.email}</p>
                     </div>
                   </a>
@@ -358,7 +385,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                       <Phone className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">WhatsApp Ventas</p>
+                      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">{t.contact.waLabel}</p>
                       <p className="text-white text-lg font-medium group-hover:text-[#25D366] transition-colors">{contactInfo.whatsappDisplay}</p>
                     </div>
                   </a>
@@ -368,8 +395,8 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                       <MapPin className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Sede Principal</p>
-                      <p className="text-white text-lg font-medium group-hover:text-gray-300 transition-colors">Av. Bolívar Oeste N° 314<br/>Carabobo, Venezuela</p>
+                      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">{t.contact.mapLabel}</p>
+                      <p className="text-white text-lg font-medium group-hover:text-gray-300 transition-colors" dangerouslySetInnerHTML={{ __html: t.contact.mapAddress }}></p>
                     </div>
                   </a>
                 </div>
@@ -379,41 +406,41 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                 <div className="bg-[#111] p-10 lg:p-16 rounded-[2rem] border border-white/5 shadow-2xl relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2"></div>
                   
-                  <h3 className="heading text-2xl font-bold text-white mb-10">Envíanos un mensaje</h3>
+                  <h3 className="heading text-2xl font-bold text-white mb-10">{t.contact.formTitle}</h3>
                   
                   <form className="space-y-8" onSubmit={handleContactSubmit}>
                     <div>
-                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Tu Nombre</label>
+                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">{t.contact.name}</label>
                       <input 
                         type="text" 
                         required
                         value={contactForm.name}
                         onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
                         className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm" 
-                        placeholder="Ej: Carlos Pérez" 
+                        placeholder={t.contact.namePlaceholder} 
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Tu Correo Electrónico</label>
+                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">{t.contact.email}</label>
                       <input 
                         type="email" 
                         value={contactForm.email}
                         onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
                         className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm" 
-                        placeholder="correo@empresa.com" 
+                        placeholder={t.contact.emailPlaceholder} 
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Tu Mensaje</label>
+                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">{t.contact.msg}</label>
                       <textarea 
                         rows={4} 
                         required
                         value={contactForm.message}
                         onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
                         className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none text-sm" 
-                        placeholder="¿En qué podemos ayudarte?"
+                        placeholder={t.contact.msgPlaceholder}
                       ></textarea>
                     </div>
                     

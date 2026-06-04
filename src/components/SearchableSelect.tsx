@@ -69,15 +69,15 @@ export default function SearchableSelect({ options, value, onChange, placeholder
               filteredOptions.map(opt => (
                 <div 
                   key={opt.value}
-                  className={`px-3 py-2 text-xs rounded-lg cursor-pointer flex items-center justify-between ${opt.value === value ? 'bg-primary/10 text-primary font-bold' : 'hover:bg-gray-50 text-gray-700'}`}
+                  className={`px-3 py-2 text-xs rounded-lg cursor-pointer flex items-start justify-between ${opt.value === value ? 'bg-primary/10 text-primary font-bold' : 'hover:bg-gray-50 text-gray-700'}`}
                   onClick={() => {
                     onChange(opt.value);
                     setIsOpen(false);
                     setSearchTerm("");
                   }}
                 >
-                  <span className="truncate pr-4">{opt.label}</span>
-                  {opt.value === value && <Check className="w-4 h-4 flex-shrink-0" />}
+                  <span className="pr-4 leading-relaxed">{opt.label}</span>
+                  {opt.value === value && <Check className="w-4 h-4 flex-shrink-0 mt-0.5" />}
                 </div>
               ))
             )}

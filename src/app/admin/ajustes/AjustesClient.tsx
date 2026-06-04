@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { saveSetting } from "@/lib/actions";
-import { CldUploadWidget } from "next-cloudinary";
 import { toast } from "react-hot-toast";
 import SearchableSelect from "@/components/SearchableSelect";
+import MediaSelector from "@/components/MediaSelector";
 
 export default function AjustesClient({ settings, products = [] }: { settings: Record<string, string>, products?: any[] }) {
   const [heroVideoUrl, setHeroVideoUrl] = useState(settings.hero_video_url || "/hero-video.mp4");
@@ -14,6 +14,7 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
   const [fp3, setFp3] = useState(settings.featured_product_3 || "");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectorOpen, setSelectorOpen] = useState<{isOpen: boolean, key: string | null}>({isOpen: false, key: null});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,8 +33,12 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
     }
   };
 
-  const handleUpload = async (key: string, result: any) => {
-    const url = result.info.secure_url;
+  const handleUpload = async (key: string, url: string) => {
+    if (key === "hero_video_url_temp") {
+      setHeroVideoUrl(url);
+      return;
+    }
+    
     try {
       await saveSetting(key, url);
       toast.success("Medio guardado correctamente");
@@ -62,150 +67,152 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 max-w-3xl">
-      <h2 className="text-xl font-bold text-black mb-6">Configuración de la Portada y Nosotros</h2>
-      
-      <div className="mb-8 bg-gray-50 p-6 rounded-xl border border-gray-100">
-        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">URL del Video de Fondo (Inicio)</label>
-        <div className="flex items-center gap-4">
-          {renderPreview(heroVideoUrl)}
-          <input type="text" value={heroVideoUrl} onChange={(e) => setHeroVideoUrl(e.target.value)} className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
-          <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "video" }} onSuccess={(res) => setHeroVideoUrl((res as any).info.secure_url)}>
-            {({ open }) => <button type="button" onClick={() => open()} className="bg-black text-white px-4 py-3 rounded-xl font-bold text-sm hover:bg-gray-800 transition-colors whitespace-nowrap shadow-md">Subir Video</button>}
-          </CldUploadWidget>
-        </div>
-      </div>
-
-      <div className="mb-8 border-t border-gray-100 pt-8">
-        <h3 className="text-lg font-bold text-black mb-6">Sección "Acerca De" (Página Inicio y Nosotros)</h3>
+    <>
+      <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 max-w-3xl">
+        <h2 className="text-xl font-bold text-black mb-6">Configuración de la Portada y Nosotros</h2>
         
-        <div className="mb-6 flex items-center gap-6">
-          {renderPreview(settings.about_img)}
-          <div className="flex-1">
-            <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Foto Preview (Inicio) - Fábrica o Familia</label>
-            <input type="text" value={settings.about_img || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
-          </div>
-          <div className="flex gap-2">
-            {settings.about_img && (
-              <button type="button" onClick={() => handleDelete("about_img")} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-100 transition-colors">Eliminar</button>
-            )}
-            <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_img", res)}>
-              {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
-            </CldUploadWidget>
+        <div className="mb-8 bg-gray-50 p-6 rounded-xl border border-gray-100">
+          <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">URL del Video de Fondo (Inicio)</label>
+          <div className="flex items-center gap-4">
+            {renderPreview(heroVideoUrl)}
+            <input type="text" value={heroVideoUrl} onChange={(e) => setHeroVideoUrl(e.target.value)} className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+            <button type="button" onClick={() => setSelectorOpen({isOpen: true, key: 'hero_video_url_temp'})} className="bg-black text-white px-4 py-3 rounded-xl font-bold text-sm hover:bg-gray-800 transition-colors whitespace-nowrap shadow-md">Seleccionar Video</button>
           </div>
         </div>
 
-        <div className="mb-6 flex items-center gap-6">
-          {renderPreview(settings.about_hero_img)}
-          <div className="flex-1">
-            <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Banner Superior (Página Nosotros)</label>
-            <input type="text" value={settings.about_hero_img || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
-          </div>
-          <div className="flex gap-2">
-            {settings.about_hero_img && (
-              <button type="button" onClick={() => handleDelete("about_hero_img")} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-100 transition-colors">Eliminar</button>
-            )}
-            <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_hero_img", res)}>
-              {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
-            </CldUploadWidget>
-          </div>
-        </div>
-
-        <div className="mb-6 flex items-center gap-6">
-          {renderPreview(settings.about_page_img)}
-          <div className="flex-1">
-            <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Foto Interior (Página Nosotros)</label>
-            <input type="text" value={settings.about_page_img || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
-          </div>
-          <div className="flex gap-2">
-            {settings.about_page_img && (
-              <button type="button" onClick={() => handleDelete("about_page_img")} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-100 transition-colors">Eliminar</button>
-            )}
-            <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_page_img", res)}>
-              {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
-            </CldUploadWidget>
-          </div>
-        </div>
-      </div>
-
-      <div className="mb-8 border-t border-gray-100 pt-8">
-        <h3 className="text-lg font-bold text-black mb-6">Productos Destacados (Inicio)</h3>
-        <p className="text-xs text-gray-500 mb-6">Selecciona los 3 productos que quieres mostrar en la portada. (Deja en Automático para mostrar los últimos 3 subidos).</p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { label: "Producto 1", value: fp1, setter: setFp1 },
-            { label: "Producto 2", value: fp2, setter: setFp2 },
-            { label: "Producto 3", value: fp3, setter: setFp3 },
-          ].map((item, idx) => {
-            const selectedProduct = products.find(p => p.id.toString() === item.value);
-            return (
-              <div key={idx} className="bg-gray-50 border border-gray-100 p-4 rounded-2xl flex flex-col gap-3">
-                <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest">{item.label}</label>
-                
-                {/* Preview del Producto Seleccionado */}
-                <div className="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
-                  {selectedProduct?.image_url ? (
-                    <img src={selectedProduct.image_url} className="w-12 h-12 object-contain bg-gray-50 rounded-lg border border-gray-100" alt="Preview" />
-                  ) : (
-                    <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-[10px] text-gray-400 font-bold border border-gray-200">
-                      {item.value ? "SIN FOTO" : "AUTO"}
-                    </div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-bold text-black truncate">{selectedProduct ? selectedProduct.name : "Automático"}</p>
-                    <p className="text-[10px] text-gray-400 truncate">{selectedProduct ? `${selectedProduct.tag || ''} - ${selectedProduct.brand}` : "Último agregado"}</p>
-                  </div>
-                </div>
-
-                <SearchableSelect 
-                  value={item.value} 
-                  onChange={item.setter} 
-                  options={[
-                    { value: "", label: "Automático (Los más recientes)" },
-                    ...products.map(p => ({
-                      value: p.id.toString(),
-                      label: `${p.name} ${p.tag ? `(${p.tag})` : ''} - ${p.brand}`
-                    }))
-                  ]}
-                />
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="mb-8 border-t border-gray-100 pt-8">
-        <h3 className="text-lg font-bold text-black mb-6">Medios Preview del Catálogo (Inicio)</h3>
-        
-        {[1, 2, 3, 4].map(i => (
-          <div key={i} className="mb-6 flex items-center gap-6">
-            {renderPreview(settings[`gallery_img_${i}`])}
+        <div className="mb-8 border-t border-gray-100 pt-8">
+          <h3 className="text-lg font-bold text-black mb-6">Sección "Acerca De" (Página Inicio y Nosotros)</h3>
+          
+          <div className="mb-6 flex items-center gap-6">
+            {renderPreview(settings.about_img)}
             <div className="flex-1">
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Medio Galería {i}</label>
-              <input type="text" value={settings[`gallery_img_${i}`] || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
+              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Foto Preview (Inicio) - Fábrica o Familia</label>
+              <input type="text" value={settings.about_img || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
             </div>
             <div className="flex gap-2">
-              {settings[`gallery_img_${i}`] && (
-                <button type="button" onClick={() => handleDelete(`gallery_img_${i}`)} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-100 transition-colors">Eliminar</button>
+              {settings.about_img && (
+                <button type="button" onClick={() => handleDelete("about_img")} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-100 transition-colors">Eliminar</button>
               )}
-              <CldUploadWidget options={{ resourceType: "auto" }} uploadPreset="ml_default" onSuccess={(res) => handleUpload(`gallery_img_${i}`, res)}>
-                {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
-              </CldUploadWidget>
+              <button type="button" onClick={() => setSelectorOpen({isOpen: true, key: 'about_img'})} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>
             </div>
           </div>
-        ))}
-      </div>
 
-      <div className="border-t border-gray-100 pt-6 flex justify-end">
-        <button 
-          type="submit" 
-          disabled={isSubmitting}
-          className="bg-black text-white px-8 py-3 rounded-xl font-bold text-sm tracking-widest uppercase hover:bg-primary transition-colors shadow-lg"
-        >
-          {isSubmitting ? 'Guardando...' : 'Guardar Ajustes'}
-        </button>
-      </div>
-    </form>
+          <div className="mb-6 flex items-center gap-6">
+            {renderPreview(settings.about_hero_img)}
+            <div className="flex-1">
+              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Banner Superior (Página Nosotros)</label>
+              <input type="text" value={settings.about_hero_img || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
+            </div>
+            <div className="flex gap-2">
+              {settings.about_hero_img && (
+                <button type="button" onClick={() => handleDelete("about_hero_img")} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-100 transition-colors">Eliminar</button>
+              )}
+              <button type="button" onClick={() => setSelectorOpen({isOpen: true, key: 'about_hero_img'})} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>
+            </div>
+          </div>
+
+          <div className="mb-6 flex items-center gap-6">
+            {renderPreview(settings.about_page_img)}
+            <div className="flex-1">
+              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Foto Interior (Página Nosotros)</label>
+              <input type="text" value={settings.about_page_img || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
+            </div>
+            <div className="flex gap-2">
+              {settings.about_page_img && (
+                <button type="button" onClick={() => handleDelete("about_page_img")} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-100 transition-colors">Eliminar</button>
+              )}
+              <button type="button" onClick={() => setSelectorOpen({isOpen: true, key: 'about_page_img'})} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-8 border-t border-gray-100 pt-8">
+          <h3 className="text-lg font-bold text-black mb-6">Productos Destacados (Inicio)</h3>
+          <p className="text-xs text-gray-500 mb-6">Selecciona los 3 productos que quieres mostrar en la portada. (Deja en Automático para mostrar los últimos 3 subidos).</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { label: "Producto 1", value: fp1, setter: setFp1 },
+              { label: "Producto 2", value: fp2, setter: setFp2 },
+              { label: "Producto 3", value: fp3, setter: setFp3 },
+            ].map((item, idx) => {
+              const selectedProduct = products.find(p => p.id.toString() === item.value);
+              return (
+                <div key={idx} className="bg-gray-50 border border-gray-100 p-4 rounded-2xl flex flex-col gap-3">
+                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest">{item.label}</label>
+                  
+                  {/* Preview del Producto Seleccionado */}
+                  <div className="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                    {selectedProduct?.image_url ? (
+                      <img src={selectedProduct.image_url} className="w-12 h-12 object-contain bg-gray-50 rounded-lg border border-gray-100" alt="Preview" />
+                    ) : (
+                      <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-[10px] text-gray-400 font-bold border border-gray-200">
+                        {item.value ? "SIN FOTO" : "AUTO"}
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-bold text-black truncate">{selectedProduct ? selectedProduct.name : "Automático"}</p>
+                      <p className="text-[10px] text-gray-400 truncate">{selectedProduct ? `${selectedProduct.tag || ''} - ${selectedProduct.brand}` : "Último agregado"}</p>
+                    </div>
+                  </div>
+
+                  <SearchableSelect 
+                    value={item.value} 
+                    onChange={item.setter} 
+                    options={[
+                      { value: "", label: "Automático (Los más recientes)" },
+                      ...products.map(p => ({
+                        value: p.id.toString(),
+                        label: `${p.name} ${p.tag ? `(${p.tag})` : ''} - ${p.brand}`
+                      }))
+                    ]}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mb-8 border-t border-gray-100 pt-8">
+          <h3 className="text-lg font-bold text-black mb-6">Medios Preview del Catálogo (Inicio)</h3>
+          
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="mb-6 flex items-center gap-6">
+              {renderPreview(settings[`gallery_img_${i}`])}
+              <div className="flex-1">
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Medio Galería {i}</label>
+                <input type="text" value={settings[`gallery_img_${i}`] || ""} readOnly className="w-full bg-transparent border-0 text-sm text-gray-400 p-0 focus:ring-0 truncate" />
+              </div>
+              <div className="flex gap-2">
+                {settings[`gallery_img_${i}`] && (
+                  <button type="button" onClick={() => handleDelete(`gallery_img_${i}`)} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-100 transition-colors">Eliminar</button>
+                )}
+                <button type="button" onClick={() => setSelectorOpen({isOpen: true, key: `gallery_img_${i}`})} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="border-t border-gray-100 pt-6 flex justify-end">
+          <button 
+            type="submit" 
+            disabled={isSubmitting}
+            className="bg-black text-white px-8 py-3 rounded-xl font-bold text-sm tracking-widest uppercase hover:bg-primary transition-colors shadow-lg"
+          >
+            {isSubmitting ? 'Guardando...' : 'Guardar Ajustes'}
+          </button>
+        </div>
+      </form>
+
+      <MediaSelector 
+        isOpen={selectorOpen.isOpen} 
+        onClose={() => setSelectorOpen({isOpen: false, key: null})} 
+        onSelect={(url) => {
+          if (selectorOpen.key) {
+            handleUpload(selectorOpen.key, url);
+          }
+        }} 
+      />
+    </>
   );
 }

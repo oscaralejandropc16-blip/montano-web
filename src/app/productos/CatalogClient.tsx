@@ -190,8 +190,8 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
                         {prod.tag}
                       </p>
                       {brandObj && brandObj.logo_url && (
-                        <div className="h-12 w-auto flex items-center justify-center">
-                          <img src={brandObj.logo_url} alt={brandObj.name} className="h-full w-auto object-contain drop-shadow-sm transition-transform group-hover:scale-105" />
+                        <div className="h-8 w-20 flex items-center justify-end">
+                          <img src={brandObj.logo_url} alt={brandObj.name} className="h-full w-full object-contain object-right drop-shadow-sm transition-transform group-hover:scale-105" />
                         </div>
                       )}
                     </div>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, Search, Filter, ChevronDown, Check } from "lucide-react";
+import { ArrowLeft, Search, Filter, ChevronDown, Check, Globe } from "lucide-react";
 import Footer from "@/components/Footer";
 import { getOptimizedUrl } from "@/lib/optimizeUrl";
 import { translations, Language } from "@/lib/translations";

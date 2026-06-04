@@ -4,6 +4,7 @@ import { useState } from "react";
 import { saveSetting } from "@/lib/actions";
 import { CldUploadWidget } from "next-cloudinary";
 import { toast } from "react-hot-toast";
+import SearchableSelect from "@/components/SearchableSelect";
 
 export default function AjustesClient({ settings, products = [] }: { settings: Record<string, string>, products?: any[] }) {
   const [heroVideoUrl, setHeroVideoUrl] = useState(settings.hero_video_url || "/hero-video.mp4");
@@ -157,18 +158,17 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
                   </div>
                 </div>
 
-                <select 
+                <SearchableSelect 
                   value={item.value} 
-                  onChange={e => item.setter(e.target.value)} 
-                  className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-medium text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary truncate cursor-pointer shadow-sm"
-                >
-                  <option value="">Automático (Los más recientes)</option>
-                  {products.map(p => (
-                    <option key={p.id} value={p.id.toString()}>
-                      {p.name} {p.tag ? `(${p.tag})` : ''} - {p.brand}
-                    </option>
-                  ))}
-                </select>
+                  onChange={item.setter} 
+                  options={[
+                    { value: "", label: "Automático (Los más recientes)" },
+                    ...products.map(p => ({
+                      value: p.id.toString(),
+                      label: `${p.name} ${p.tag ? `(${p.tag})` : ''} - ${p.brand}`
+                    }))
+                  ]}
+                />
               </div>
             );
           })}

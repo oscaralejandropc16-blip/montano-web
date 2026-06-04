@@ -253,6 +253,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                   </div>
                 </div>
                 <h3 className="heading font-bold text-2xl text-center text-black group-hover:text-primary transition-colors tracking-tight">{prod.name}</h3>
+                {prod.tag && <p className="text-center text-gray-500 font-medium text-sm mt-1">{prod.tag}</p>}
               </Link>
             ))}
           </div>

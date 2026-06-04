@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MapPin, Mail, Phone, ChevronDown, Check, Globe } from "lucide-react";
 import Footer from "@/components/Footer";
 import { getOptimizedUrl } from "@/lib/optimizeUrl";
+import { saveContactMessage } from "@/lib/actions";
 
 // --- DATOS DE CONTACTO ---
 const contactInfo = {
@@ -89,6 +90,8 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
 
   // Estado para el formulario de contacto
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   useEffect(() => {
     setLoaded(true);
@@ -103,15 +106,26 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!contactForm.name || !contactForm.message) return;
     
-    // Formatear mensaje para WhatsApp
-    const text = `*¡Hola Montano Antilia!*%0A%0ATengo una consulta desde la página web:%0A%0A👤 *Nombre:* ${contactForm.name}%0A📧 *Correo:* ${contactForm.email || 'No proporcionado'}%0A💬 *Mensaje:* ${contactForm.message}`;
-    
-    // Abrir WhatsApp en una nueva pestaña
-    window.open(`https://wa.me/${contactInfo.whatsappRaw}?text=${text}`, '_blank');
+    setIsSubmitting(true);
+    try {
+      await saveContactMessage({
+        nombre: contactForm.name,
+        email: contactForm.email || 'No proporcionado',
+        mensaje: contactForm.message
+      });
+      setSubmitSuccess(true);
+      setContactForm({ name: '', email: '', message: '' });
+      setTimeout(() => setSubmitSuccess(false), 5000);
+    } catch (error) {
+      console.error("Error al enviar mensaje:", error);
+      alert("Hubo un error al enviar el mensaje. Inténtalo de nuevo.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const t = translations[lang];
@@ -444,9 +458,19 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                       ></textarea>
                     </div>
                     
-                    <button type="submit" className="w-full bg-white text-black px-8 py-5 rounded-xl text-sm font-bold tracking-[0.2em] uppercase hover:bg-primary hover:text-white transition-all duration-300 mt-4 group flex justify-center items-center gap-3">
-                      {t.contact.send}
-                      <svg className="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <button type="submit" disabled={isSubmitting || submitSuccess} className={`w-full ${submitSuccess ? 'bg-green-500 text-white' : 'bg-white text-black hover:bg-primary hover:text-white'} px-8 py-5 rounded-xl text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 mt-4 group flex justify-center items-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed`}>
+                      {submitSuccess ? (
+                        <>
+                          ENVIADO <Check className="w-5 h-5" />
+                        </>
+                      ) : isSubmitting ? (
+                        "ENVIANDO..."
+                      ) : (
+                        <>
+                          {t.contact.send}
+                          <svg className="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </>
+                      )}
                     </button>
                   </form>
                 </div>

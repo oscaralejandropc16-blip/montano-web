@@ -12,6 +12,28 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+export async function saveContactMessage(data: { nombre: string, email: string, mensaje: string }) {
+  await sql`
+    INSERT INTO mensajes_contacto (nombre, email, mensaje)
+    VALUES (${data.nombre}, ${data.email}, ${data.mensaje})
+  `;
+}
+
+export async function getContactMessages() {
+  const rows = await sql`SELECT * FROM mensajes_contacto ORDER BY fecha DESC`;
+  return rows;
+}
+
+export async function markMessageAsRead(id: number) {
+  await sql`UPDATE mensajes_contacto SET leido = true WHERE id = ${id}`;
+  revalidatePath('/admin/mensajes');
+}
+
+export async function deleteMessage(id: number) {
+  await sql`DELETE FROM mensajes_contacto WHERE id = ${id}`;
+  revalidatePath('/admin/mensajes');
+}
+
 export async function getProducts() {
   const rows = await sql`SELECT * FROM montano_products ORDER BY created_at DESC`;
   return rows;

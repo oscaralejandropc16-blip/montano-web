@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Package, Image as ImageIcon, Settings, LogOut, Tag } from "lucide-react";
+import { LayoutDashboard, Package, Image as ImageIcon, Settings, LogOut, Tag, Mail } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   const nav = [
     { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
+    { name: "Mensajes", href: "/admin/mensajes", icon: Mail },
     { name: "Catálogo", href: "/admin/productos", icon: Package },
     { name: "Medios y Banners", href: "/admin/medios", icon: ImageIcon },
     { name: "Clasificación", href: "/admin/clasificacion", icon: Tag },

@@ -222,7 +222,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {displayProducts.map((prod, idx) => (
-              <Link href={`/productos/${prod.id}`} key={idx} className={`group relative rounded-[2rem] overflow-hidden bg-[#0A0A0A] border border-white/5 flex flex-col h-[500px] hover:border-white/20 transition-all duration-500 ${idx === 0 ? 'lg:col-span-2' : ''}`}>
+              <Link href={`/productos/${prod.id}`} key={idx} className="group relative rounded-[2rem] overflow-hidden bg-[#0A0A0A] border border-white/5 flex flex-col h-[500px] hover:border-white/20 transition-all duration-500">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10"></div>
                 
                 {/* Imagen del producto grande y elegante */}

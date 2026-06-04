@@ -3,42 +3,39 @@
 import { useState } from "react";
 import { UploadCloud, Trash2, Copy, Check } from "lucide-react";
 import { CldUploadWidget } from "next-cloudinary";
-import { createMedia, deleteMedia } from "@/lib/actions";
+import { deleteCloudinaryMedia } from "@/lib/actions";
 import ConfirmModal from "@/components/ConfirmModal";
 import { toast } from "react-hot-toast";
 
 export default function MediosClient({ initialMedia }: { initialMedia: any[] }) {
   const [mediaItems, setMediaItems] = useState(initialMedia);
   const [isUploading, setIsUploading] = useState(false);
-  const [copiedId, setCopiedId] = useState<number | null>(null);
-  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [deleteData, setDeleteData] = useState<{publicId: string, resourceType: string} | null>(null);
 
   const handleUploadSuccess = async (result: any) => {
-    try {
-      const newUrl = result.info.secure_url;
-      // We will let the server action update the DB and revalidate, 
-      // but we can optionally optimism-add it. The easiest is reloading.
-      await createMedia(newUrl);
-      toast.success("Medio subido correctamente");
-      setTimeout(() => window.location.reload(), 1000);
-    } catch (e) {
-      console.error(e);
-      toast.error("Error guardando imagen en la base de datos.");
-    }
+    toast.success("Medio subido correctamente");
+    setTimeout(() => window.location.reload(), 1000);
   };
 
-  const handleDelete = (id: number) => {
-    setDeleteId(id);
+  const handleDelete = (publicId: string, resourceType: string) => {
+    setDeleteData({ publicId, resourceType });
   };
 
   const confirmDelete = async () => {
-    if (!deleteId) return;
-    await deleteMedia(deleteId);
-    setMediaItems(mediaItems.filter(m => m.id !== deleteId));
-    setDeleteId(null);
+    if (!deleteData) return;
+    try {
+      await deleteCloudinaryMedia(deleteData.publicId, deleteData.resourceType);
+      setMediaItems(mediaItems.filter(m => m.public_id !== deleteData.publicId));
+      toast.success("Medio eliminado correctamente");
+    } catch (e) {
+      toast.error("Error al eliminar");
+    } finally {
+      setDeleteData(null);
+    }
   };
 
-  const copyUrl = (url: string, id: number) => {
+  const copyUrl = (url: string, id: string) => {
     navigator.clipboard.writeText(url);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
@@ -77,23 +74,23 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {mediaItems.map(item => (
-            <div key={item.id} className="bg-white rounded-2xl border border-gray-100 overflow-hidden group">
+            <div key={item.public_id} className="bg-white rounded-2xl border border-gray-100 overflow-hidden group">
               <div className="aspect-square bg-gray-100 relative">
-                {item.url && item.url.match(/\.(mp4|webm|mov)$/i) ? (
-                  <video src={item.url} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                {item.resource_type === 'video' ? (
+                  <video src={item.secure_url} autoPlay loop muted playsInline className="w-full h-full object-cover" />
                 ) : (
-                  <img src={item.url} className="w-full h-full object-cover" alt="Media" />
+                  <img src={item.secure_url} className="w-full h-full object-cover" alt="Media" />
                 )}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-sm">
                   <button 
-                    onClick={() => copyUrl(item.url, item.id)}
+                    onClick={() => copyUrl(item.secure_url, item.public_id)}
                     className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:scale-110 transition-transform"
                     title="Copiar URL"
                   >
-                    {copiedId === item.id ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5" />}
+                    {copiedId === item.public_id ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5" />}
                   </button>
                   <button 
-                    onClick={() => handleDelete(item.id)}
+                    onClick={() => handleDelete(item.public_id, item.resource_type)}
                     className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
                     title="Eliminar"
                   >
@@ -107,11 +104,11 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
       )}
 
       <ConfirmModal 
-        isOpen={deleteId !== null}
-        onClose={() => setDeleteId(null)}
+        isOpen={deleteData !== null}
+        onClose={() => setDeleteData(null)}
         onConfirm={confirmDelete}
         title="Eliminar Imagen"
-        message="¿Estás seguro de que deseas eliminar esta imagen de la galería? (No se borrará de Cloudinary, solo de este panel)."
+        message="¿Estás seguro de que deseas eliminar este archivo de Cloudinary? Esta acción es irreversible."
         confirmText="Sí, eliminar"
       />
     </div>

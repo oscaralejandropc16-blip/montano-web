@@ -24,7 +24,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Sidebar */}
       <aside className="w-64 bg-black text-white p-6 flex flex-col">
         <div className="mb-10 mt-4 flex justify-center">
-          <img src="/logo.png" alt="Montano Antilia" className="h-10 filter invert" />
+          <img src="/logo.png" alt="Montano Antilia" className="h-10 drop-shadow-md" />
         </div>
         
         <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-4 ml-4">Panel de Control</p>

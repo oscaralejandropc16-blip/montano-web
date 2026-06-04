@@ -11,8 +11,9 @@ const defaultCategories = ["Todos", "Jamones", "Ahumados", "Fiambres", "Especial
 
 const translateProductData = (text: string, lang: Language) => {
   if (!text || lang === 'es') return text;
+  
+  // Exact matches for categories and common strings
   const dict: Record<string, Record<string, string>> = {
-    "Jamón Cocido": { en: "Cooked Ham", it: "Prosciutto Cotto", pt: "Presunto Cozido", fr: "Jambon Cuit", de: "Kochschinken" },
     "Jamones": { en: "Hams", it: "Prosciutti", pt: "Presuntos", fr: "Jambons", de: "Schinken" },
     "Ahumados": { en: "Smoked", it: "Affumicati", pt: "Defumados", fr: "Fumés", de: "Geräuchert" },
     "Fiambres": { en: "Cold Cuts", it: "Salumi", pt: "Frios", fr: "Charcuterie", de: "Aufschnitt" },
@@ -20,9 +21,78 @@ const translateProductData = (text: string, lang: Language) => {
     "Chorizos": { en: "Chorizos", it: "Chorizo", pt: "Chouriços", fr: "Chorizos", de: "Chorizos" },
     "Mortadelas": { en: "Mortadellas", it: "Mortadella", pt: "Mortadelas", fr: "Mortadelles", de: "Mortadella" },
     "Pepperoni": { en: "Pepperoni", it: "Pepperoni", pt: "Pepperoni", fr: "Pepperoni", de: "Pepperoni" },
-    "Salchichas": { en: "Sausages", it: "Salsicce", pt: "Salsichas", fr: "Saucisses", de: "Würstchen" }
+    "Salchichas": { en: "Sausages", it: "Salsicce", pt: "Salsichas", fr: "Saucisses", de: "Würstchen" },
+    // Exact product names from DB
+    "Chorizo Cocidos Parrillero Con Ajo Economico": {
+      en: "Economy BBQ Garlic Cooked Chorizo",
+      it: "Chorizo Cotto da Griglia all'Aglio Economico",
+      pt: "Chouriço Cozido para Churrasco com Alho Econômico",
+      fr: "Chorizo Cuit Barbecue à l'Ail Économique",
+      de: "Economy Grill-Kochchorizo mit Knoblauch"
+    },
+    "Salchicha Cocida Tipo Polaca": {
+      en: "Polish Style Cooked Sausage",
+      it: "Salsiccia Cotta Stile Polacco",
+      pt: "Salsicha Cozida Tipo Polonesa",
+      fr: "Saucisse Cuite Style Polonais",
+      de: "Gekochte Wurst nach Polnischer Art"
+    },
+    "Salchicha cocida de pollo": {
+      en: "Cooked Chicken Sausage",
+      it: "Salsiccia Cotta di Pollo",
+      pt: "Salsicha Cozida de Frango",
+      fr: "Saucisse Cuite de Poulet",
+      de: "Gekochte Hähnchenwurst"
+    },
+    "Mortadela Especial de Pollo": {
+      en: "Special Chicken Mortadella",
+      it: "Mortadella Speciale di Pollo",
+      pt: "Mortadela Especial de Frango",
+      fr: "Mortadelle Spéciale de Poulet",
+      de: "Spezielle Hähnchen-Mortadella"
+    },
+    "Jamón Ahumado Tipo Visking": {
+      en: "Visking Style Smoked Ham",
+      it: "Prosciutto Affumicato Stile Visking",
+      pt: "Presunto Defumado Tipo Visking",
+      fr: "Jambon Fumé Style Visking",
+      de: "Geräucherter Schinken Visking Art"
+    },
+    "Jamón Cocido Superior": {
+      en: "Superior Cooked Ham",
+      it: "Prosciutto Cotto Superiore",
+      pt: "Presunto Cozido Superior",
+      fr: "Jambon Cuit Supérieur",
+      de: "Superior Kochschinken"
+    }
   };
-  return dict[text]?.[lang] || text;
+
+  if (dict[text] && dict[text][lang]) return dict[text][lang];
+
+  // Fallback: Keyword replacement for unknown products
+  const keywords = [
+    { es: /Chorizo/gi, en: "Chorizo", it: "Chorizo", pt: "Chouriço", fr: "Chorizo", de: "Chorizo" },
+    { es: /Salchicha[s]?/gi, en: "Sausage", it: "Salsiccia", pt: "Salsicha", fr: "Saucisse", de: "Wurst" },
+    { es: /Mortadela[s]?/gi, en: "Mortadella", it: "Mortadella", pt: "Mortadela", fr: "Mortadelle", de: "Mortadella" },
+    { es: /Jam[oó]n Ahumado/gi, en: "Smoked Ham", it: "Prosciutto Affumicato", pt: "Presunto Defumado", fr: "Jambon Fumé", de: "Geräucherter Schinken" },
+    { es: /Jam[oó]n Cocido/gi, en: "Cooked Ham", it: "Prosciutto Cotto", pt: "Presunto Cozido", fr: "Jambon Cuit", de: "Kochschinken" },
+    { es: /Jam[oó]n/gi, en: "Ham", it: "Prosciutto", pt: "Presunto", fr: "Jambon", de: "Schinken" },
+    { es: /Cocido[s]?|Cocida[s]?/gi, en: "Cooked", it: "Cotto", pt: "Cozido", fr: "Cuit", de: "Gekocht" },
+    { es: /Parrillero[s]?/gi, en: "BBQ", it: "da Griglia", pt: "para Churrasco", fr: "pour Barbecue", de: "Grill" },
+    { es: /Con Ajo/gi, en: "with Garlic", it: "all'Aglio", pt: "com Alho", fr: "à l'Ail", de: "mit Knoblauch" },
+    { es: /Econ[oó]mico/gi, en: "Economy", it: "Economico", pt: "Econômico", fr: "Économique", de: "Economy" },
+    { es: /Tipo Polaca/gi, en: "Polish Style", it: "Stile Polacco", pt: "Tipo Polonesa", fr: "Style Polonais", de: "Polnische Art" },
+    { es: /de pollo|de Pollo/gi, en: "Chicken", it: "di Pollo", pt: "de Frango", fr: "de Poulet", de: "Hähnchen" },
+    { es: /Especial/gi, en: "Special", it: "Speciale", pt: "Especial", fr: "Spécial", de: "Spezial" },
+    { es: /Tipo Visking/gi, en: "Visking Style", it: "Stile Visking", pt: "Tipo Visking", fr: "Style Visking", de: "Visking Art" },
+    { es: /Superior/gi, en: "Superior", it: "Superiore", pt: "Superior", fr: "Supérieur", de: "Superior" }
+  ];
+
+  let translated = text;
+  for (const kw of keywords) {
+    translated = translated.replace(kw.es, kw[lang]);
+  }
+  return translated;
 };
 
 export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: { catalog: any[], dbCategories?: any[], dbBrands?: any[] }) {
@@ -262,7 +332,17 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
       </section>
 
       {/* FOOTER PREMIUM REUSABLE */}
-      <Footer />
+      <Footer texts={{
+        aboutText: t.about.text1 + t.about.text2 + t.about.text3 + t.about.text4 + t.about.text5,
+        quickLinksTitle: t.footer.quickLinks,
+        contactTitle: t.footer.contactTitle,
+        nav: t.nav,
+        footer: t.footer.copy,
+        newsletterTitle: t.footer.newsletterTitle,
+        newsletterDesc: t.footer.newsletterDesc,
+        emailPlaceholder: t.footer.emailPlaceholder,
+        subscribeBtn: t.footer.subscribeBtn
+      }} />
     </div>
   );
 }

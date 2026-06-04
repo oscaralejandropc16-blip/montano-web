@@ -132,27 +132,46 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
         <p className="text-xs text-gray-500 mb-6">Selecciona los 3 productos que quieres mostrar en la portada. (Deja en Automático para mostrar los últimos 3 subidos).</p>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div>
-            <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Producto 1</label>
-            <select value={fp1} onChange={e => setFp1(e.target.value)} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary truncate">
-              <option value="">Automático</option>
-              {products.map(p => <option key={p.id} value={p.id.toString()}>{p.name}</option>)}
-            </select>
-          </div>
-          <div>
-            <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Producto 2</label>
-            <select value={fp2} onChange={e => setFp2(e.target.value)} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary truncate">
-              <option value="">Automático</option>
-              {products.map(p => <option key={p.id} value={p.id.toString()}>{p.name}</option>)}
-            </select>
-          </div>
-          <div>
-            <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Producto 3</label>
-            <select value={fp3} onChange={e => setFp3(e.target.value)} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary truncate">
-              <option value="">Automático</option>
-              {products.map(p => <option key={p.id} value={p.id.toString()}>{p.name}</option>)}
-            </select>
-          </div>
+          {[
+            { label: "Producto 1", value: fp1, setter: setFp1 },
+            { label: "Producto 2", value: fp2, setter: setFp2 },
+            { label: "Producto 3", value: fp3, setter: setFp3 },
+          ].map((item, idx) => {
+            const selectedProduct = products.find(p => p.id.toString() === item.value);
+            return (
+              <div key={idx} className="bg-gray-50 border border-gray-100 p-4 rounded-2xl flex flex-col gap-3">
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest">{item.label}</label>
+                
+                {/* Preview del Producto Seleccionado */}
+                <div className="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                  {selectedProduct?.image_url ? (
+                    <img src={selectedProduct.image_url} className="w-12 h-12 object-contain bg-gray-50 rounded-lg border border-gray-100" alt="Preview" />
+                  ) : (
+                    <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-[10px] text-gray-400 font-bold border border-gray-200">
+                      {item.value ? "SIN FOTO" : "AUTO"}
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-bold text-black truncate">{selectedProduct ? selectedProduct.name : "Automático"}</p>
+                    <p className="text-[10px] text-gray-400 truncate">{selectedProduct ? `${selectedProduct.tag || ''} - ${selectedProduct.brand}` : "Último agregado"}</p>
+                  </div>
+                </div>
+
+                <select 
+                  value={item.value} 
+                  onChange={e => item.setter(e.target.value)} 
+                  className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-medium text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary truncate cursor-pointer shadow-sm"
+                >
+                  <option value="">Automático (Los más recientes)</option>
+                  {products.map(p => (
+                    <option key={p.id} value={p.id.toString()}>
+                      {p.name} {p.tag ? `(${p.tag})` : ''} - {p.brand}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            );
+          })}
         </div>
       </div>
 

@@ -5,8 +5,13 @@ import { saveSetting } from "@/lib/actions";
 import { CldUploadWidget } from "next-cloudinary";
 import { toast } from "react-hot-toast";
 
-export default function AjustesClient({ settings }: { settings: Record<string, string> }) {
+export default function AjustesClient({ settings, products = [] }: { settings: Record<string, string>, products?: any[] }) {
   const [heroVideoUrl, setHeroVideoUrl] = useState(settings.hero_video_url || "/hero-video.mp4");
+  
+  const [fp1, setFp1] = useState(settings.featured_product_1 || "");
+  const [fp2, setFp2] = useState(settings.featured_product_2 || "");
+  const [fp3, setFp3] = useState(settings.featured_product_3 || "");
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -14,6 +19,9 @@ export default function AjustesClient({ settings }: { settings: Record<string, s
     setIsSubmitting(true);
     try {
       await saveSetting("hero_video_url", heroVideoUrl);
+      if (fp1) await saveSetting("featured_product_1", fp1); else await saveSetting("featured_product_1", "");
+      if (fp2) await saveSetting("featured_product_2", fp2); else await saveSetting("featured_product_2", "");
+      if (fp3) await saveSetting("featured_product_3", fp3); else await saveSetting("featured_product_3", "");
       toast.success("Ajustes guardados correctamente");
     } catch (error) {
       console.error(error);
@@ -115,6 +123,35 @@ export default function AjustesClient({ settings }: { settings: Record<string, s
             <CldUploadWidget uploadPreset="ml_default" options={{ resourceType: "auto" }} onSuccess={(res) => handleUpload("about_page_img", res)}>
               {({ open }) => <button type="button" onClick={() => open()} className="bg-gray-100 text-black px-4 py-2 rounded-lg font-bold text-xs hover:bg-gray-200 transition-colors">Cambiar</button>}
             </CldUploadWidget>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-8 border-t border-gray-100 pt-8">
+        <h3 className="text-lg font-bold text-black mb-6">Productos Destacados (Inicio)</h3>
+        <p className="text-xs text-gray-500 mb-6">Selecciona los 3 productos que quieres mostrar en la portada. (Deja en Automático para mostrar los últimos 3 subidos).</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Producto 1</label>
+            <select value={fp1} onChange={e => setFp1(e.target.value)} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary truncate">
+              <option value="">Automático</option>
+              {products.map(p => <option key={p.id} value={p.id.toString()}>{p.name}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Producto 2</label>
+            <select value={fp2} onChange={e => setFp2(e.target.value)} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary truncate">
+              <option value="">Automático</option>
+              {products.map(p => <option key={p.id} value={p.id.toString()}>{p.name}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Producto 3</label>
+            <select value={fp3} onChange={e => setFp3(e.target.value)} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary truncate">
+              <option value="">Automático</option>
+              {products.map(p => <option key={p.id} value={p.id.toString()}>{p.name}</option>)}
+            </select>
           </div>
         </div>
       </div>

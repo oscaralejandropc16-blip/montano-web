@@ -235,7 +235,7 @@ export default function ClasificacionClient({ initialCategories, initialBrands }
                   isOpen={mediaSelectorOpen} 
                   onClose={() => setMediaSelectorOpen(false)} 
                   onSelect={(url) => setEditBrand({...editBrand, logo_url: url})}
-                />>
+                />
               </div>
 
               <button disabled={loading} type="submit" className="w-full py-3 bg-black text-white rounded-xl font-bold text-sm hover:bg-primary transition-colors mt-2">

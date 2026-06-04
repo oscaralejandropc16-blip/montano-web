@@ -10,6 +10,10 @@ interface FooterProps {
     contactTitle?: string;
     nav?: { home: string, products: string, about: string, contact: string };
     footer?: string;
+    newsletterTitle?: string;
+    newsletterDesc?: string;
+    emailPlaceholder?: string;
+    subscribeBtn?: string;
   };
   contactInfo?: {
     instagram: string;
@@ -30,10 +34,14 @@ const defaultContact = {
 
 const defaultTexts = {
   aboutText: "Tradición y calidad superior en cada producto. Llevando a tu mesa el verdadero sabor que conquista desde hace años.",
-  quickLinksTitle: "Enlaces Rápidos",
+  quickLinksTitle: "Navegación",
   contactTitle: "Contacto Directo",
   nav: { home: "Inicio", products: "Productos", about: "Acerca de", contact: "Contacto" },
-  footer: "Derechos de autor © 2026 Montano Antilia. Todos los derechos reservados."
+  footer: "Derechos de autor © 2026 Montano Antilia. Todos los derechos reservados.",
+  newsletterTitle: "Únete a nuestra familia",
+  newsletterDesc: "Recibe nuestras últimas novedades y promociones exclusivas directamente en tu correo.",
+  emailPlaceholder: "Tu correo electrónico",
+  subscribeBtn: "Suscribirse"
 };
 
 export default function Footer({ texts = defaultTexts, contactInfo = defaultContact }: FooterProps) {
@@ -56,22 +64,22 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
         {/* Newsletter Callout */}
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 mb-20 flex flex-col md:flex-row items-center justify-between gap-8 group hover:border-primary/30 transition-colors duration-500">
           <div className="max-w-xl">
-            <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-3">Únete a nuestra familia</h3>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-3">{mergedTexts.newsletterTitle}</h3>
             <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-              Recibe nuestras últimas novedades y promociones exclusivas directamente en tu correo.
+              {mergedTexts.newsletterDesc}
             </p>
           </div>
           <div className="w-full md:w-auto flex flex-col sm:flex-row gap-3">
             <input 
               type="email" 
-              placeholder="Tu correo electrónico" 
+              placeholder={mergedTexts.emailPlaceholder} 
               className="bg-black/50 border border-white/10 text-white px-6 py-4 rounded-xl focus:outline-none focus:border-primary/50 transition-colors w-full md:w-72"
             />
             <button 
               onClick={() => alert("¡Gracias por suscribirte!")}
               className="bg-primary text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-primary/90 transition-transform hover:scale-105 active:scale-95 whitespace-nowrap"
             >
-              Suscribirse <ArrowRight className="w-4 h-4" />
+              {mergedTexts.subscribeBtn} <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>

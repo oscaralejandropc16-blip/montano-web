@@ -28,9 +28,11 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
   const allCategories = Array.from(new Set([...products.map(p => p.category).filter(Boolean), ...defaultCats]));
   const allBrands = Array.from(new Set([...products.map(p => p.brand).filter(Boolean), ...defaultBrands]));
 
+  const normalize = (str: string) => str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
+
   const filteredProducts = products.filter(prod => {
-    const matchesSearch = prod.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          (prod.tag && prod.tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesSearch = normalize(prod.name).includes(normalize(searchTerm)) || 
+                          normalize(prod.tag).includes(normalize(searchTerm));
     const matchesCategory = selectedCategory ? prod.category === selectedCategory : true;
     const matchesBrand = selectedBrand ? prod.brand === selectedBrand : true;
     return matchesSearch && matchesCategory && matchesBrand;

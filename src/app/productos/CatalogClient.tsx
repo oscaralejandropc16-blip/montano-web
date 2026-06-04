@@ -37,9 +37,11 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
     };
   }, [selectedProduct]);
 
+  const normalize = (str: string) => str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
+
   const filteredProducts = catalog.filter(p => {
     const matchCategory = activeCategory === "Todos" || p.category === activeCategory;
-    const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchSearch = normalize(p.name).includes(normalize(searchQuery));
     return matchCategory && matchSearch;
   });
 

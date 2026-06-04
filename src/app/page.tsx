@@ -13,7 +13,7 @@ export default async function Home() {
     parseInt(settings.featured_product_3 || '0')
   ].filter(id => !isNaN(id) && id > 0);
 
-  let featuredProducts = [];
+  let featuredProducts: any[] = [];
   if (featuredIds.length > 0) {
     featuredProducts = featuredIds.map(id => allProducts.find(p => p.id === id)).filter(Boolean);
   }

@@ -4,7 +4,7 @@ import { getProducts, getBrands } from "@/lib/actions";
 import ZoomableImage from "./ZoomableImage";
 import Footer from "@/components/Footer";
 
-export const revalidate = 0;
+export const revalidate = 300;
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;

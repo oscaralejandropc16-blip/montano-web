@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, Search, Filter, X, Info, ChevronRight, MessageCircle } from "lucide-react";
 import Footer from "@/components/Footer";
+import { getOptimizedUrl } from "@/lib/optimizeUrl";
 
 const categories = ["Todos", "Jamones", "Ahumados", "Fiambres", "Especialidades"];
 
@@ -176,7 +177,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
                   {/* Imagen del Producto */}
                   <div className="w-full aspect-[4/5] bg-[#F8F8F8] rounded-2xl overflow-hidden relative mb-5 flex items-center justify-center group-hover:bg-gray-100 transition-colors">
                     {prod.image_url ? (
-                      <img src={prod.image_url} alt={prod.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                      <img src={getOptimizedUrl(prod.image_url, 400)} alt={prod.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
                     ) : (
                       <span className="text-gray-300 font-extrabold text-lg tracking-widest z-10 transition-transform duration-500 group-hover:scale-110">[FOTO {prod.id}]</span>
                     )}
@@ -191,7 +192,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
                       </p>
                       {brandObj && brandObj.logo_url && (
                         <div className="h-8 w-20 flex items-center justify-end">
-                          <img src={brandObj.logo_url} alt={brandObj.name} className="h-full w-full object-contain object-right drop-shadow-sm transition-transform group-hover:scale-105" />
+                          <img src={getOptimizedUrl(brandObj.logo_url, 200)} alt={brandObj.name} className="h-full w-full object-contain object-right drop-shadow-sm transition-transform group-hover:scale-105" loading="lazy" />
                         </div>
                       )}
                     </div>

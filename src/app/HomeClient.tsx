@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { MapPin, Mail, Phone, ChevronDown, Check, Globe } from "lucide-react";
 import Footer from "@/components/Footer";
+import { getOptimizedUrl } from "@/lib/optimizeUrl";
 
 // --- DATOS DE CONTACTO ---
 const contactInfo = {
@@ -244,7 +245,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <div className="relative z-10 flex flex-col items-center w-full h-full">
                     {prod.image_url ? (
-                      <img src={prod.image_url} alt={prod.name} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
+                      <img src={getOptimizedUrl(prod.image_url, 400)} alt={prod.name} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                     ) : (
                       <span className="text-gray-300 text-sm mb-2 font-bold">[Foto de producto {idx+1}]</span>
                     )}
@@ -289,7 +290,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                       img.match(/\.(mp4|webm|mov)$/i) ? (
                         <video src={img} autoPlay loop muted playsInline className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                       ) : (
-                        <img src={img} alt={`Galería ${i}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                        <img src={getOptimizedUrl(img, 600)} alt={`Galería ${i}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
                       )
                     ) : (
                       <span className="relative z-10 font-bold">[Medio Galería {i}]</span>
@@ -321,7 +322,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                 <div className="relative z-10 w-full aspect-[4/5] bg-gray-100 rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center text-gray-400 font-medium group ring-1 ring-black/5">
                   <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
                   {settings.about_img ? (
-                    <img src={settings.about_img} alt="Acerca de Montano Antilia" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={getOptimizedUrl(settings.about_img, 800)} alt="Acerca de Montano Antilia" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
                   ) : (
                     <span>[Foto de la fábrica o familia]</span>
                   )}

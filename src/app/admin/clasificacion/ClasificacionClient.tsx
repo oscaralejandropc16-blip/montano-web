@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Plus, Trash2, Tag, Bookmark, Edit2, Image as ImageIcon, X } from "lucide-react";
 import { createCategory, deleteCategory, updateCategory, createBrand, deleteBrand, updateBrand } from "@/lib/actions";
 import ConfirmModal from "@/components/ConfirmModal";
-import { CldUploadWidget } from "next-cloudinary";
+import MediaSelector from "@/components/MediaSelector";
 
 export default function ClasificacionClient({ initialCategories, initialBrands }: { initialCategories: {id: number, name: string}[], initialBrands: {id: number, name: string, logo_url?: string}[] }) {
   const [categories, setCategories] = useState(initialCategories);
@@ -20,6 +20,7 @@ export default function ClasificacionClient({ initialCategories, initialBrands }
 
   const [editCat, setEditCat] = useState<{id: number, name: string} | null>(null);
   const [editBrand, setEditBrand] = useState<{id: number, name: string, logo_url?: string} | null>(null);
+  const [mediaSelectorOpen, setMediaSelectorOpen] = useState(false);
 
   const handleAddCategory = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -226,17 +227,15 @@ export default function ClasificacionClient({ initialCategories, initialBrands }
                     <img src={editBrand.logo_url} alt="Logo" className="max-h-20 object-contain" />
                   </div>
                 )}
-                <CldUploadWidget 
-                  uploadPreset="ml_default"
-                  onSuccess={(res: any) => setEditBrand({...editBrand, logo_url: res.info.secure_url})}
-                >
-                  {({ open }) => (
-                    <button type="button" onClick={() => open()} className="w-full border-2 border-dashed border-gray-300 rounded-xl p-4 flex flex-col items-center justify-center text-gray-500 hover:bg-gray-50 hover:border-primary hover:text-primary transition-colors">
-                      <ImageIcon className="w-6 h-6 mb-2" />
-                      <span className="text-sm font-medium">Subir / Cambiar Logo</span>
-                    </button>
-                  )}
-                </CldUploadWidget>
+                <button type="button" onClick={() => setMediaSelectorOpen(true)} className="w-full border-2 border-dashed border-gray-300 rounded-xl p-4 flex flex-col items-center justify-center text-gray-500 hover:bg-gray-50 hover:border-primary hover:text-primary transition-colors">
+                  <ImageIcon className="w-6 h-6 mb-2" />
+                  <span className="text-sm font-medium">Seleccionar / Cambiar Logo</span>
+                </button>
+                <MediaSelector 
+                  isOpen={mediaSelectorOpen} 
+                  onClose={() => setMediaSelectorOpen(false)} 
+                  onSelect={(url) => setEditBrand({...editBrand, logo_url: url})}
+                />>
               </div>
 
               <button disabled={loading} type="submit" className="w-full py-3 bg-black text-white rounded-xl font-bold text-sm hover:bg-primary transition-colors mt-2">

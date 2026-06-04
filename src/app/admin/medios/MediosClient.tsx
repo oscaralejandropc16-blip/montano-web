@@ -13,6 +13,12 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [deleteData, setDeleteData] = useState<{publicId: string, resourceType: string} | null>(null);
   const [visibleCount, setVisibleCount] = useState(20);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [isBatchDeleting, setIsBatchDeleting] = useState(false);
+
+  const handleToggleSelect = (public_id: string) => {
+    setSelectedIds(prev => prev.includes(public_id) ? prev.filter(id => id !== public_id) : [...prev, public_id]);
+  };
 
   const handleLoadMore = () => {
     setVisibleCount(prev => prev + 20);
@@ -36,10 +42,32 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
       await deleteCloudinaryMedia(deleteData.publicId, deleteData.resourceType);
       setMediaItems(mediaItems.filter(m => m.public_id !== deleteData.publicId));
       toast.success("Medio eliminado correctamente");
+      setSelectedIds(prev => prev.filter(id => id !== deleteData.publicId));
     } catch (e) {
       toast.error("Error al eliminar");
     } finally {
       setDeleteData(null);
+    }
+  };
+
+  const confirmBatchDelete = async () => {
+    let deletedCount = 0;
+    toast.loading("Eliminando medios...", { id: 'batchDelete' });
+    try {
+      for (const id of selectedIds) {
+        const item = mediaItems.find(m => m.public_id === id);
+        if (item) {
+          await deleteCloudinaryMedia(item.public_id, item.resource_type);
+          deletedCount++;
+        }
+      }
+      setMediaItems(mediaItems.filter(m => !selectedIds.includes(m.public_id)));
+      toast.success(`${deletedCount} medios eliminados correctamente`, { id: 'batchDelete' });
+    } catch (e) {
+      toast.error("Hubo un error al eliminar algunos medios", { id: 'batchDelete' });
+    } finally {
+      setSelectedIds([]);
+      setIsBatchDeleting(false);
     }
   };
 
@@ -51,7 +79,17 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
 
   return (
     <div>
-      <div className="flex justify-end mb-8">
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          {selectedIds.length > 0 && (
+            <button 
+              onClick={() => setIsBatchDeleting(true)}
+              className="bg-red-600 text-white px-6 py-3 rounded-xl font-bold text-sm tracking-widest uppercase hover:bg-red-700 transition-colors flex items-center gap-2 shadow-lg shadow-red-600/20"
+            >
+              <Trash2 className="w-5 h-5" /> Eliminar ({selectedIds.length})
+            </button>
+          )}
+        </div>
         <CldUploadWidget 
           uploadPreset="ml_default"
           options={{ resourceType: "auto" }}
@@ -83,14 +121,24 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
         <>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-8">
           {visibleItems.map(item => (
-            <div key={item.public_id} className="bg-white rounded-2xl border border-gray-100 overflow-hidden group">
+            <div 
+              key={item.public_id} 
+              className={`bg-white rounded-2xl border overflow-hidden group cursor-pointer transition-all ${selectedIds.includes(item.public_id) ? 'border-primary ring-2 ring-primary/50' : 'border-gray-100'}`}
+              onClick={() => handleToggleSelect(item.public_id)}
+            >
               <div className="aspect-square bg-gray-100 relative">
                 {item.resource_type === 'video' ? (
                   <video src={item.secure_url} autoPlay loop muted playsInline className="w-full h-full object-cover" />
                 ) : (
                   <img src={item.secure_url} className="w-full h-full object-cover" alt="Media" />
                 )}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-sm">
+                
+                {/* Checkbox Overlay */}
+                <div className={`absolute top-3 left-3 z-20 w-6 h-6 rounded border-2 flex items-center justify-center transition-colors ${selectedIds.includes(item.public_id) ? 'bg-primary border-primary' : 'bg-white/50 border-white group-hover:border-white group-hover:bg-white/80'}`}>
+                  {selectedIds.includes(item.public_id) && <Check className="w-4 h-4 text-white" />}
+                </div>
+
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-sm" onClick={(e) => e.stopPropagation()}>
                   <button 
                     onClick={() => copyUrl(item.secure_url, item.public_id)}
                     className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:scale-110 transition-transform"
@@ -130,6 +178,15 @@ export default function MediosClient({ initialMedia }: { initialMedia: any[] }) 
         title="Eliminar Imagen"
         message="¿Estás seguro de que deseas eliminar este archivo de Cloudinary? Esta acción es irreversible."
         confirmText="Sí, eliminar"
+      />
+
+      <ConfirmModal 
+        isOpen={isBatchDeleting}
+        onClose={() => setIsBatchDeleting(false)}
+        onConfirm={confirmBatchDelete}
+        title="Eliminar Múltiples Imágenes"
+        message={`¿Estás seguro de que deseas eliminar ${selectedIds.length} archivos de Cloudinary? Esta acción es irreversible y podría tomar unos segundos.`}
+        confirmText="Sí, eliminar todos"
       />
     </div>
   );

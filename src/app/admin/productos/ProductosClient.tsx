@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Plus, Edit2, Trash2, X, Image as ImageIcon, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { createProduct, updateProduct, deleteProduct } from "@/lib/actions";
-import { CldUploadWidget } from "next-cloudinary";
+import MediaSelector from "@/components/MediaSelector";
 import { useRouter } from "next/navigation";
 import ConfirmModal from "@/components/ConfirmModal";
 import { toast } from "react-hot-toast";
@@ -14,6 +14,7 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
   const [editingId, setEditingId] = useState<number | null>(null);
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mediaSelectorTarget, setMediaSelectorTarget] = useState<'image' | 'nutrition' | null>(null);
   
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -247,50 +248,36 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
                 <div className="w-1/3 space-y-6">
                   <div>
                     <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Foto Principal</label>
-                    <CldUploadWidget 
-                      uploadPreset="ml_default"
-                      onSuccess={(result: any) => setFormData(prev => ({...prev, image_url: result.info.secure_url}))}
+                    <div 
+                      onClick={() => setMediaSelectorTarget('image')}
+                      className="w-full aspect-square border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-400 hover:border-primary hover:text-primary hover:bg-primary/5 transition-colors cursor-pointer overflow-hidden relative"
                     >
-                      {({ open }) => (
-                        <div 
-                          onClick={() => open()}
-                          className="w-full aspect-square border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-400 hover:border-primary hover:text-primary hover:bg-primary/5 transition-colors cursor-pointer overflow-hidden relative"
-                        >
-                          {formData.image_url ? (
-                            <img src={formData.image_url} className="absolute inset-0 w-full h-full object-cover" alt="Preview" />
-                          ) : (
-                            <>
-                              <ImageIcon className="w-8 h-8 mb-2" />
-                              <span className="text-xs font-bold text-center">Subir Foto<br/>Principal</span>
-                            </>
-                          )}
-                        </div>
+                      {formData.image_url ? (
+                        <img src={formData.image_url} className="absolute inset-0 w-full h-full object-cover" alt="Preview" />
+                      ) : (
+                        <>
+                          <ImageIcon className="w-8 h-8 mb-2" />
+                          <span className="text-xs font-bold text-center">Seleccionar Foto<br/>Principal</span>
+                        </>
                       )}
-                    </CldUploadWidget>
+                    </div>
                   </div>
 
                   <div>
                     <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Info Nutricional</label>
-                    <CldUploadWidget 
-                      uploadPreset="ml_default"
-                      onSuccess={(result: any) => setFormData(prev => ({...prev, nutrition_url: result.info.secure_url}))}
+                    <div 
+                      onClick={() => setMediaSelectorTarget('nutrition')}
+                      className="w-full h-32 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-400 hover:border-primary hover:text-primary hover:bg-primary/5 transition-colors cursor-pointer overflow-hidden relative"
                     >
-                      {({ open }) => (
-                        <div 
-                          onClick={() => open()}
-                          className="w-full h-32 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-400 hover:border-primary hover:text-primary hover:bg-primary/5 transition-colors cursor-pointer overflow-hidden relative"
-                        >
-                          {formData.nutrition_url ? (
-                            <img src={formData.nutrition_url} className="absolute inset-0 w-full h-full object-contain bg-gray-50" alt="Nutricional" />
-                          ) : (
-                            <>
-                              <ImageIcon className="w-6 h-6 mb-1" />
-                              <span className="text-xs font-bold text-center">Subir Tabla<br/>Nutricional</span>
-                            </>
-                          )}
-                        </div>
+                      {formData.nutrition_url ? (
+                        <img src={formData.nutrition_url} className="absolute inset-0 w-full h-full object-contain bg-gray-50" alt="Nutricional" />
+                      ) : (
+                        <>
+                          <ImageIcon className="w-6 h-6 mb-1" />
+                          <span className="text-xs font-bold text-center">Seleccionar Tabla<br/>Nutricional</span>
+                        </>
                       )}
-                    </CldUploadWidget>
+                    </div>
                   </div>
                 </div>
                 
@@ -372,6 +359,15 @@ export default function ProductosClient({ initialProducts, dbCategories, dbBrand
         title="Eliminar Producto"
         message="¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer y el producto desaparecerá del catálogo público."
         confirmText="Sí, eliminar"
+      />
+
+      <MediaSelector 
+        isOpen={mediaSelectorTarget !== null}
+        onClose={() => setMediaSelectorTarget(null)}
+        onSelect={(url) => {
+          if (mediaSelectorTarget === 'image') setFormData({...formData, image_url: url});
+          if (mediaSelectorTarget === 'nutrition') setFormData({...formData, nutrition_url: url});
+        }}
       />
     </div>
   );

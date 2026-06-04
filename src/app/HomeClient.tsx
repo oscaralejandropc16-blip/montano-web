@@ -110,7 +110,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
 
           <div className="hidden lg:flex items-center gap-8">
             <a href="#inicio" className="text-white/70 hover:text-white transition-colors text-[11px] uppercase tracking-[0.2em]">{t.nav.home}</a>
-            <Link href="/productos" className="text-white/70 hover:text-white transition-colors text-[11px] uppercase tracking-[0.2em]">{t.nav.products}</Link>
+            <Link href="/productos" className="text-white/70 hover:text-white transition-colors text-[11px] uppercase tracking-[0.2em]">{t.nav.catalog}</Link>
             <Link href="/about" className="text-white/70 hover:text-white transition-colors text-[11px] uppercase tracking-[0.2em]">{t.nav.about}</Link>
             <a href="#contacto" className="text-white/70 hover:text-white transition-colors text-[11px] uppercase tracking-[0.2em]">{t.nav.contact}</a>
             
@@ -147,7 +147,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
       <div className={`fixed inset-0 bg-[#0A0A0A] z-40 transition-all duration-700 flex flex-col justify-center px-10 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className="flex flex-col gap-8 text-left">
           <a href="#inicio" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.home}</a>
-          <Link href="/productos" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.products}</Link>
+          <Link href="/productos" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.catalog}</Link>
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.about}</Link>
           <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.contact}</a>
           

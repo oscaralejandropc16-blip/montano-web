@@ -47,8 +47,17 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
       setIsScrolled(window.scrollY > 20);
       if (window.scrollY > 20) setLangMenuOpen(false);
     };
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'montano_lang' && e.newValue) {
+        setLang(e.newValue as Language);
+      }
+    };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   const handleLanguageChange = (l: Language) => {
@@ -87,24 +96,24 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
             <a href="/#contacto" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">{t.nav.contact}</a>
             
             {/* Language Selector */}
-            <div className="relative">
+            <div className="relative border-l border-white/10 pl-6 ml-2">
               <button 
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="flex items-center gap-2 text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md"
+                className="text-white/90 hover:text-white flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase transition-colors group"
               >
-                <Globe className="w-3.5 h-3.5" />
-                {lang.toUpperCase()}
-                <ChevronDown className="w-3 h-3" />
+                <Globe className="w-3.5 h-3.5 text-primary group-hover:animate-pulse" />
+                {t.nav.lang.split(" ")[1]}
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${langMenuOpen ? 'rotate-180' : ''}`} />
               </button>
               {langMenuOpen && (
-                <div className="absolute top-full right-0 mt-4 bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl py-2 px-1 flex flex-col gap-1 w-32 animate-in fade-in slide-in-from-top-2 z-50">
+                <div className="absolute top-full right-0 mt-4 bg-[#111] backdrop-blur-xl border border-white/5 rounded-2xl py-2 w-36 flex flex-col shadow-2xl animate-in fade-in slide-in-from-top-2 z-50">
                   {(['es', 'en', 'it', 'pt', 'fr', 'de'] as Language[]).map((l) => (
                     <button
                       key={l}
                       onClick={() => handleLanguageChange(l)}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase transition-all ${lang === l ? 'bg-primary text-white' : 'text-gray-400 hover:text-white hover:bg-white/10'}`}
+                      className={`px-4 py-2.5 text-xs text-left transition-colors flex items-center gap-2 ${lang === l ? 'text-primary bg-white/5' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
                     >
-                      {l} {lang === l && <Check className="w-3 h-3 ml-auto" />}
+                      {translations[l].nav.lang}
                     </button>
                   ))}
                 </div>

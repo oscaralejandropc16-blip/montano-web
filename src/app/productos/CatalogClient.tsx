@@ -148,10 +148,10 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
   });
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-foreground font-sans selection:bg-primary selection:text-white">
+    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-primary selection:text-white">
       
       {/* NAVEGACIÓN MODERNA */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${isScrolled ? "bg-black/80 backdrop-blur-xl py-3 shadow-[0_10px_30px_rgba(0,0,0,0.1)] border-b border-white/5" : "bg-transparent py-6"}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${isScrolled ? "bg-black/80 backdrop-blur-xl py-3 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border-b border-white/5" : "bg-transparent py-6"}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center">
             <div className={`transition-all duration-500 relative ${isScrolled ? 'h-10' : 'h-14'}`}>
@@ -160,16 +160,16 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
           </Link>
           
           <div className="hidden lg:flex items-center gap-8">
-            <Link href="/" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">{t.nav.home}</Link>
+            <Link href="/" className="text-gray-400 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">{t.nav.home}</Link>
             <Link href="/productos" className="text-white font-bold transition-colors tracking-widest text-xs uppercase drop-shadow-md border-b-2 border-primary pb-1">{t.nav.catalog}</Link>
-            <Link href="/about" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">{t.nav.about}</Link>
-            <a href="/#contacto" className="text-white/90 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">{t.nav.contact}</a>
+            <Link href="/about" className="text-gray-400 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">{t.nav.about}</Link>
+            <a href="/#contacto" className="text-gray-400 hover:text-white transition-colors font-medium tracking-widest text-xs uppercase drop-shadow-md">{t.nav.contact}</a>
             
             {/* Language Selector */}
             <div className="relative border-l border-white/10 pl-6 ml-2">
               <button 
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="text-white/90 hover:text-white flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase transition-colors group"
+                className="text-gray-400 hover:text-white flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase transition-colors group"
               >
                 <Globe className="w-3.5 h-3.5 text-primary group-hover:animate-pulse" />
                 {t.nav.lang.split(" ")[1]}
@@ -199,45 +199,50 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
         </div>
       </nav>
 
-      {/* HEADER DEL CATÁLOGO - ESTILO PARALLAX PREMIUM */}
+      {/* HEADER DEL CATÁLOGO - ESTILO PREMIUM */}
       <section className="relative pt-48 pb-24 px-6 bg-black text-white text-center overflow-hidden flex items-center justify-center min-h-[50vh]">
-        {/* Imagen de fondo con efecto zoom */}
+        {/* Glow ambient background */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/10 rounded-full blur-[150px] pointer-events-none"></div>
+        
         <div className="absolute inset-0 z-0">
            <div className={`absolute inset-0 transition-transform duration-[20s] ease-out ${loaded ? 'scale-100' : 'scale-110'}`} style={{ backgroundImage: "url('/placeholder-hero.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 40%' }}></div>
-           <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px]"></div>
-           <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAFA] to-transparent opacity-10"></div>
+           <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px]"></div>
+           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent opacity-100"></div>
         </div>
         
         <div className={`relative z-10 max-w-4xl mx-auto transition-all duration-1000 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <div className="inline-flex items-center gap-4 mb-6">
-            <div className="h-[1px] w-8 bg-primary"></div>
-            <span className="text-primary font-bold tracking-[0.4em] uppercase text-xs">{t.catalogPage.badge}</span>
-            <div className="h-[1px] w-8 bg-primary"></div>
+            <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-primary"></div>
+            <span className="text-primary font-bold tracking-[0.4em] uppercase text-xs animate-pulse">{t.catalogPage.badge}</span>
+            <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-primary"></div>
           </div>
-          <h1 className="heading text-4xl sm:text-5xl md:text-8xl font-extrabold mb-6 tracking-tighter drop-shadow-2xl">
-            {t.catalogPage.title} <span className="font-light italic text-white/80">{t.catalogPage.subtitle}</span>
+          <h1 className="heading text-5xl sm:text-6xl md:text-8xl font-black mb-6 tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-2xl">
+            {t.catalogPage.title} <span className="font-light italic text-white/50">{t.catalogPage.subtitle}</span>
           </h1>
-          <p className="text-gray-300 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
+          <p className="text-gray-400 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
             {t.catalogPage.desc}
           </p>
         </div>
       </section>
 
-      {/* BARRA DE FILTROS FLOTANTE */}
-      <section className="relative z-30 bg-white border-b border-gray-200/50 py-4 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      {/* BARRA DE FILTROS FLOTANTE GLASSMORPHISM */}
+      <section className="sticky top-[72px] lg:top-[88px] z-30 transition-all duration-300">
+        {/* Background that blurs the scrolling items below it */}
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-2xl border-b border-white/5"></div>
+        
+        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
           
-          {/* Categorías (Píldoras Elegantes) */}
+          {/* Categorías (Píldoras Elegantes Dark) */}
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 flex-1 w-full">
-            <Filter className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0 hidden md:block" />
+            <Filter className="w-4 h-4 text-primary mr-2 flex-shrink-0 hidden md:block" />
             {displayCategories.map(cat => (
               <button 
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2 rounded-full text-[10px] md:text-xs font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
+                className={`px-6 py-2.5 rounded-full text-[10px] md:text-xs font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
                   activeCategory === cat 
-                    ? 'bg-primary text-white shadow-[0_5px_15px_rgba(213,43,42,0.4)] transform md:scale-105' 
-                    : 'bg-white text-gray-500 border border-gray-200 hover:border-primary/50 hover:text-primary'
+                    ? 'bg-primary text-white shadow-[0_0_20px_rgba(var(--primary-color-rgb),0.4)] transform md:scale-105 border border-primary' 
+                    : 'bg-white/5 text-gray-400 border border-white/10 hover:border-primary/50 hover:text-white hover:bg-white/10'
                 }`}
               >
                 {cat === "Todos" ? t.catalogPage.all : translateProductData(cat, lang)}
@@ -245,33 +250,35 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
             ))}
           </div>
 
-          {/* Buscador Minimalista */}
+          {/* Buscador Premium Dark */}
           <div className="relative w-full md:w-80 group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-primary transition-colors" />
+            <div className="absolute inset-0 bg-primary/20 rounded-full blur-lg opacity-0 group-focus-within:opacity-100 transition-opacity duration-500"></div>
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-primary transition-colors z-10" />
             <input 
               type="text" 
               placeholder={t.catalogPage.search}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 rounded-full py-3 pl-12 pr-6 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all focus:bg-white"
+              className="relative w-full bg-[#0A0A0A] border border-white/10 rounded-full py-3.5 pl-14 pr-6 text-sm text-white focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-gray-600 shadow-inner"
             />
           </div>
 
         </div>
       </section>
 
-      {/* GRID DE PRODUCTOS */}
-      <section className="py-24 px-6 max-w-7xl mx-auto min-h-[50vh]">
+      {/* GRID DE PRODUCTOS PREMIUM SAAS */}
+      <section className="py-24 px-6 max-w-7xl mx-auto min-h-[50vh] relative z-10">
         
         {filteredProducts.length === 0 ? (
           <div className="text-center py-32 flex flex-col items-center">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-              <Search className="w-8 h-8 text-gray-300" />
+            <div className="w-24 h-24 bg-white/5 rounded-full border border-white/10 flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+              <Search className="w-10 h-10 text-gray-500" />
             </div>
-            <h3 className="text-2xl font-bold text-black mb-2">{t.catalogPage.emptyTitle}</h3>
-            <p className="text-gray-500 font-light">{t.catalogPage.emptyDesc}</p>
-            <button onClick={() => {setSearchQuery(""); setActiveCategory("Todos");}} className="mt-8 text-primary font-bold uppercase tracking-widest text-xs hover:underline">
-              {t.catalogPage.clearBtn}
+            <h3 className="text-3xl font-extrabold text-white mb-4 tracking-tight">{t.catalogPage.emptyTitle}</h3>
+            <p className="text-gray-400 font-light text-lg mb-8">{t.catalogPage.emptyDesc}</p>
+            <button onClick={() => {setSearchQuery(""); setActiveCategory("Todos");}} className="group relative overflow-hidden bg-white/10 border border-white/20 text-white px-8 py-3 rounded-full text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:border-primary">
+              <div className="absolute inset-0 w-0 bg-primary transition-all duration-500 ease-out group-hover:w-full"></div>
+              <span className="relative z-10">{t.catalogPage.clearBtn}</span>
             </button>
           </div>
         ) : (
@@ -282,51 +289,68 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
                 <Link 
                   href={`/productos/${prod.id}`}
                   key={prod.id} 
-                  className={`group cursor-pointer transition-all duration-700 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}
-                  style={{ transitionDelay: `${idx * 100}ms` }}
+                  className={`group/card cursor-pointer transition-all duration-1000 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'} relative h-[450px]`}
+                  style={{ transitionDelay: `${idx * 50}ms` }}
                 >
-                <div className="bg-white rounded-3xl p-3 shadow-sm border border-gray-100 transition-all duration-500 group-hover:shadow-[0_25px_50px_rgba(0,0,0,0.08)] group-hover:-translate-y-2 h-full flex flex-col relative">
+                  {/* Glowing background on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-primary/0 to-primary/10 rounded-[2rem] blur-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-700"></div>
                   
-                  <div className="absolute top-6 left-6 z-20 pointer-events-none">
-                    <span className="bg-white/95 backdrop-blur-md text-[9px] font-extrabold uppercase tracking-[0.2em] px-4 py-2 rounded-full shadow-lg text-black border border-gray-100">
-                      {translateProductData(prod.category, lang)}
-                    </span>
-                  </div>
+                  <div className="relative h-full w-full bg-[#0A0A0A] rounded-[2rem] p-4 border border-white/5 shadow-xl flex flex-col overflow-hidden transition-all duration-500 group-hover/card:border-white/20 group-hover/card:-translate-y-2 group-hover/card:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    
+                    {/* Shadow overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10 opacity-80 group-hover/card:opacity-90 transition-opacity duration-500 pointer-events-none"></div>
 
-                  <div className="absolute top-6 right-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:scale-110 pointer-events-none">
-                    <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center shadow-lg">
-                      <span className="text-lg leading-none">+</span>
+                    {/* Badge Category Flotante */}
+                    <div className="absolute top-6 left-6 z-20 pointer-events-none">
+                      <span className="bg-white/10 backdrop-blur-md text-[9px] font-extrabold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(0,0,0,0.5)] text-white border border-white/10">
+                        {translateProductData(prod.category, lang)}
+                      </span>
                     </div>
-                  </div>
 
-                  <div className="w-full aspect-[4/5] bg-[#F8F8F8] rounded-2xl overflow-hidden relative mb-5 flex items-center justify-center group-hover:bg-gray-100 transition-colors">
-                    {prod.image_url ? (
-                      <img src={getOptimizedUrl(prod.image_url, 400)} alt={prod.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                    ) : (
-                      <span className="text-gray-300 font-extrabold text-lg tracking-widest z-10 transition-transform duration-500 group-hover:scale-110">[FOTO {prod.id}]</span>
-                    )}
-                  </div>
+                    <div className="absolute top-6 right-6 z-20 opacity-0 group-hover/card:opacity-100 transition-all duration-500 transform scale-50 group-hover/card:scale-100 pointer-events-none">
+                      <div className="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                        <ArrowLeft className="w-4 h-4 rotate-135" />
+                      </div>
+                    </div>
 
-                  <div className="px-3 pb-4 flex-1 flex flex-col">
-                    <div className="flex items-center justify-between mb-2">
-                      <p className="text-primary text-[10px] font-extrabold tracking-[0.2em] uppercase flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                        {translateProductData(prod.tag, lang)}
-                      </p>
-                      {brandObj && brandObj.logo_url && (
-                        <div className="h-8 w-20 flex items-center justify-end">
-                          <img src={getOptimizedUrl(brandObj.logo_url, 200)} alt={brandObj.name} className="h-full w-full object-contain object-right drop-shadow-sm transition-transform group-hover:scale-105" loading="lazy" />
-                        </div>
+                    {/* Contenedor Imagen */}
+                    <div className="w-full h-3/5 relative mb-4 flex items-center justify-center z-0 mt-4">
+                      {/* Inner glow under image */}
+                      <div className="absolute inset-0 bg-white/5 rounded-full blur-[40px] opacity-0 group-hover/card:opacity-100 transition-opacity duration-700"></div>
+                      
+                      {prod.image_url ? (
+                        <img src={getOptimizedUrl(prod.image_url, 400)} alt={prod.name} className="w-full h-full object-contain transition-all duration-[800ms] group-hover/card:scale-110 group-hover/card:-translate-y-2 drop-shadow-[0_20px_20px_rgba(0,0,0,0.8)]" loading="lazy" />
+                      ) : (
+                        <span className="text-gray-600 font-extrabold text-xs tracking-widest uppercase z-10">Sin Imagen</span>
                       )}
                     </div>
-                    <h3 className="heading font-bold text-xl text-black leading-tight group-hover:text-primary transition-colors">
-                      {translateProductData(prod.name, lang)}
-                    </h3>
+
+                    {/* Info Product */}
+                    <div className="relative z-20 mt-auto flex-1 flex flex-col justify-end pb-2 px-2">
+                      <div className="flex items-center justify-between mb-3">
+                        <p className="text-primary text-[9px] font-bold tracking-[0.2em] uppercase flex items-center gap-2 bg-primary/10 px-2 py-1 rounded border border-primary/20">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                          {translateProductData(prod.tag, lang)}
+                        </p>
+                        {brandObj && brandObj.logo_url && (
+                          <div className="h-6 w-16 flex items-center justify-end opacity-70 group-hover/card:opacity-100 transition-opacity">
+                            <img src={getOptimizedUrl(brandObj.logo_url, 200)} alt={brandObj.name} className="h-full w-full object-contain object-right drop-shadow-md" loading="lazy" />
+                          </div>
+                        )}
+                      </div>
+                      <h3 className="heading font-bold text-xl text-white leading-tight tracking-tight group-hover/card:text-transparent group-hover/card:bg-clip-text group-hover/card:bg-gradient-to-r group-hover/card:from-white group-hover/card:to-gray-400 transition-all duration-300">
+                        {translateProductData(prod.name, lang)}
+                      </h3>
+                      
+                      {/* Animated Line */}
+                      <div className="w-8 h-[2px] bg-white/20 mt-4 rounded-full overflow-hidden">
+                        <div className="w-0 h-full bg-primary group-hover/card:w-full transition-all duration-700 ease-out"></div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            );
-          })}
+                </Link>
+              );
+            })}
           </div>
         )}
       </section>

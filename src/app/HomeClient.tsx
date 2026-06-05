@@ -170,8 +170,8 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
         {/* HERO SECTION - Minimalista y Épico */}
         <section id="inicio" className="relative h-screen min-h-[700px] flex items-center justify-center text-center overflow-hidden">
           <div className="absolute inset-0 z-0 bg-black">
-            <video key={heroVideoUrl} src={heroVideoUrl} poster={heroVideoUrl.includes('cloudinary') ? heroVideoUrl.replace(/\.[^/.]+$/, ".jpg") : "/placeholder-hero.jpg"} autoPlay loop muted playsInline className="w-full h-full object-cover opacity-60 mix-blend-lighten" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-[#050505]"></div>
+            <video key={heroVideoUrl} src={heroVideoUrl} poster={heroVideoUrl.includes('cloudinary') ? heroVideoUrl.replace(/\.[^/.]+$/, ".jpg") : "/placeholder-hero.jpg"} autoPlay loop muted playsInline className="w-full h-full object-cover opacity-80" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-[#050505]"></div>
             {/* Viñeta para centrar la vista */}
             <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.9)]"></div>
           </div>

@@ -95,7 +95,7 @@ const translateProductData = (text: string, lang: Language) => {
   return translated;
 };
 
-export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: { catalog: any[], dbCategories?: any[], dbBrands?: any[] }) {
+export default function CatalogClient({ catalog, dbCategories, dbBrands = [], settings = {} }: { catalog: any[], dbCategories?: any[], dbBrands?: any[], settings?: Record<string, string> }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [searchQuery, setSearchQuery] = useState("");
@@ -219,9 +219,21 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [] }: 
           <h1 className="heading text-5xl sm:text-6xl md:text-8xl font-black mb-6 tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-2xl">
             {t.catalogPage.title} <span className="font-light italic text-white/50">{t.catalogPage.subtitle}</span>
           </h1>
-          <p className="text-gray-400 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
+          <p className="text-gray-400 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed mb-10">
             {t.catalogPage.desc}
           </p>
+          
+          {settings.catalog_pdf_url && (
+            <a 
+              href={settings.catalog_pdf_url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-8 py-4 rounded-full text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] group"
+            >
+              <svg className="w-5 h-5 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+              Descargar Catálogo PDF
+            </a>
+          )}
         </div>
       </section>
 

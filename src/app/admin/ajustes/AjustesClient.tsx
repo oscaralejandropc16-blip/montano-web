@@ -13,6 +13,8 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
   const [fp1, setFp1] = useState(settings.featured_product_1 || "");
   const [fp2, setFp2] = useState(settings.featured_product_2 || "");
   const [fp3, setFp3] = useState(settings.featured_product_3 || "");
+  
+  const [catalogPdfUrl, setCatalogPdfUrl] = useState(settings.catalog_pdf_url || "");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectorOpen, setSelectorOpen] = useState<{isOpen: boolean, key: string | null}>({isOpen: false, key: null});
@@ -26,6 +28,7 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
       if (fp1) await saveSetting("featured_product_1", fp1); else await saveSetting("featured_product_1", "");
       if (fp2) await saveSetting("featured_product_2", fp2); else await saveSetting("featured_product_2", "");
       if (fp3) await saveSetting("featured_product_3", fp3); else await saveSetting("featured_product_3", "");
+      await saveSetting("catalog_pdf_url", catalogPdfUrl);
       toast.success("Ajustes guardados correctamente");
     } catch (error) {
       console.error(error);
@@ -42,6 +45,10 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
     }
     if (key === "site_logo_temp") {
       setSiteLogo(url);
+      return;
+    }
+    if (key === "catalog_pdf_url_temp") {
+      setCatalogPdfUrl(url);
       return;
     }
     
@@ -96,6 +103,20 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
             </div>
             <div className="flex gap-2">
               <button type="button" onClick={() => setSelectorOpen({isOpen: true, key: 'site_logo_temp'})} className="bg-black text-white px-4 py-3 rounded-xl font-bold text-xs hover:bg-gray-800 transition-colors shadow-md">Seleccionar Logo</button>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-8 border-t border-gray-100 pt-8">
+          <h3 className="text-lg font-bold text-black mb-6">Catálogo PDF</h3>
+          <p className="text-xs text-gray-500 mb-6">Sube el archivo PDF del catálogo para que los clientes puedan descargarlo en la página de productos.</p>
+          <div className="flex items-center gap-6">
+            <div className="flex-1">
+              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">URL del Catálogo PDF</label>
+              <input type="text" value={catalogPdfUrl} onChange={(e) => setCatalogPdfUrl(e.target.value)} placeholder="Ej: https://.../catalogo.pdf" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+            </div>
+            <div className="flex gap-2 self-end">
+              <button type="button" onClick={() => setSelectorOpen({isOpen: true, key: 'catalog_pdf_url_temp'})} className="bg-black text-white px-4 py-3 rounded-xl font-bold text-xs hover:bg-gray-800 transition-colors shadow-md">Subir PDF</button>
             </div>
           </div>
         </div>

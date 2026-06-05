@@ -103,14 +103,21 @@ export default function MediaSelector({
                   onClose();
                 }}
               >
-                {({ open }) => (
-                  <button 
-                    onClick={() => open()}
-                    className="bg-black text-white px-8 py-4 rounded-xl font-bold tracking-widest uppercase hover:bg-primary transition-colors flex items-center gap-3 shadow-xl"
-                  >
-                    <UploadCloud className="w-6 h-6" /> Abrir Ventana de Subida
-                  </button>
-                )}
+                {(props: any) => {
+                  const open = props?.open;
+                  return (
+                    <button 
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (open) open();
+                      }}
+                      className="bg-black text-white px-8 py-4 rounded-xl font-bold tracking-widest uppercase hover:bg-primary transition-colors flex items-center gap-3 shadow-xl"
+                    >
+                      <UploadCloud className="w-6 h-6" /> Abrir Ventana de Subida
+                    </button>
+                  );
+                }}
               </CldUploadWidget>
             </div>
           )}

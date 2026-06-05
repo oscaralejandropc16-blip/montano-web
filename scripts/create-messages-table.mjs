@@ -13,11 +13,13 @@ async function init() {
         id SERIAL PRIMARY KEY,
         nombre VARCHAR(255) NOT NULL,
         email VARCHAR(255),
+        whatsapp VARCHAR(255),
         mensaje TEXT NOT NULL,
         fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         leido BOOLEAN DEFAULT false
       );
     `;
+    await sql`ALTER TABLE mensajes_contacto ADD COLUMN IF NOT EXISTS whatsapp VARCHAR(255);`;
     console.log('Table mensajes_contacto created successfully!');
   } catch (err) {
     console.error('Error creating table:', err);

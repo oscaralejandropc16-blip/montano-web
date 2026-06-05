@@ -326,7 +326,9 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
               );
             })}
           </div>
-            {/* CONTACTO - Premium SaaS Form */}
+        </section>
+
+        {/* CONTACTO - Premium SaaS Form */}
         <section id="contacto" className="py-32 relative bg-[#050505] overflow-hidden">
           {/* Ambient Background Glows */}
           <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>

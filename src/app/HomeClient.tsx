@@ -246,44 +246,81 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
           </div>
         </section>
 
-        {/* NOSOTROS - Revista de Lujo */}
-        <section id="nosotros" className="py-32 relative bg-[#0A0A0A] border-y border-white/5">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
+        {/* NOSOTROS - Premium SaaS About */}
+        <section id="nosotros" className="py-32 md:py-40 relative bg-[#050505] overflow-hidden">
+          {/* Subtle Ambient Backgrounds */}
+          <div className="absolute top-1/2 left-0 w-full max-w-[800px] h-[400px] bg-primary/5 rounded-full blur-[150px] -translate-x-1/3 -translate-y-1/2 pointer-events-none"></div>
+          
           <div className="max-w-7xl mx-auto px-6 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
               
-              <div className="order-2 lg:order-1 relative">
-                <div className="absolute -left-10 -top-10 text-[10rem] font-extrabold text-white/5 select-none leading-none heading tracking-tighter">EST.</div>
-                <h2 className="heading text-5xl md:text-6xl font-extrabold text-white mb-8 leading-tight relative z-10">
-                  {t.about.title}
-                </h2>
-                <div className="space-y-6 text-gray-400 text-lg font-light leading-relaxed mb-10">
-                  <p>
-                    {t.about.text1}<strong className="text-white font-medium">{t.about.text2}</strong>{t.about.text3}
-                  </p>
-                  <p>
-                    <strong className="text-white font-medium">{t.about.text4}</strong>{t.about.text5}
-                  </p>
+              {/* Text Column */}
+              <div className="order-2 lg:order-1 relative group">
+                <div className="absolute -left-10 -top-24 text-[12rem] md:text-[16rem] font-black text-transparent bg-clip-text bg-gradient-to-b from-white/5 to-transparent select-none leading-none tracking-tighter pointer-events-none transition-transform duration-1000 group-hover:-translate-y-4">EST.</div>
+                
+                <div className="relative z-10">
+                  <div className="inline-flex items-center gap-3 mb-6">
+                    <div className="w-8 h-[1px] bg-primary"></div>
+                    <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs">Nuestra Historia</span>
+                  </div>
+                  
+                  <h2 className="heading text-5xl md:text-6xl lg:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 mb-8 leading-[1.1] tracking-tight">
+                    {t.about.title}
+                  </h2>
+                  
+                  <div className="space-y-6 text-gray-400 text-lg md:text-xl font-light leading-relaxed mb-10 max-w-xl relative">
+                    <div className="absolute -left-6 top-2 bottom-2 w-[2px] bg-gradient-to-b from-primary via-primary/20 to-transparent"></div>
+                    <p className="pl-2">
+                      {t.about.text1}<strong className="text-white font-medium">{t.about.text2}</strong>{t.about.text3}
+                    </p>
+                    <p className="pl-2">
+                      <strong className="text-white font-medium">{t.about.text4}</strong>{t.about.text5}
+                    </p>
+                  </div>
+                  
+                  <Link href="/about" className="group relative inline-flex items-center gap-4 bg-white text-black px-8 py-4 rounded-full text-xs font-bold tracking-[0.2em] uppercase overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                    <div className="absolute inset-0 w-0 bg-primary transition-all duration-500 ease-out group-hover:w-full"></div>
+                    <span className="relative z-10 transition-colors duration-300 group-hover:text-white">{t.about.btn}</span>
+                    <svg className="relative z-10 w-4 h-4 transform group-hover:translate-x-1 group-hover:text-white transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                  </Link>
                 </div>
-                <Link href="/about" className="inline-flex items-center gap-4 text-white text-xs font-bold tracking-[0.2em] uppercase hover:text-primary transition-colors group">
-                  <span className="border-b border-transparent group-hover:border-primary pb-1 transition-all">{t.about.btn}</span>
-                  <svg className="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                </Link>
               </div>
 
-              <div className="order-1 lg:order-2 relative">
-                <div className="aspect-[3/4] rounded-3xl overflow-hidden relative group shadow-2xl">
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700 z-10"></div>
+              {/* Image Column */}
+              <div className="order-1 lg:order-2 relative mx-auto lg:mx-0 max-w-md lg:max-w-none w-full group/img">
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent blur-[80px] rounded-full group-hover/img:opacity-70 transition-opacity duration-1000 opacity-40"></div>
+                
+                <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden relative shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover/img:opacity-100 transition-opacity duration-700 z-10"></div>
                   {settings.about_img ? (
-                    <img src={getOptimizedUrl(settings.about_img, 800)} alt="Montano Antilia" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" loading="lazy" />
+                    <img src={getOptimizedUrl(settings.about_img, 800)} alt="Montano Antilia" className="w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover/img:scale-110" loading="lazy" />
                   ) : (
-                    <div className="w-full h-full bg-white/5 flex items-center justify-center text-gray-500 font-bold text-xs tracking-widest uppercase">Foto de Fábrica</div>
+                    <div className="w-full h-full bg-[#111] flex items-center justify-center text-gray-500 font-bold text-xs tracking-widest uppercase">Foto de Fábrica</div>
                   )}
                 </div>
-                {/* Sello de calidad flotante */}
-                <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full border border-white/10 bg-[#050505]/80 backdrop-blur-xl flex flex-col items-center justify-center p-6 text-center animate-spin-slow shadow-2xl">
-                  <span className="text-primary font-bold text-2xl heading">+30</span>
-                  <span className="text-white text-[8px] tracking-[0.2em] uppercase">{t.about.badge}</span>
+                
+                {/* Premium Rotating Badge */}
+                <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-40 md:h-40 z-20 group-hover/img:-translate-y-2 group-hover/img:translate-x-2 transition-transform duration-700">
+                  <div className="relative w-full h-full">
+                    {/* Spinning SVG Text/Border */}
+                    <div className="absolute inset-0 animate-[spin_10s_linear_infinite]">
+                      <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
+                        <defs>
+                          <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
+                        </defs>
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                        <text fontSize="8.5" fill="rgba(255,255,255,0.6)" fontWeight="bold" letterSpacing="1.5" className="uppercase font-sans">
+                          <textPath href="#circlePath" startOffset="0%">
+                            • {t.about.badge} • {t.about.badge}
+                          </textPath>
+                        </text>
+                      </svg>
+                    </div>
+                    {/* Static Center Orb */}
+                    <div className="absolute inset-3 rounded-full bg-black/80 backdrop-blur-xl border border-white/10 shadow-2xl flex flex-col items-center justify-center text-center">
+                      <span className="text-primary font-black text-3xl md:text-4xl heading leading-none">+30</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 

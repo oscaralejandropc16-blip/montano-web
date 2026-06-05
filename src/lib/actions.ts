@@ -170,7 +170,7 @@ export async function deleteMedia(id: number) {
 import { cookies } from 'next/headers';
 
 export async function adminLogin(password: string) {
-  if (password === 'montano2026') {
+  if (password === 'Procarni2027.') {
     const cookieStore = await cookies();
     cookieStore.set('admin_token', 'authenticated', { secure: true, httpOnly: true, path: '/', maxAge: 60 * 60 * 24 * 7 });
     return { success: true };

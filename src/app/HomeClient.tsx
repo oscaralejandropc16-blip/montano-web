@@ -215,7 +215,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
               <div className="max-w-2xl">
                 <div className="inline-flex items-center gap-3 mb-4">
                   <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
-                  <span className="text-primary font-bold tracking-[0.2em] uppercase text-[10px]">{t.products.badge}</span>
+                  <span className="text-primary font-bold tracking-[0.2em] uppercase text-[10px]">{t.hero.badge}</span>
                 </div>
                 <h2 className="heading text-4xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 tracking-tighter">
                   {t.products.title}
@@ -227,7 +227,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
               <div className="flex flex-col sm:flex-row gap-4 items-center">
                 {settings.catalog_pdf_url && (
                   <a 
-                    href={settings.catalog_pdf_url} 
+                    href={settings.catalog_pdf_url.includes('cloudinary') ? settings.catalog_pdf_url.replace('/upload/', '/upload/fl_attachment/') : settings.catalog_pdf_url} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="group relative overflow-hidden bg-white/10 border border-white/20 text-white px-8 py-4 rounded-full text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:border-white/40 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] flex items-center gap-2 whitespace-nowrap"
@@ -239,7 +239,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                 <Link href="/productos" className="group relative overflow-hidden bg-transparent border border-white/10 text-white px-8 py-4 rounded-full text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:border-primary">
                   <div className="absolute inset-0 w-0 bg-primary transition-all duration-500 ease-out group-hover:w-full"></div>
                   <span className="relative z-10 flex items-center gap-2">
-                    {t.products.viewAllBtn}
+                    {t.products.viewAll}
                     <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                   </span>
                 </Link>

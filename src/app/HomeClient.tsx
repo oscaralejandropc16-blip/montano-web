@@ -203,46 +203,99 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
           </div>
         </section>
 
-        {/* SECCIÓN PRODUCTOS - Grid Estilo Bento Premium */}
-        <section id="productos" className="py-32 px-6 max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-            <div>
-              <h2 className="heading text-4xl md:text-5xl font-extrabold text-white mb-4">{t.products.title}</h2>
-              <p className="text-gray-400 max-w-md text-sm leading-relaxed">{t.products.desc}</p>
-            </div>
-            <Link href="/productos" className="flex items-center gap-3 text-xs font-bold tracking-[0.2em] uppercase text-white group">
-              {t.products.viewAll}
-              <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary transition-all">
-                <ChevronDown className="w-4 h-4 -rotate-90" />
+        {/* SECCIÓN PRODUCTOS - Premium SaaS Display */}
+        <section id="productos" className="py-32 relative z-10 overflow-hidden">
+          {/* Ambient light for the section */}
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none -translate-y-1/2"></div>
+          
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            
+            {/* Header Area */}
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+              <div className="max-w-xl">
+                <div className="inline-flex items-center gap-3 mb-6">
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/75 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                  </span>
+                  <span className="text-primary font-bold tracking-[0.2em] uppercase text-[10px]">Catálogo Exclusivo</span>
+                </div>
+                <h2 className="heading text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 mb-6 tracking-tight">
+                  {t.products.title}
+                </h2>
+                <p className="text-gray-400 text-lg leading-relaxed font-light">
+                  {t.products.desc}
+                </p>
               </div>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {displayProducts.map((prod, idx) => (
-              <Link href={`/productos/${prod.id}`} key={idx} className="group relative rounded-[2rem] overflow-hidden bg-[#0A0A0A] border border-white/5 flex flex-col h-[500px] hover:border-white/20 transition-all duration-500">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10"></div>
-                
-                {/* Imagen del producto grande y elegante */}
-                <div className="absolute inset-0 w-full h-full flex items-center justify-center p-10 z-0">
-                  {prod.image_url ? (
-                    <img src={getOptimizedUrl(prod.image_url, 800)} alt={prod.name} className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-2xl" loading="lazy" />
-                  ) : (
-                    <div className="w-40 h-40 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 font-bold text-xs tracking-widest uppercase">Sin Foto</div>
-                  )}
-                </div>
-
-                {/* Info superpuesta */}
-                <div className="relative z-20 mt-auto p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {prod.tag && <span className="bg-white/10 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-white/10">{prod.tag}</span>}
-                    {prod.brand && <span className="bg-primary/20 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-primary/20">{prod.brand}</span>}
-                  </div>
-                  <h3 className="heading font-bold text-3xl text-white tracking-tight mb-2">{prod.name}</h3>
-                  <div className="w-0 h-px bg-primary group-hover:w-full transition-all duration-700 ease-out"></div>
-                </div>
+              
+              <Link href="/productos" className="group relative inline-flex items-center gap-4 bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full text-xs font-bold tracking-[0.2em] uppercase overflow-hidden transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(var(--primary-color-rgb),0.2)]">
+                <div className="absolute inset-0 w-0 bg-primary transition-all duration-500 ease-out group-hover:w-full"></div>
+                <span className="relative z-10">{t.products.viewAll}</span>
+                <svg className="relative z-10 w-4 h-4 transform group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
               </Link>
-            ))}
+            </div>
+
+            {/* Premium Products Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {displayProducts.map((prod, idx) => (
+                <div key={idx} className="relative group/card h-[500px]">
+                  {/* Glowing background on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-primary/0 to-primary/20 rounded-[2.5rem] blur-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-700"></div>
+                  
+                  <Link href={`/productos/${prod.id}`} className="relative block h-full w-full rounded-[2.5rem] overflow-hidden bg-[#0A0A0A] border border-white/5 flex flex-col group-hover/card:border-white/20 group-hover/card:-translate-y-2 transition-all duration-500 shadow-xl group-hover/card:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    
+                    {/* Inner top glow */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-white/5 rounded-full blur-[50px] opacity-0 group-hover/card:opacity-100 transition-opacity duration-700"></div>
+                    
+                    {/* Shadow overlay at bottom */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10 opacity-90 group-hover/card:opacity-80 transition-opacity duration-500"></div>
+                    
+                    {/* Product Image */}
+                    <div className="absolute inset-0 w-full h-full flex items-center justify-center p-12 z-0">
+                      {prod.image_url ? (
+                        <img src={getOptimizedUrl(prod.image_url, 800)} alt={prod.name} className="w-full h-full object-contain transition-all duration-[800ms] group-hover/card:scale-110 group-hover/card:-translate-y-4 drop-shadow-[0_30px_30px_rgba(0,0,0,0.8)]" loading="lazy" />
+                      ) : (
+                        <div className="w-40 h-40 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 font-bold text-xs tracking-widest uppercase shadow-inner">Sin Foto</div>
+                      )}
+                    </div>
+
+                    {/* Product Info */}
+                    <div className="relative z-20 mt-auto p-10 transform translate-y-4 group-hover/card:translate-y-0 transition-transform duration-500">
+                      
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2 mb-5">
+                        {prod.tag && (
+                          <span className="bg-white/5 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full border border-white/10 shadow-inner">
+                            {prod.tag}
+                          </span>
+                        )}
+                        {prod.brand && (
+                          <span className="bg-primary/10 backdrop-blur-md text-primary text-[9px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full border border-primary/20 shadow-[0_0_15px_rgba(var(--primary-color-rgb),0.2)]">
+                            {prod.brand}
+                          </span>
+                        )}
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <h3 className="heading font-black text-3xl md:text-4xl text-white tracking-tight leading-none group-hover/card:text-transparent group-hover/card:bg-clip-text group-hover/card:bg-gradient-to-r group-hover/card:from-white group-hover/card:to-gray-400 transition-all duration-300">
+                          {prod.name}
+                        </h3>
+                        
+                        {/* Animated arrow icon */}
+                        <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center transform scale-0 opacity-0 group-hover/card:scale-100 group-hover/card:opacity-100 transition-all duration-500 delay-100 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                          <svg className="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                        </div>
+                      </div>
+                      
+                      {/* Interactive Line */}
+                      <div className="w-12 h-1 bg-primary/30 mt-6 rounded-full overflow-hidden">
+                        <div className="w-0 h-full bg-primary group-hover/card:w-full transition-all duration-700 ease-out"></div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 

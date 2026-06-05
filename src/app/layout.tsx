@@ -15,10 +15,58 @@ const bodyFont = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Montano Antilia - El sabor que conquista",
-  description: "Montano Antilia elabora embutidos de calidad superior, fusionando tradición e innovación para ofrecer productos frescos y con sabor auténtico.",
+  metadataBase: new URL('https://montanoantilia.com'),
+  title: {
+    default: "Montano Antilia - Embutidos de Calidad Premium",
+    template: "%s | Montano Antilia"
+  },
+  description: "Montano Antilia elabora embutidos de calidad superior en Venezuela. Fusionamos tradición e innovación para ofrecerte salchichas, chorizos y más productos frescos con sabor auténtico.",
+  keywords: ["embutidos", "carnicería", "salchichas", "chorizos", "Montano Antilia", "charcutería", "Venezuela", "calidad premium", "alimentos"],
+  authors: [{ name: "Montano Antilia" }],
+  creator: "Montano Antilia",
+  publisher: "Montano Antilia",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "es_VE",
+    url: "https://montanoantilia.com",
+    title: "Montano Antilia - El Sabor que Conquista",
+    description: "Embutidos de calidad superior. Tradición e innovación en cada bocado.",
+    siteName: "Montano Antilia",
+    images: [
+      {
+        url: "/logo.png",
+        width: 800,
+        height: 600,
+        alt: "Montano Antilia Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Montano Antilia - Embutidos Premium",
+    description: "Embutidos de calidad superior. Tradición e innovación en cada bocado.",
+    images: ["/logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
   },
 };
 

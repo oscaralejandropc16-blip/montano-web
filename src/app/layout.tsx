@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: "Montano Antilia",
     images: [
       {
-        url: "/logo.png",
+        url: "/api/logo",
         width: 800,
         height: 600,
         alt: "Montano Antilia Logo",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Montano Antilia - Embutidos Premium",
     description: "Embutidos de calidad superior. Tradición e innovación en cada bocado.",
-    images: ["/logo.png"],
+    images: ["/api/logo"],
   },
   robots: {
     index: true,
@@ -64,9 +64,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: "/api/logo",
+    shortcut: "/api/logo",
+    apple: "/api/logo",
   },
 };
 

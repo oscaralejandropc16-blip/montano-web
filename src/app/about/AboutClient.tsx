@@ -91,7 +91,7 @@ export default function AboutClient({ settings }: { settings: Record<string, str
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center">
             <div className={`transition-all duration-500 relative ${isScrolled ? 'h-10' : 'h-14'}`}>
-              <img src="/logo.png" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-2xl" />
+              <img src="/api/logo" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-2xl" />
             </div>
           </Link>
           

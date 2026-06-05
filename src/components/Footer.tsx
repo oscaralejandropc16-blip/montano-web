@@ -120,7 +120,7 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
             <div className="h-16 mb-8 relative group cursor-pointer">
               {/* Glow Behind Logo */}
               <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <img src="/logo.png" alt="Montano Antilia" className="h-full w-auto object-contain relative z-10 drop-shadow-2xl" />
+              <img src="/api/logo" alt="Montano Antilia" className="h-full w-auto object-contain relative z-10 drop-shadow-2xl" />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-sm">
               {mergedTexts.aboutText}

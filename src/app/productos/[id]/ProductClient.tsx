@@ -136,7 +136,7 @@ export default function ProductClient({ product, relatedProducts, brandObj, bran
             <div className="h-8 md:h-10 w-[1px] bg-gray-200 hidden sm:block"></div>
             <Link href="/" className="flex items-center">
               <div className="h-12 md:h-14 relative">
-                <img src="/logo.png" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-sm" />
+                <img src="/api/logo" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-sm" />
               </div>
             </Link>
           </div>

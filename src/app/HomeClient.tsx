@@ -106,7 +106,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
         <div className={`flex items-center justify-between transition-all duration-500 rounded-full px-6 py-3 ${isScrolled ? "w-full max-w-5xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl" : "w-full max-w-7xl bg-transparent"}`}>
           
           <Link href="/" className="flex items-center group relative z-50">
-            <img src="/logo.png" alt="Montano Antilia Logo" className={`w-auto object-contain transition-all duration-500 drop-shadow-2xl ${isScrolled ? 'h-8' : 'h-10'}`} />
+            <img src="/api/logo" alt="Montano Antilia Logo" className={`w-auto object-contain transition-all duration-500 drop-shadow-2xl ${isScrolled ? 'h-8' : 'h-10'}`} />
           </Link>
 
           <div className="hidden lg:flex items-center gap-8">

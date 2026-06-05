@@ -51,6 +51,9 @@ export default async function AdminDashboard() {
           <Link href="/admin/ajustes" className="bg-gray-100 text-black px-6 py-3 rounded-xl font-medium text-sm hover:bg-gray-200 transition-colors">
             Cambiar Video de Portada
           </Link>
+          <Link href="/admin/ajustes" className="bg-gray-100 text-black px-6 py-3 rounded-xl font-medium text-sm hover:bg-gray-200 transition-colors border border-gray-200">
+            Cambiar Logo de la Web
+          </Link>
         </div>
       </div>
     </div>

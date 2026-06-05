@@ -8,6 +8,7 @@ import MediaSelector from "@/components/MediaSelector";
 
 export default function AjustesClient({ settings, products = [] }: { settings: Record<string, string>, products?: any[] }) {
   const [heroVideoUrl, setHeroVideoUrl] = useState(settings.hero_video_url || "/hero-video.mp4");
+  const [siteLogo, setSiteLogo] = useState(settings.site_logo || "/logo.png");
   
   const [fp1, setFp1] = useState(settings.featured_product_1 || "");
   const [fp2, setFp2] = useState(settings.featured_product_2 || "");
@@ -21,6 +22,7 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
     setIsSubmitting(true);
     try {
       await saveSetting("hero_video_url", heroVideoUrl);
+      await saveSetting("site_logo", siteLogo);
       if (fp1) await saveSetting("featured_product_1", fp1); else await saveSetting("featured_product_1", "");
       if (fp2) await saveSetting("featured_product_2", fp2); else await saveSetting("featured_product_2", "");
       if (fp3) await saveSetting("featured_product_3", fp3); else await saveSetting("featured_product_3", "");
@@ -36,6 +38,10 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
   const handleUpload = async (key: string, url: string) => {
     if (key === "hero_video_url_temp") {
       setHeroVideoUrl(url);
+      return;
+    }
+    if (key === "site_logo_temp") {
+      setSiteLogo(url);
       return;
     }
     
@@ -77,6 +83,20 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
             {renderPreview(heroVideoUrl)}
             <input type="text" value={heroVideoUrl} onChange={(e) => setHeroVideoUrl(e.target.value)} className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
             <button type="button" onClick={() => setSelectorOpen({isOpen: true, key: 'hero_video_url_temp'})} className="bg-black text-white px-4 py-3 rounded-xl font-bold text-sm hover:bg-gray-800 transition-colors whitespace-nowrap shadow-md">Seleccionar Video</button>
+          </div>
+        </div>
+
+        <div className="mb-8 border-t border-gray-100 pt-8">
+          <h3 className="text-lg font-bold text-black mb-6">Logo e Ícono Principal</h3>
+          <div className="flex items-center gap-6">
+            {renderPreview(siteLogo)}
+            <div className="flex-1">
+              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Logo de la Página Web</label>
+              <input type="text" value={siteLogo} onChange={(e) => setSiteLogo(e.target.value)} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+            </div>
+            <div className="flex gap-2">
+              <button type="button" onClick={() => setSelectorOpen({isOpen: true, key: 'site_logo_temp'})} className="bg-black text-white px-4 py-3 rounded-xl font-bold text-xs hover:bg-gray-800 transition-colors shadow-md">Seleccionar Logo</button>
+            </div>
           </div>
         </div>
 

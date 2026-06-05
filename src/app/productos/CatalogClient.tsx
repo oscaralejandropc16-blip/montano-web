@@ -202,7 +202,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [], se
       {/* HEADER DEL CATÁLOGO - ESTILO PREMIUM */}
       <section className="relative pt-48 pb-24 px-6 bg-black text-white text-center overflow-hidden flex items-center justify-center min-h-[50vh]">
         {/* Glow ambient background */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/10 rounded-full blur-[150px] pointer-events-none"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/10 rounded-full blur-[150px] pointer-events-none hidden md:block"></div>
         
         <div className="absolute inset-0 z-0">
            <div className={`absolute inset-0 transition-transform duration-[20s] ease-out ${loaded ? 'scale-100' : 'scale-110'}`} style={{ backgroundImage: "url('/placeholder-hero.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 40%' }}></div>

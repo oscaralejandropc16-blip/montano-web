@@ -206,7 +206,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
         {/* SECCIÓN PRODUCTOS - Premium SaaS Display */}
         <section id="productos" className="py-32 relative z-10 overflow-hidden">
           {/* Ambient light for the section */}
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none -translate-y-1/2"></div>
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none -translate-y-1/2 hidden md:block"></div>
           
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             
@@ -302,7 +302,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
         {/* NOSOTROS - Premium SaaS About */}
         <section id="nosotros" className="py-32 md:py-40 relative bg-[#050505] overflow-hidden">
           {/* Subtle Ambient Backgrounds */}
-          <div className="absolute top-1/2 left-0 w-full max-w-[800px] h-[400px] bg-primary/5 rounded-full blur-[150px] -translate-x-1/3 -translate-y-1/2 pointer-events-none"></div>
+          <div className="absolute top-1/2 left-0 w-full max-w-[800px] h-[400px] bg-primary/5 rounded-full blur-[150px] -translate-x-1/3 -translate-y-1/2 pointer-events-none hidden md:block"></div>
           
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -341,7 +341,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
 
               {/* Image Column */}
               <div className="order-1 lg:order-2 relative mx-auto lg:mx-0 max-w-md lg:max-w-none w-full group/img">
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent blur-[80px] rounded-full group-hover/img:opacity-70 transition-opacity duration-1000 opacity-40"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent blur-[40px] md:blur-[80px] rounded-full group-hover/img:opacity-70 transition-opacity duration-1000 opacity-40"></div>
                 
                 <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden relative shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover/img:opacity-100 transition-opacity duration-700 z-10"></div>
@@ -384,7 +384,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
         {/* GALERÍA SOCIAL */}
         <section className="py-20 overflow-hidden bg-[#050505]">
           <div className="max-w-7xl mx-auto px-6 mb-16 relative">
-            <div className="absolute -top-10 left-10 w-32 h-32 bg-primary/20 rounded-full blur-[50px] pointer-events-none"></div>
+            <div className="absolute -top-10 left-10 w-32 h-32 bg-primary/20 rounded-full blur-[50px] pointer-events-none hidden md:block"></div>
             
             <div className="flex flex-col md:flex-row justify-between items-center gap-8 relative z-10 bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2.5rem] shadow-2xl backdrop-blur-sm">
               <div className="text-center md:text-left">
@@ -445,8 +445,8 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
         {/* CONTACTO - Premium SaaS Form */}
         <section id="contacto" className="py-32 relative bg-[#050505] overflow-hidden">
           {/* Ambient Background Glows */}
-          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[150px] translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
+          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none hidden md:block"></div>
+          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[150px] translate-x-1/3 translate-y-1/3 pointer-events-none hidden md:block"></div>
           
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
@@ -501,7 +501,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
               {/* Right Column: Form */}
               <div className="w-full lg:w-7/12">
                 <div className="bg-[#0A0A0A]/80 backdrop-blur-2xl p-8 md:p-12 lg:p-16 rounded-[2.5rem] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden group/form">
-                  <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px] -z-10 translate-x-1/3 -translate-y-1/3 transition-opacity duration-700 opacity-50 group-focus-within/form:opacity-100"></div>
+                  <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px] -z-10 translate-x-1/3 -translate-y-1/3 transition-opacity duration-700 opacity-50 group-focus-within/form:opacity-100 hidden md:block"></div>
                   
                   <h3 className="heading text-3xl font-bold text-white mb-10">{t.contact.formTitle}</h3>
                   

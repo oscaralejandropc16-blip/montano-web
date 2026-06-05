@@ -70,8 +70,8 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
     <footer className="relative bg-[#050505] pt-32 pb-12 overflow-hidden border-t border-white/5">
       
       {/* Dynamic Background Glows */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px] pointer-events-none -translate-y-1/2"></div>
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none -translate-y-1/2"></div>
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px] pointer-events-none -translate-y-1/2 hidden md:block"></div>
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none -translate-y-1/2 hidden md:block"></div>
       
       {/* Huge Animated Watermark Background */}
       <div className="absolute top-1/3 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 opacity-40">

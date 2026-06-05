@@ -211,28 +211,39 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             
             {/* Header Area */}
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-              <div className="max-w-xl">
-                <div className="inline-flex items-center gap-3 mb-6">
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/75 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
-                  </span>
-                  <span className="text-primary font-bold tracking-[0.2em] uppercase text-[10px]">Catálogo Exclusivo</span>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+              <div className="max-w-2xl">
+                <div className="inline-flex items-center gap-3 mb-4">
+                  <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+                  <span className="text-primary font-bold tracking-[0.2em] uppercase text-[10px]">{t.products.badge}</span>
                 </div>
-                <h2 className="heading text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 mb-6 tracking-tight">
+                <h2 className="heading text-4xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 tracking-tighter">
                   {t.products.title}
                 </h2>
-                <p className="text-gray-400 text-lg leading-relaxed font-light">
+                <p className="text-gray-400 text-lg font-light leading-relaxed">
                   {t.products.desc}
                 </p>
               </div>
-              
-              <Link href="/productos" className="group relative inline-flex items-center gap-4 bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full text-xs font-bold tracking-[0.2em] uppercase overflow-hidden transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(var(--primary-color-rgb),0.2)]">
-                <div className="absolute inset-0 w-0 bg-primary transition-all duration-500 ease-out group-hover:w-full"></div>
-                <span className="relative z-10">{t.products.viewAll}</span>
-                <svg className="relative z-10 w-4 h-4 transform group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-4 items-center">
+                {settings.catalog_pdf_url && (
+                  <a 
+                    href={settings.catalog_pdf_url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group relative overflow-hidden bg-white/10 border border-white/20 text-white px-8 py-4 rounded-full text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:border-white/40 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] flex items-center gap-2 whitespace-nowrap"
+                  >
+                    <svg className="w-4 h-4 transition-transform group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    <span className="relative z-10">Descargar PDF</span>
+                  </a>
+                )}
+                <Link href="/productos" className="group relative overflow-hidden bg-transparent border border-white/10 text-white px-8 py-4 rounded-full text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:border-primary">
+                  <div className="absolute inset-0 w-0 bg-primary transition-all duration-500 ease-out group-hover:w-full"></div>
+                  <span className="relative z-10 flex items-center gap-2">
+                    {t.products.viewAllBtn}
+                    <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  </span>
+                </Link>
+              </div>
             </div>
 
             {/* Premium Products Grid */}

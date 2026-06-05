@@ -1,13 +1,15 @@
 import { getSettings } from "@/lib/actions";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 export const revalidate = 60; // Cache for 60 seconds
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   const settings = await getSettings();
-  // We use the absolute URL for the default fallback to avoid relative redirect loops if hosted on vercel
-  const defaultLogo = "https://montanoantilia.com/logo.png";
-  const logoUrl = settings.site_logo || defaultLogo;
+  const logoUrl = settings.site_logo || "/logo.png";
+  
+  if (logoUrl.startsWith('/')) {
+    return NextResponse.redirect(new URL(logoUrl, request.url));
+  }
   
   return NextResponse.redirect(logoUrl);
 }

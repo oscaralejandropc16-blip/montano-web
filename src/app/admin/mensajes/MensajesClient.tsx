@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { markMessageAsRead, deleteMessage } from "@/lib/actions";
-import { Mail, CheckCircle2, Trash2, Calendar, User, Search, Loader2, Send, ChevronLeft, ChevronRight } from "lucide-react";
+import { Mail, CheckCircle2, Trash2, Calendar, User, Search, Loader2, Send, ChevronLeft, ChevronRight, MessageCircle } from "lucide-react";
 
 export default function MensajesClient({ initialMensajes }: { initialMensajes: any[] }) {
   const [mensajes, setMensajes] = useState(initialMensajes);
@@ -98,6 +98,12 @@ export default function MensajesClient({ initialMensajes }: { initialMensajes: a
                         <Mail className="w-3.5 h-3.5 flex-shrink-0" /> 
                         {m.email}
                       </span>
+                      {m.whatsapp && (
+                        <span className="flex items-center gap-1.5 whitespace-nowrap text-[#25D366]">
+                          <MessageCircle className="w-3.5 h-3.5" /> 
+                          {m.whatsapp}
+                        </span>
+                      )}
                       <span className="flex items-center gap-1.5 whitespace-nowrap text-gray-400">
                         <Calendar className="w-3.5 h-3.5" /> 
                         {new Date(m.fecha).toLocaleString()}
@@ -111,8 +117,20 @@ export default function MensajesClient({ initialMensajes }: { initialMensajes: a
                       className="flex flex-1 lg:flex-none justify-center items-center gap-2 px-4 py-2 bg-gray-900 text-white hover:bg-gray-800 font-bold text-xs rounded-lg transition-colors shadow-sm"
                     >
                       <Send className="w-4 h-4" />
-                      Responder
+                      Responder Email
                     </a>
+
+                    {m.whatsapp && (
+                      <a 
+                        href={`https://wa.me/${m.whatsapp.replace(/\D/g, '')}?text=Hola%20${encodeURIComponent(m.nombre)},%20te%20contactamos%20de%20Montano%20Antilia...`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex flex-1 lg:flex-none justify-center items-center gap-2 px-4 py-2 bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366]/20 border border-[#25D366]/30 font-bold text-xs rounded-lg transition-colors shadow-sm"
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                        WhatsApp
+                      </a>
+                    )}
                     
                     {!m.leido && (
                       <button 

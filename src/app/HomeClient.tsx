@@ -30,7 +30,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Estado para el formulario de contacto
-  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
+  const [contactForm, setContactForm] = useState({ name: '', email: '', whatsapp: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
@@ -66,10 +66,11 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
       await saveContactMessage({
         nombre: contactForm.name,
         email: contactForm.email || 'No proporcionado',
-        mensaje: contactForm.message
+        mensaje: contactForm.message,
+        whatsapp: contactForm.whatsapp || ''
       });
       setSubmitSuccess(true);
-      setContactForm({ name: '', email: '', message: '' });
+      setContactForm({ name: '', email: '', whatsapp: '', message: '' });
       setTimeout(() => setSubmitSuccess(false), 5000);
     } catch (error) {
       console.error("Error al enviar mensaje:", error);
@@ -394,6 +395,17 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                         onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
                         className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm" 
                         placeholder={t.contact.emailPlaceholder} 
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">WhatsApp (Opcional)</label>
+                      <input 
+                        type="text" 
+                        value={contactForm.whatsapp}
+                        onChange={(e) => setContactForm({...contactForm, whatsapp: e.target.value})}
+                        className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm" 
+                        placeholder="Ej: +58 412 1234567" 
                       />
                     </div>
                     

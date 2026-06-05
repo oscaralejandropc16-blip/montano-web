@@ -12,10 +12,10 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-export async function saveContactMessage(data: { nombre: string, email: string, mensaje: string }) {
+export async function saveContactMessage(data: { nombre: string, email: string, mensaje: string, whatsapp?: string }) {
   await sql`
-    INSERT INTO mensajes_contacto (nombre, email, mensaje)
-    VALUES (${data.nombre}, ${data.email}, ${data.mensaje})
+    INSERT INTO mensajes_contacto (nombre, email, mensaje, whatsapp)
+    VALUES (${data.nombre}, ${data.email}, ${data.mensaje}, ${data.whatsapp || null})
   `;
 }
 

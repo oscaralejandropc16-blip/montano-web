@@ -104,9 +104,11 @@ export async function saveSetting(key: string, value: string) {
 
 export async function registerVisit() {
   try {
+    const date = new Date();
+    const monthKey = `visits_${date.getFullYear()}_${date.getMonth() + 1}`;
     await sql`
       INSERT INTO montano_settings (key, value) 
-      VALUES ('total_visits', '1')
+      VALUES (${monthKey}, '1')
       ON CONFLICT (key) DO UPDATE 
       SET value = (CAST(montano_settings.value AS INTEGER) + 1)::text
     `;
@@ -117,7 +119,9 @@ export async function registerVisit() {
 
 export async function getTotalVisits() {
   try {
-    const res = await sql`SELECT value FROM montano_settings WHERE key = 'total_visits'`;
+    const date = new Date();
+    const monthKey = `visits_${date.getFullYear()}_${date.getMonth() + 1}`;
+    const res = await sql`SELECT value FROM montano_settings WHERE key = ${monthKey}`;
     if (res.length > 0) return parseInt(res[0].value, 10);
     return 0;
   } catch (error) {

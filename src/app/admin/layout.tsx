@@ -1,11 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LayoutDashboard, Package, Image as ImageIcon, Settings, LogOut, Tag, Mail } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
+import { LayoutDashboard, Package, Image as ImageIcon, Settings, LogOut, Tag, Mail, Globe } from "lucide-react";
+import { adminLogout } from "@/lib/actions";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await adminLogout();
+    router.push('/admin/login');
+  };
 
   const nav = [
     { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
@@ -57,10 +64,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        <div className="p-4 relative z-10 mt-auto border-t border-white/5">
+        <div className="p-4 relative z-10 mt-auto border-t border-white/5 flex flex-col gap-2">
           <Link href="/" className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 rounded-2xl transition-all duration-300 group">
-            <LogOut className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" /> Salir al Sitio Web
+            <Globe className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" /> Ver Sitio Web
           </Link>
+          <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-2xl transition-all duration-300 group">
+            <LogOut className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" /> Cerrar Sesión
+          </button>
         </div>
       </aside>
 

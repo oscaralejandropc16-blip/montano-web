@@ -364,24 +364,24 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                 </div>
                 
                 {/* Premium Rotating Badge */}
-                <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-40 md:h-40 z-20 group-hover/img:-translate-y-2 group-hover/img:translate-x-2 transition-transform duration-700">
+                <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-36 h-36 md:w-44 md:h-44 z-20 group-hover/img:-translate-y-2 group-hover/img:translate-x-2 transition-transform duration-700">
                   <div className="relative w-full h-full">
                     {/* Spinning SVG Text/Border */}
-                    <div className="absolute inset-0 animate-[spin_10s_linear_infinite]">
-                      <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
+                    <div className="absolute inset-0 animate-[spin_12s_linear_infinite]">
+                      <svg viewBox="0 0 200 200" className="w-full h-full overflow-visible">
                         <defs>
-                          <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
+                          <path id="circlePath" d="M 100, 100 m -80, 0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0" />
                         </defs>
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                        <text fontSize="10.5" fill="#FFFFFF" fontWeight="900" letterSpacing="2" className="uppercase font-sans opacity-80" style={{ fill: '#ffffff' }}>
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                        <text fontSize="22" fill="#FFFFFF" fontWeight="900" letterSpacing="4" className="uppercase font-sans opacity-90" style={{ fill: '#ffffff' }}>
                           <textPath href="#circlePath" startOffset="0%">
-                            • {t.about.badge} • {t.about.badge} •
+                            • {t.about.badge} • {t.about.badge} • {t.about.badge} 
                           </textPath>
                         </text>
                       </svg>
                     </div>
                     {/* Static Center Orb */}
-                    <div className="absolute inset-3 rounded-full bg-black/80 backdrop-blur-xl border border-white/10 shadow-2xl flex flex-col items-center justify-center text-center">
+                    <div className="absolute inset-8 rounded-full bg-[#050505] border border-white/10 shadow-2xl flex flex-col items-center justify-center text-center">
                       <span className="text-primary font-black text-3xl md:text-4xl heading leading-none">+30</span>
                     </div>
                   </div>

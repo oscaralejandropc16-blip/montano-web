@@ -234,12 +234,21 @@ export default function AjustesClient({ settings, products = [] }: { settings: R
           ))}
         </div>
 
-        <div className="border-t border-gray-100 pt-6 flex justify-end">
+        <div className="sticky bottom-6 mt-12 p-4 bg-white/80 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex flex-col sm:flex-row items-center justify-between gap-4 z-40 ring-1 ring-black/5">
+          <div className="text-center sm:text-left">
+            <p className="font-bold text-sm text-black">Ajustes del Sistema</p>
+            <p className="text-xs text-gray-500">Asegúrate de guardar los cambios al finalizar</p>
+          </div>
           <button 
             type="submit" 
             disabled={isSubmitting}
-            className="bg-black text-white px-8 py-3 rounded-xl font-bold text-sm tracking-widest uppercase hover:bg-primary transition-colors shadow-lg"
+            className="w-full sm:w-auto bg-black text-white px-8 py-3.5 rounded-xl font-bold text-sm tracking-widest uppercase hover:bg-primary transition-all shadow-lg hover:-translate-y-0.5 hover:shadow-primary/30 flex items-center justify-center gap-2"
           >
+            {isSubmitting ? (
+              <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+            )}
             {isSubmitting ? 'Guardando...' : 'Guardar Ajustes'}
           </button>
         </div>

@@ -326,130 +326,144 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
               );
             })}
           </div>
-        </section>
-
-        {/* CONTACTO - Sleek Dark Form */}
-        <section id="contacto" className="py-32 relative bg-[#0A0A0A]">
-          <div className="max-w-7xl mx-auto px-6">
+            {/* CONTACTO - Premium SaaS Form */}
+        <section id="contacto" className="py-32 relative bg-[#050505] overflow-hidden">
+          {/* Ambient Background Glows */}
+          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[150px] translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
+          
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
               
-              <div className="w-full lg:w-5/12">
-                <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs mb-4 block">{t.contact.badge}</span>
-                <h2 className="heading text-5xl font-extrabold text-white mb-8">{t.contact.title}</h2>
-                <p className="text-gray-400 font-light leading-relaxed mb-12">
+              {/* Left Column: Contact Info */}
+              <div className="w-full lg:w-5/12 flex flex-col justify-center">
+                <div className="inline-flex items-center gap-3 mb-6">
+                  <div className="w-8 h-[1px] bg-primary"></div>
+                  <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs">{t.contact.badge}</span>
+                </div>
+                <h2 className="heading text-5xl md:text-6xl font-extrabold text-white mb-8 tracking-tight">
+                  {t.contact.title}
+                </h2>
+                <p className="text-gray-400 font-light leading-relaxed mb-12 text-lg">
                   {t.contact.desc}
                 </p>
 
-                <div className="space-y-8">
-                  <a href={`mailto:${contactInfo.email}`} className="flex items-start gap-6 group">
-                    <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gray-400 group-hover:text-primary transition-colors mt-1">
-                      <Mail className="w-5 h-5" />
+                <div className="space-y-4">
+                  {/* Contact Info Cards */}
+                  <a href={`mailto:${contactInfo.email}`} className="group flex items-center gap-6 p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-primary/30 transition-all duration-500">
+                    <div className="w-14 h-14 bg-black/50 border border-white/10 rounded-full flex items-center justify-center text-gray-400 group-hover:text-primary group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(var(--primary-color-rgb),0.3)] transition-all duration-500">
+                      <Mail className="w-6 h-6" />
                     </div>
                     <div>
                       <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">{t.contact.emailLabel}</p>
-                      <p className="text-white text-lg font-medium group-hover:text-primary transition-colors break-all">{contactInfo.email}</p>
+                      <p className="text-white font-medium group-hover:text-primary transition-colors break-all">{contactInfo.email}</p>
                     </div>
                   </a>
                   
-                  <a href={`https://wa.me/${contactInfo.whatsappRaw}`} target="_blank" rel="noopener noreferrer" className="flex items-start gap-6 group">
-                    <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gray-400 group-hover:text-[#25D366] transition-colors mt-1">
-                      <Phone className="w-5 h-5" />
+                  <a href={`https://wa.me/${contactInfo.whatsappRaw}`} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-6 p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-[#25D366]/30 transition-all duration-500">
+                    <div className="w-14 h-14 bg-black/50 border border-white/10 rounded-full flex items-center justify-center text-gray-400 group-hover:text-[#25D366] group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(37,211,102,0.3)] transition-all duration-500">
+                      <Phone className="w-6 h-6" />
                     </div>
                     <div>
                       <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">{t.contact.waLabel}</p>
-                      <p className="text-white text-lg font-medium group-hover:text-[#25D366] transition-colors">{contactInfo.whatsappDisplay}</p>
+                      <p className="text-white font-medium group-hover:text-[#25D366] transition-colors">{contactInfo.whatsappDisplay}</p>
                     </div>
                   </a>
 
-                  <a href={contactInfo.mapLink} target="_blank" rel="noopener noreferrer" className="flex items-start gap-6 group">
-                    <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gray-400 group-hover:text-white transition-colors mt-1">
-                      <MapPin className="w-5 h-5" />
+                  <a href={contactInfo.mapLink} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-6 p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-gray-500/30 transition-all duration-500">
+                    <div className="w-14 h-14 bg-black/50 border border-white/10 rounded-full flex items-center justify-center text-gray-400 group-hover:text-white group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-500">
+                      <MapPin className="w-6 h-6" />
                     </div>
                     <div>
                       <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">{t.contact.mapLabel}</p>
-                      <p className="text-white text-lg font-medium group-hover:text-gray-300 transition-colors" dangerouslySetInnerHTML={{ __html: t.contact.mapAddress }}></p>
+                      <p className="text-white font-medium group-hover:text-gray-200 transition-colors" dangerouslySetInnerHTML={{ __html: t.contact.mapAddress }}></p>
                     </div>
                   </a>
                 </div>
               </div>
 
+              {/* Right Column: Form */}
               <div className="w-full lg:w-7/12">
-                <div className="bg-[#111] p-10 lg:p-16 rounded-[2rem] border border-white/5 shadow-2xl relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2"></div>
+                <div className="bg-[#0A0A0A]/80 backdrop-blur-2xl p-8 md:p-12 lg:p-16 rounded-[2.5rem] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden group/form">
+                  <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px] -z-10 translate-x-1/3 -translate-y-1/3 transition-opacity duration-700 opacity-50 group-focus-within/form:opacity-100"></div>
                   
-                  <h3 className="heading text-2xl font-bold text-white mb-10">{t.contact.formTitle}</h3>
+                  <h3 className="heading text-3xl font-bold text-white mb-10">{t.contact.formTitle}</h3>
                   
-                  <form className="space-y-8" onSubmit={handleContactSubmit}>
-                    <div>
-                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">{t.contact.name}</label>
+                  <form className="space-y-6" onSubmit={handleContactSubmit}>
+                    <div className="group/input relative">
+                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 transition-colors group-focus-within/input:text-primary">{t.contact.name}</label>
                       <input 
                         type="text" 
                         required
                         value={contactForm.name}
                         onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
-                        className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm" 
+                        className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4.5 text-white focus:outline-none focus:bg-white/[0.05] focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all duration-300 text-sm shadow-inner" 
                         placeholder={t.contact.namePlaceholder} 
                       />
                     </div>
                     
-                    <div>
-                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">{t.contact.email}</label>
+                    <div className="group/input relative">
+                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 transition-colors group-focus-within/input:text-primary">{t.contact.email}</label>
                       <input 
                         type="email" 
                         value={contactForm.email}
                         onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
-                        className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm" 
+                        className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4.5 text-white focus:outline-none focus:bg-white/[0.05] focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all duration-300 text-sm shadow-inner" 
                         placeholder={t.contact.emailPlaceholder} 
                       />
                     </div>
 
-                    <div>
-                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">WhatsApp (Opcional)</label>
+                    <div className="group/input relative">
+                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 transition-colors group-focus-within/input:text-[#25D366]">WhatsApp (Opcional)</label>
                       <input 
                         type="text" 
                         value={contactForm.whatsapp}
                         onChange={(e) => setContactForm({...contactForm, whatsapp: e.target.value})}
-                        className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm" 
+                        className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4.5 text-white focus:outline-none focus:bg-white/[0.05] focus:border-[#25D366]/50 focus:ring-1 focus:ring-[#25D366]/50 transition-all duration-300 text-sm shadow-inner" 
                         placeholder="Ej: +58 412 1234567" 
                       />
                     </div>
                     
-                    <div>
-                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">{t.contact.msg}</label>
+                    <div className="group/input relative">
+                      <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 transition-colors group-focus-within/input:text-primary">{t.contact.msg}</label>
                       <textarea 
                         rows={4} 
                         required
                         value={contactForm.message}
                         onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
-                        className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none text-sm" 
+                        className="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4.5 text-white focus:outline-none focus:bg-white/[0.05] focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all duration-300 resize-none text-sm shadow-inner" 
                         placeholder={t.contact.msgPlaceholder}
                       ></textarea>
                     </div>
                     
-                    <button type="submit" disabled={isSubmitting || submitSuccess} className={`w-full ${submitSuccess ? 'bg-green-500 text-white' : 'bg-white text-black hover:bg-primary hover:text-white'} px-8 py-5 rounded-xl text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 mt-4 group flex justify-center items-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed`}>
-                      {submitSuccess ? (
-                        <>
-                          ENVIADO <Check className="w-5 h-5" />
-                        </>
-                      ) : isSubmitting ? (
-                        "ENVIANDO..."
-                      ) : (
-                        <>
-                          {t.contact.send}
-                          <svg className="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </>
+                    <button type="submit" disabled={isSubmitting || submitSuccess} className={`w-full relative overflow-hidden ${submitSuccess ? 'bg-emerald-500 text-white' : 'bg-white text-black hover:text-white'} px-8 py-5 rounded-2xl text-sm font-bold tracking-[0.2em] uppercase transition-all duration-500 mt-6 group flex justify-center items-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-[0_0_30px_rgba(var(--primary-color-rgb),0.3)] hover:-translate-y-1`}>
+                      {!submitSuccess && (
+                        <div className="absolute inset-0 w-0 bg-primary transition-all duration-500 ease-out group-hover:w-full -z-10"></div>
                       )}
+                      <span className="relative z-10 flex items-center gap-3">
+                        {submitSuccess ? (
+                          <>
+                            ENVIADO <Check className="w-5 h-5" />
+                          </>
+                        ) : isSubmitting ? (
+                          "ENVIANDO..."
+                        ) : (
+                          <>
+                            {t.contact.send}
+                            <svg className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                          </>
+                        )}
+                      </span>
                     </button>
                     {submitSuccess && (
-                      <div className="mt-4 p-4 bg-green-500/10 border border-green-500/20 text-green-400 text-sm rounded-xl flex items-start gap-3 animate-in fade-in slide-in-from-bottom-2">
+                      <div className="mt-4 p-5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm rounded-2xl flex items-start gap-3 animate-in fade-in slide-in-from-bottom-2 duration-500 shadow-inner">
                         <Check className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                        <p>{t.contact.successMsg}</p>
+                        <p className="font-medium">{t.contact.successMsg}</p>
                       </div>
                     )}
                   </form>
                 </div>
               </div>
-
             </div>
           </div>
         </section>

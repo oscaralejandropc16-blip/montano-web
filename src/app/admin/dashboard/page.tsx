@@ -1,9 +1,10 @@
-import { getProducts } from "@/lib/actions";
-import { Package, Eye, Star } from "lucide-react";
+import { getProducts, getContactMessages } from "@/lib/actions";
+import { Package, MessageCircle, Star } from "lucide-react";
 import Link from "next/link";
 
 export default async function AdminDashboard() {
   const products = await getProducts();
+  const messages = await getContactMessages();
 
   return (
     <div className="p-10">
@@ -23,11 +24,11 @@ export default async function AdminDashboard() {
         
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-6">
           <div className="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center text-blue-500">
-            <Eye className="w-6 h-6" />
+            <MessageCircle className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Visitas Mes</p>
-            <p className="text-3xl font-extrabold text-black">--</p>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Mensajes Recibidos</p>
+            <p className="text-3xl font-extrabold text-black">{messages.length}</p>
           </div>
         </div>
 

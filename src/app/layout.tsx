@@ -17,6 +17,9 @@ const bodyFont = Open_Sans({
 export const metadata: Metadata = {
   title: "Montano Antilia - El sabor que conquista",
   description: "Montano Antilia elabora embutidos de calidad superior, fusionando tradición e innovación para ofrecer productos frescos y con sabor auténtico.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 import { Toaster } from 'react-hot-toast';

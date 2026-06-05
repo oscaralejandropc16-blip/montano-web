@@ -102,6 +102,29 @@ export async function saveSetting(key: string, value: string) {
   revalidatePath('/', 'layout');
 }
 
+export async function registerVisit() {
+  try {
+    await sql`
+      INSERT INTO montano_settings (key, value) 
+      VALUES ('total_visits', '1')
+      ON CONFLICT (key) DO UPDATE 
+      SET value = (CAST(montano_settings.value AS INTEGER) + 1)::text
+    `;
+  } catch (error) {
+    console.error("Error registering visit:", error);
+  }
+}
+
+export async function getTotalVisits() {
+  try {
+    const res = await sql`SELECT value FROM montano_settings WHERE key = 'total_visits'`;
+    if (res.length > 0) return parseInt(res[0].value, 10);
+    return 0;
+  } catch (error) {
+    return 0;
+  }
+}
+
 export async function getCloudinaryMedia() {
   try {
     const [images, videos] = await Promise.all([

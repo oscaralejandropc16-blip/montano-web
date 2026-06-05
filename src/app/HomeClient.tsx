@@ -5,7 +5,7 @@ import Link from "next/link";
 import { MapPin, Mail, Phone, ChevronDown, Check, Globe } from "lucide-react";
 import Footer from "@/components/Footer";
 import { getOptimizedUrl } from "@/lib/optimizeUrl";
-import { saveContactMessage } from "@/lib/actions";
+import { saveContactMessage, registerVisit } from "@/lib/actions";
 import { translations, Language } from "@/lib/translations";
 
 // --- DATOS DE CONTACTO ---
@@ -46,6 +46,11 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
       setLang(savedLang);
     }
     setLoaded(true);
+
+    if (!sessionStorage.getItem('has_visited')) {
+      sessionStorage.setItem('has_visited', 'true');
+      registerVisit();
+    }
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
       if (window.scrollY > 50) {

@@ -1,17 +1,18 @@
-import { getProducts, getContactMessages } from "@/lib/actions";
-import { Package, MessageCircle, Star } from "lucide-react";
+import { getProducts, getContactMessages, getTotalVisits } from "@/lib/actions";
+import { Package, MessageCircle, Star, Eye } from "lucide-react";
 import Link from "next/link";
 
 export default async function AdminDashboard() {
   const products = await getProducts();
   const messages = await getContactMessages();
+  const visits = await getTotalVisits();
 
   return (
     <div className="p-10">
       <h1 className="text-3xl font-extrabold text-black mb-2">Bienvenido, Administrador</h1>
       <p className="text-gray-500 mb-10">Panel de control de Montano Antilia.</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-6">
           <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center text-primary">
             <Package className="w-6 h-6" />
@@ -29,6 +30,16 @@ export default async function AdminDashboard() {
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Mensajes Recibidos</p>
             <p className="text-3xl font-extrabold text-black">{messages.length}</p>
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-6">
+          <div className="w-14 h-14 bg-purple-50 rounded-full flex items-center justify-center text-purple-500">
+            <Eye className="w-6 h-6" />
+          </div>
+          <div>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Visitas Web</p>
+            <p className="text-3xl font-extrabold text-black">{visits}</p>
           </div>
         </div>
 

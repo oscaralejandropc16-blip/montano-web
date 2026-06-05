@@ -293,18 +293,42 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
 
         {/* GALERÍA SOCIAL */}
         <section className="py-20 overflow-hidden bg-[#050505]">
-          <div className="max-w-7xl mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
-            <div>
-              <h2 className="heading text-3xl font-bold text-white mb-2">{t.social.title}</h2>
-              <p className="text-gray-500 text-sm">{t.social.sub}</p>
-            </div>
-            <div className="flex gap-4">
-              <a href={contactInfo.instagram} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-gradient-to-tr hover:from-[#FD1D1D] hover:to-[#E1306C] hover:border-transparent transition-all">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-              </a>
-              <a href={contactInfo.tiktok} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all">
-                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" /></svg>
-              </a>
+          <div className="max-w-7xl mx-auto px-6 mb-16 relative">
+            <div className="absolute -top-10 left-10 w-32 h-32 bg-primary/20 rounded-full blur-[50px] pointer-events-none"></div>
+            
+            <div className="flex flex-col md:flex-row justify-between items-center gap-8 relative z-10 bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2.5rem] shadow-2xl backdrop-blur-sm">
+              <div className="text-center md:text-left">
+                <div className="inline-flex items-center justify-center md:justify-start gap-2 mb-4">
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/75 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                  </span>
+                  <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs">Comunidad</span>
+                </div>
+                <h2 className="heading text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 mb-4 tracking-tight">
+                  {t.social.title}
+                </h2>
+                <p className="text-gray-400 text-base md:text-lg font-light max-w-md">
+                  {t.social.sub}
+                </p>
+              </div>
+              
+              <div className="flex flex-wrap justify-center md:justify-end gap-4">
+                <a href={contactInfo.instagram} target="_blank" rel="noopener noreferrer" className="group relative flex items-center gap-3 px-6 py-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.05] transition-all duration-500 overflow-hidden hover:scale-105 hover:shadow-[0_0_30px_rgba(225,48,108,0.3)] hover:border-pink-500/50">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#FD1D1D] to-[#E1306C] opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#FD1D1D] to-[#E1306C] flex items-center justify-center text-white shadow-lg group-hover:rotate-12 transition-transform duration-500">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                  </div>
+                  <span className="font-bold text-white text-sm tracking-wide group-hover:text-pink-100 transition-colors">Instagram</span>
+                </a>
+                
+                <a href={contactInfo.tiktok} target="_blank" rel="noopener noreferrer" className="group relative flex items-center gap-3 px-6 py-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white transition-all duration-500 overflow-hidden hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                  <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white shadow-lg group-hover:-rotate-12 transition-transform duration-500">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" /></svg>
+                  </div>
+                  <span className="font-bold text-white group-hover:text-black text-sm tracking-wide transition-colors">TikTok</span>
+                </a>
+              </div>
             </div>
           </div>
 

@@ -373,9 +373,9 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                           <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
                         </defs>
                         <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                        <text fontSize="8.5" fill="rgba(255,255,255,0.6)" fontWeight="bold" letterSpacing="1.5" className="uppercase font-sans">
+                        <text fontSize="10.5" fill="#FFFFFF" fontWeight="900" letterSpacing="2" className="uppercase font-sans opacity-80" style={{ fill: '#ffffff' }}>
                           <textPath href="#circlePath" startOffset="0%">
-                            • {t.about.badge} • {t.about.badge}
+                            • {t.about.badge} • {t.about.badge} •
                           </textPath>
                         </text>
                       </svg>

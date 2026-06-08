@@ -258,7 +258,7 @@ export default function ProductClient({ product, relatedProducts, brandObj, bran
                 </p>
                 
                 <a 
-                  href={`https://wa.me/584243699740?text=${encodeURIComponent(`Hola Montano Antilia, estoy interesado en conocer precios y disponibilidad de: ${product.name} (${product.tag})`)}`}
+                  href={`https://wa.me/584243249097?text=${encodeURIComponent(`Hola Montano Antilia, estoy interesado en conocer precios y disponibilidad de: ${product.name} (${product.tag})`)}`}
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-xl text-sm font-bold tracking-[0.1em] uppercase hover:bg-[#1DA851] transition-all shadow-lg shadow-[#25D366]/30 hover:-translate-y-0.5"

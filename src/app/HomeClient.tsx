@@ -10,8 +10,8 @@ import { translations, Language } from "@/lib/translations";
 
 // --- DATOS DE CONTACTO ---
 const contactInfo = {
-  whatsappRaw: "584243699740",
-  whatsappDisplay: "+58 424-3699740",
+  whatsappRaw: "584243249097",
+  whatsappDisplay: "+58 424-3249097",
   email: "admonmontanoantilia@gmail.com",
   mapAddress: "314 Av. Bolívar, Oeste 2103, Carabobo",
   mapLink: "https://maps.app.goo.gl/rc7EWhCkYtGJkcB9A",

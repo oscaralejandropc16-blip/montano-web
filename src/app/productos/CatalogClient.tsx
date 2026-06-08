@@ -238,7 +238,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [], se
       </section>
 
       {/* BARRA DE FILTROS FLOTANTE GLASSMORPHISM */}
-      <section className="sticky top-[72px] lg:top-[88px] z-30 transition-all duration-300">
+      <section className="relative z-30 transition-all duration-300">
         {/* Background that blurs the scrolling items below it */}
         <div className="absolute inset-0 bg-black/60 backdrop-blur-2xl border-b border-white/5"></div>
         

@@ -3,6 +3,7 @@
 import { sql } from "./db";
 import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from 'cloudinary';
+import { z } from 'zod';
 
 // Configure cloudinary with env variables. It will automatically use CLOUDINARY_URL if it exists.
 // Otherwise we try to use individual variables if the user sets them up.
@@ -12,10 +13,19 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+const contactSchema = z.object({
+  nombre: z.string().min(2).max(100),
+  email: z.string().email().max(100),
+  mensaje: z.string().min(5).max(2000),
+  whatsapp: z.string().max(30).optional().nullable(),
+});
+
 export async function saveContactMessage(data: { nombre: string, email: string, mensaje: string, whatsapp?: string }) {
+  const parsed = contactSchema.parse(data);
+
   await sql`
     INSERT INTO mensajes_contacto (nombre, email, mensaje, whatsapp)
-    VALUES (${data.nombre}, ${data.email}, ${data.mensaje}, ${data.whatsapp || null})
+    VALUES (${parsed.nombre}, ${parsed.email}, ${parsed.mensaje}, ${parsed.whatsapp || null})
   `;
 }
 
@@ -24,11 +34,14 @@ export async function getContactMessages() {
   return rows;
 }
 
+const emailSchema = z.string().email().max(100);
+
 export async function subscribeNewsletter(email: string) {
   try {
+    const validEmail = emailSchema.parse(email);
     await sql`
       INSERT INTO montano_newsletter (email)
-      VALUES (${email})
+      VALUES (${validEmail})
       ON CONFLICT (email) DO NOTHING
     `;
     return { success: true };

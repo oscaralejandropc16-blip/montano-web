@@ -102,13 +102,13 @@ export default async function AdminDashboard() {
           <p className="text-sm text-gray-500 mb-8">Accesos directos a las funciones más utilizadas del sistema.</p>
           
           <div className="flex flex-wrap gap-4">
-            <Link href="/admin/productos" className="group flex items-center gap-2 bg-slate-900 text-white px-6 py-4 rounded-2xl font-bold text-sm hover:bg-primary transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5">
+            <Link href="/portal/productos" className="group flex items-center gap-2 bg-slate-900 text-white px-6 py-4 rounded-2xl font-bold text-sm hover:bg-primary transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5">
               <Package className="w-4 h-4 transition-transform group-hover:scale-110" /> Gestionar Catálogo
             </Link>
-            <Link href="/admin/ajustes" className="group flex items-center gap-2 bg-gray-50 text-slate-700 px-6 py-4 rounded-2xl font-bold text-sm hover:bg-gray-100 hover:text-slate-900 transition-all duration-300 border border-gray-200 hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5">
+            <Link href="/portal/ajustes" className="group flex items-center gap-2 bg-gray-50 text-slate-700 px-6 py-4 rounded-2xl font-bold text-sm hover:bg-gray-100 hover:text-slate-900 transition-all duration-300 border border-gray-200 hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5">
               Cambiar Video de Portada
             </Link>
-            <Link href="/admin/ajustes" className="group flex items-center gap-2 bg-white text-slate-700 px-6 py-4 rounded-2xl font-bold text-sm hover:bg-gray-50 transition-all duration-300 border border-gray-200 hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5">
+            <Link href="/portal/ajustes" className="group flex items-center gap-2 bg-white text-slate-700 px-6 py-4 rounded-2xl font-bold text-sm hover:bg-gray-50 transition-all duration-300 border border-gray-200 hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5">
               Cambiar Logo de la Web
             </Link>
           </div>

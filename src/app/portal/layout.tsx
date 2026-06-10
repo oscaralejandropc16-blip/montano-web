@@ -11,20 +11,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const handleLogout = async () => {
     await adminLogout();
-    router.push('/admin/login');
+    router.push('/portal/login');
   };
 
   const nav = [
-    { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
-    { name: "Mensajes", href: "/admin/mensajes", icon: Mail },
-    { name: "Newsletter", href: "/admin/newsletter", icon: Mail },
-    { name: "Catálogo", href: "/admin/productos", icon: Package },
-    { name: "Medios y Banners", href: "/admin/medios", icon: ImageIcon },
-    { name: "Clasificación", href: "/admin/clasificacion", icon: Tag },
-    { name: "Ajustes", href: "/admin/ajustes", icon: Settings },
+    { name: "Dashboard", href: "/portal/dashboard", icon: LayoutDashboard },
+    { name: "Mensajes", href: "/portal/mensajes", icon: Mail },
+    { name: "Newsletter", href: "/portal/newsletter", icon: Mail },
+    { name: "Catálogo", href: "/portal/productos", icon: Package },
+    { name: "Medios y Banners", href: "/portal/medios", icon: ImageIcon },
+    { name: "Clasificación", href: "/portal/clasificacion", icon: Tag },
+    { name: "Ajustes", href: "/portal/ajustes", icon: Settings },
   ];
 
-  if (pathname === '/admin/login') {
+  if (pathname === '/portal/login') {
     return <div className="min-h-screen bg-[#FAFAFA] font-sans">{children}</div>;
   }
 

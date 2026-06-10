@@ -19,7 +19,7 @@ export default function LoginClient() {
     const res = await adminLogin(password);
     
     if (res.success) {
-      router.push("/admin/dashboard");
+      router.push("/portal/dashboard");
     } else {
       setError(true);
       setLoading(false);

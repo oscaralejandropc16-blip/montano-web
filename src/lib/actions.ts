@@ -58,12 +58,12 @@ export async function getNewsletterSubscribers() {
 
 export async function markMessageAsRead(id: number) {
   await sql`UPDATE mensajes_contacto SET leido = true WHERE id = ${id}`;
-  revalidatePath('/admin/mensajes');
+  revalidatePath('/portal/mensajes');
 }
 
 export async function deleteMessage(id: number) {
   await sql`DELETE FROM mensajes_contacto WHERE id = ${id}`;
-  revalidatePath('/admin/mensajes');
+  revalidatePath('/portal/mensajes');
 }
 
 export async function getProducts() {
@@ -77,7 +77,7 @@ export async function createProduct(data: any) {
     INSERT INTO montano_products (name, brand, category, tag, description, ingredients, preservation, image_url, nutrition_url)
     VALUES (${name}, ${brand || 'Montano Antilia'}, ${category}, ${tag}, ${description}, ${ingredients}, ${preservation}, ${image_url}, ${nutrition_url})
   `;
-  revalidatePath('/admin/productos');
+  revalidatePath('/portal/productos');
   revalidatePath('/productos', 'layout');
 }
 
@@ -89,14 +89,14 @@ export async function updateProduct(id: number, data: any) {
         ingredients = ${ingredients}, preservation = ${preservation}, image_url = ${image_url}, nutrition_url = ${nutrition_url}
     WHERE id = ${id}
   `;
-  revalidatePath('/admin/productos');
+  revalidatePath('/portal/productos');
   revalidatePath('/productos', 'layout');
   revalidatePath(`/productos/${id}`);
 }
 
 export async function deleteProduct(id: number) {
   await sql`DELETE FROM montano_products WHERE id = ${id}`;
-  revalidatePath('/admin/productos');
+  revalidatePath('/portal/productos');
   revalidatePath('/productos', 'layout');
 }
 
@@ -160,7 +160,7 @@ export async function getCloudinaryMedia() {
 export async function deleteCloudinaryMedia(publicId: string, resourceType: string) {
   try {
     await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
-    revalidatePath('/admin/medios');
+    revalidatePath('/portal/medios');
     return { success: true };
   } catch (error) {
     console.error("Delete cloudinary error:", error);
@@ -175,7 +175,7 @@ export async function getMedia() {
 
 export async function createMedia(url: string) {
   await sql`INSERT INTO montano_media (url) VALUES (${url})`;
-  revalidatePath('/admin/medios');
+  revalidatePath('/portal/medios');
 }
 
 export async function deleteMedia(id: number) {
@@ -204,7 +204,7 @@ export async function deleteMedia(id: number) {
 
   // 4. Borrar de la base de datos local
   await sql`DELETE FROM montano_media WHERE id = ${id}`;
-  revalidatePath('/admin/medios');
+  revalidatePath('/portal/medios');
 }
 
 import { cookies } from 'next/headers';
@@ -221,7 +221,7 @@ export async function adminLogin(password: string) {
 export async function adminLogout() {
   const cookieStore = await cookies();
   cookieStore.delete('admin_token');
-  revalidatePath('/admin');
+  revalidatePath('/portal');
 }
 
 export async function getCategories() {
@@ -230,17 +230,17 @@ export async function getCategories() {
 
 export async function createCategory(name: string) {
   await sql`INSERT INTO montano_categories (name) VALUES (${name}) ON CONFLICT DO NOTHING`;
-  revalidatePath('/admin');
+  revalidatePath('/portal');
 }
 
 export async function updateCategory(id: number, name: string) {
   await sql`UPDATE montano_categories SET name = ${name} WHERE id = ${id}`;
-  revalidatePath('/admin');
+  revalidatePath('/portal');
 }
 
 export async function deleteCategory(id: number) {
   await sql`DELETE FROM montano_categories WHERE id = ${id}`;
-  revalidatePath('/admin');
+  revalidatePath('/portal');
 }
 
 export async function getBrands() {
@@ -249,15 +249,15 @@ export async function getBrands() {
 
 export async function createBrand(name: string, logo_url: string | null = null) {
   await sql`INSERT INTO montano_brands (name, logo_url) VALUES (${name}, ${logo_url}) ON CONFLICT DO NOTHING`;
-  revalidatePath('/admin');
+  revalidatePath('/portal');
 }
 
 export async function updateBrand(id: number, name: string, logo_url: string | null = null) {
   await sql`UPDATE montano_brands SET name = ${name}, logo_url = ${logo_url} WHERE id = ${id}`;
-  revalidatePath('/admin');
+  revalidatePath('/portal');
 }
 
 export async function deleteBrand(id: number) {
   await sql`DELETE FROM montano_brands WHERE id = ${id}`;
-  revalidatePath('/admin');
+  revalidatePath('/portal');
 }

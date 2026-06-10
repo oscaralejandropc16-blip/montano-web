@@ -5,10 +5,10 @@ export default function proxy(req: NextRequest) {
   const token = req.cookies.get('admin_token')?.value;
   const { pathname } = req.nextUrl;
   
-  if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
+  if (pathname.startsWith('/portal') && !pathname.startsWith('/portal/login')) {
     if (token !== 'authenticated') {
       const url = req.nextUrl.clone();
-      url.pathname = '/admin/login';
+      url.pathname = '/portal/login';
       return NextResponse.redirect(url);
     }
   }
@@ -17,5 +17,5 @@ export default function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin', '/admin/:path*'],
+  matcher: ['/portal', '/portal/:path*'],
 };

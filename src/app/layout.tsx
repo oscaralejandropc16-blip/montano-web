@@ -17,7 +17,7 @@ const bodyFont = Open_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL('https://montanoantilia.com'),
   title: {
-    default: "Montano Antilia - Embutidos de Calidad Premium",
+    default: "Montano Antilia - El Sabor que Conquista",
     template: "%s | Montano Antilia"
   },
   description: "Montano Antilia elabora embutidos de calidad superior en Venezuela. Fusionamos tradición e innovación para ofrecerte salchichas, chorizos y más productos frescos con sabor auténtico.",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Montano Antilia - Embutidos Premium",
+    title: "Montano Antilia - El Sabor que Conquista",
     description: "Embutidos de calidad superior. Tradición e innovación en cada bocado.",
     images: ["/api/logo"],
   },

@@ -167,11 +167,11 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
       </div>
 
       <main>
-        {/* HERO SECTION - Claro, Elegante e Iluminado */}
-        <section id="inicio" className="relative h-screen min-h-[700px] flex items-center justify-center text-center overflow-hidden bg-gradient-to-br from-slate-50 via-white to-red-50/20">
-          <div className="absolute inset-0 z-0 opacity-15">
-            <video key={heroVideoUrl} src={heroVideoUrl} poster={heroVideoUrl.includes('cloudinary') ? heroVideoUrl.replace(/\.[^/.]+$/, ".jpg") : "/placeholder-hero.jpg"} autoPlay loop muted playsInline className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/50 to-[#FAFAFA]"></div>
+        {/* HERO SECTION - Video Visto y Conectado con Estilo Claro */}
+        <section id="inicio" className="relative h-screen min-h-[700px] flex items-center justify-center text-center overflow-hidden bg-slate-950">
+          <div className="absolute inset-0 z-0">
+            <video key={heroVideoUrl} src={heroVideoUrl} poster={heroVideoUrl.includes('cloudinary') ? heroVideoUrl.replace(/\.[^/.]+$/, ".jpg") : "/placeholder-hero.jpg"} autoPlay loop muted playsInline className="w-full h-full object-cover opacity-75" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-[#FAFAFA]"></div>
           </div>
 
           <div className="relative z-10 px-6 w-full max-w-5xl mx-auto flex flex-col items-center mt-16">
@@ -180,12 +180,12 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
               {t.hero.badge}
             </div>
 
-            <h1 className={`heading font-extrabold text-6xl md:text-8xl lg:text-[9.5rem] text-slate-900 tracking-tighter leading-none mb-6 transition-all duration-1000 delay-300 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <h1 className={`heading font-extrabold text-6xl md:text-8xl lg:text-[9.5rem] text-white tracking-tighter leading-none mb-6 drop-shadow-2xl transition-all duration-1000 delay-300 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               MONTANO
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-slate-800 to-primary">ANTILIA</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-primary">ANTILIA</span>
             </h1>
 
-            <p className={`text-xl md:text-3xl text-slate-600 font-medium italic mb-12 max-w-2xl transition-all duration-1000 delay-500 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <p className={`text-xl md:text-3xl text-white/90 font-medium italic mb-12 max-w-2xl drop-shadow-lg transition-all duration-1000 delay-500 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               {t.hero.subtitle}
             </p>
 

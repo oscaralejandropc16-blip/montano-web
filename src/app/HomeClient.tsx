@@ -106,22 +106,22 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
         </svg>
       </a>
 
-      {/* NAVEGACIÓN - Glassmorphism Flotante Claro */}
-      <nav className={`fixed top-6 left-0 right-0 z-50 transition-all duration-700 flex justify-center px-4 ${isScrolled ? 'translate-y-0' : 'translate-y-0'}`}>
-        <div className={`flex items-center justify-between transition-all duration-500 rounded-full px-6 py-3.5 ${isScrolled ? "w-full max-w-5xl bg-white/90 backdrop-blur-xl border border-slate-200/80 shadow-lg shadow-slate-900/5" : "w-full max-w-7xl bg-white/70 backdrop-blur-md border border-slate-200/50 shadow-sm"}`}>
+      {/* NAVEGACIÓN - Transparente arriba, Glassmorphism al hacer scroll */}
+      <nav className={`fixed top-6 left-0 right-0 z-50 transition-all duration-700 flex justify-center px-4`}>
+        <div className={`flex items-center justify-between transition-all duration-500 rounded-full px-6 py-3 ${isScrolled ? "w-full max-w-5xl bg-white/90 backdrop-blur-xl border border-slate-200/80 shadow-lg shadow-slate-900/5 text-slate-800" : "w-full max-w-7xl bg-transparent border-transparent shadow-none text-white"}`}>
           
           <Link href="/" className="flex items-center group relative z-50">
             <img src="/api/logo" alt="Montano Antilia Logo" className={`w-auto object-contain transition-all duration-500 ${isScrolled ? 'h-8' : 'h-10'}`} />
           </Link>
 
           <div className="hidden lg:flex items-center gap-8">
-            <a href="#inicio" className="text-slate-700 hover:text-primary transition-colors text-[11px] font-bold uppercase tracking-[0.2em]">{t.nav.home}</a>
-            <Link href="/productos" className="text-slate-700 hover:text-primary transition-colors text-[11px] font-bold uppercase tracking-[0.2em]">{t.nav.catalog}</Link>
-            <Link href="/about" className="text-slate-700 hover:text-primary transition-colors text-[11px] font-bold uppercase tracking-[0.2em]">{t.nav.about}</Link>
-            <a href="#contacto" className="text-slate-700 hover:text-primary transition-colors text-[11px] font-bold uppercase tracking-[0.2em]">{t.nav.contact}</a>
+            <a href="#inicio" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.home}</a>
+            <Link href="/productos" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.catalog}</Link>
+            <Link href="/about" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.about}</Link>
+            <a href="#contacto" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.contact}</a>
             
-            <div className="relative border-l border-slate-200 pl-6 ml-2">
-              <button onClick={() => setLangMenuOpen(!langMenuOpen)} className="text-slate-800 hover:text-primary flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] uppercase transition-colors group">
+            <div className={`relative border-l pl-6 ml-2 ${isScrolled ? 'border-slate-200' : 'border-white/20'}`}>
+              <button onClick={() => setLangMenuOpen(!langMenuOpen)} className={`flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] uppercase transition-colors group ${isScrolled ? 'text-slate-800 hover:text-primary' : 'text-white hover:text-white drop-shadow-md'}`}>
                 <Globe className="w-3.5 h-3.5 text-primary group-hover:animate-pulse" />
                 {t.nav.lang.split(" ")[1]}
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${langMenuOpen ? 'rotate-180' : ''}`} />
@@ -139,11 +139,11 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
             </div>
           </div>
 
-          <button className="lg:hidden text-slate-900 relative z-50 p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <button className={`lg:hidden relative z-50 p-2 ${isScrolled ? 'text-slate-900' : 'text-white'}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             <div className="w-6 h-5 flex flex-col justify-between">
-              <span className={`w-full h-0.5 bg-slate-900 transition-all ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-              <span className={`w-full h-0.5 bg-slate-900 transition-all ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
-              <span className={`w-full h-0.5 bg-slate-900 transition-all ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+              <span className={`w-full h-0.5 transition-all ${isScrolled ? 'bg-slate-900' : 'bg-white'} ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+              <span className={`w-full h-0.5 transition-all ${isScrolled ? 'bg-slate-900' : 'bg-white'} ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`w-full h-0.5 transition-all ${isScrolled ? 'bg-slate-900' : 'bg-white'} ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
             </div>
           </button>
         </div>
@@ -167,11 +167,11 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
       </div>
 
       <main>
-        {/* HERO SECTION - Video Visto y Conectado con Estilo Claro */}
-        <section id="inicio" className="relative h-screen min-h-[700px] flex items-center justify-center text-center overflow-hidden bg-slate-950">
+        {/* HERO SECTION - Video Full Visibilidad Cristalina */}
+        <section id="inicio" className="relative h-screen min-h-[700px] flex items-center justify-center text-center overflow-hidden bg-black">
           <div className="absolute inset-0 z-0">
-            <video key={heroVideoUrl} src={heroVideoUrl} poster={heroVideoUrl.includes('cloudinary') ? heroVideoUrl.replace(/\.[^/.]+$/, ".jpg") : "/placeholder-hero.jpg"} autoPlay loop muted playsInline className="w-full h-full object-cover opacity-75" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-[#FAFAFA]"></div>
+            <video key={heroVideoUrl} src={heroVideoUrl} poster={heroVideoUrl.includes('cloudinary') ? heroVideoUrl.replace(/\.[^/.]+$/, ".jpg") : "/placeholder-hero.jpg"} autoPlay loop muted playsInline className="w-full h-full object-cover opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-[#FAFAFA]"></div>
           </div>
 
           <div className="relative z-10 px-6 w-full max-w-5xl mx-auto flex flex-col items-center mt-16">

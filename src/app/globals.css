@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400..800;1,400..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import "tailwindcss";
 
 :root {
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
   --background: #ffffff;
   --foreground: #333333;
   --primary: #D52B2A; /* El rojo exacto de los botones */
@@ -12,8 +15,8 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
-  --font-sans: var(--font-body), sans-serif;
-  --font-heading: var(--font-heading), sans-serif;
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
 }
 
 body {

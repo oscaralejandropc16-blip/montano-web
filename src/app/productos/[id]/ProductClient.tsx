@@ -211,7 +211,7 @@ export default function ProductClient({ product, relatedProducts, brandObj, bran
                   {/* Etiqueta Calidad */}
                   <div className="absolute top-8 left-8 z-20 pointer-events-none">
                     <span className="bg-black/90 backdrop-blur text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full shadow-lg text-white">
-                      {lang === 'es' ? 'Calidad Premium' : t.aboutPage.stat2}
+                      {lang === 'es' ? 'Calidad Garantizada' : t.aboutPage.stat2}
                     </span>
                   </div>
                 </div>

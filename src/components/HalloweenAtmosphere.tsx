@@ -1,87 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Volume2, VolumeX } from "lucide-react";
-
 export default function HalloweenAtmosphere() {
-  const [audioActive, setAudioActive] = useState(false);
-  const audioCtxRef = useRef<AudioContext | null>(null);
-  const oscillatorNodeRef = useRef<OscillatorNode | null>(null);
-  const gainNodeRef = useRef<GainNode | null>(null);
-  const noiseSourceRef = useRef<AudioBufferSourceNode | null>(null);
-
-  // Generador de audio de ambiente espeluznante con Web Audio API puro
-  const toggleSound = () => {
-    if (!audioActive) {
-      try {
-        const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-        const ctx = new AudioContextClass();
-        audioCtxRef.current = ctx;
-
-        // Viento espectral (Pink Noise filtrado)
-        const bufferSize = ctx.sampleRate * 4;
-        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const output = noiseBuffer.getChannelData(0);
-        let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
-        for (let i = 0; i < bufferSize; i++) {
-          const white = Math.random() * 2 - 1;
-          b0 = 0.99886 * b0 + white * 0.0555179;
-          b1 = 0.99332 * b1 + white * 0.0750759;
-          b2 = 0.96900 * b2 + white * 0.1538520;
-          b3 = 0.86650 * b3 + white * 0.3104856;
-          b4 = 0.55000 * b4 + white * 0.5329522;
-          b5 = -0.7616 * b5 - white * 0.0168980;
-          output[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.04;
-          b6 = white * 0.115926;
-        }
-
-        const noise = ctx.createBufferSource();
-        noise.buffer = noiseBuffer;
-        noise.loop = true;
-
-        const filter = ctx.createBiquadFilter();
-        filter.type = "lowpass";
-        filter.frequency.setValueAtTime(300, ctx.currentTime);
-
-        // Modulación LFO suave para efecto de ráfaga de viento
-        const lfo = ctx.createOscillator();
-        lfo.frequency.setValueAtTime(0.2, ctx.currentTime);
-        const lfoGain = ctx.createGain();
-        lfoGain.gain.setValueAtTime(220, ctx.currentTime);
-        lfo.connect(lfoGain);
-        lfoGain.connect(filter.frequency);
-        lfo.start();
-
-        const masterGain = ctx.createGain();
-        masterGain.gain.setValueAtTime(0.25, ctx.currentTime);
-
-        noise.connect(filter);
-        filter.connect(masterGain);
-        masterGain.connect(ctx.destination);
-        noise.start();
-
-        noiseSourceRef.current = noise;
-        gainNodeRef.current = masterGain;
-        setAudioActive(true);
-      } catch (e) {
-        console.error("Web Audio not allowed:", e);
-      }
-    } else {
-      if (audioCtxRef.current) {
-        audioCtxRef.current.close();
-      }
-      setAudioActive(false);
-    }
-  };
-
-  useEffect(() => {
-    return () => {
-      if (audioCtxRef.current) {
-        audioCtxRef.current.close().catch(() => {});
-      }
-    };
-  }, []);
-
   return (
     <div className="pointer-events-none fixed inset-0 z-40 overflow-hidden select-none">
       
@@ -162,24 +81,6 @@ export default function HalloweenAtmosphere() {
 
       {/* Niebla inferior sutil */}
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-purple-950/20 via-orange-950/10 to-transparent animate-mist"></div>
-
-      {/* Control interactivo de audio ambiental espeluznante */}
-      <div className="pointer-events-auto fixed bottom-6 left-6 z-50 flex items-center gap-3">
-        <button
-          onClick={toggleSound}
-          title={audioActive ? "Silenciar ambiente espeluznante" : "Activar ambiente sonoro de Halloween"}
-          className={`group flex items-center gap-2.5 px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-xl border transition-all duration-300 shadow-xl ${
-            audioActive 
-              ? 'bg-orange-500 text-black border-orange-300 shadow-orange-500/40 animate-pulse' 
-              : 'bg-[#150a24]/90 text-orange-400 border-orange-500/30 hover:border-orange-500 hover:text-orange-300'
-          }`}
-        >
-          {audioActive ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
-          <span className="hidden sm:inline font-mono text-[11px]">
-            {audioActive ? "Viento Espectral Activo" : "Ambiente Sonoro"}
-          </span>
-        </button>
-      </div>
 
     </div>
   );

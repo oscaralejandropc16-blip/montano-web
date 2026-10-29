@@ -99,11 +99,8 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
   return (
     <div className="min-h-screen bg-[#08040f] text-[#F8FAFC] selection:bg-orange-500 selection:text-black overflow-hidden font-sans">
       
-      {/* Botón WhatsApp Flotante con Calabaza Halloween */}
+      {/* Botón WhatsApp Flotante */}
       <div className="fixed bottom-8 right-8 z-[100] group">
-        <div className="absolute -top-4 -right-1 text-2xl animate-bounce drop-shadow-[0_0_10px_rgba(255,106,0,0.9)] pointer-events-none z-10">
-          🎃
-        </div>
         <a 
           href={`https://wa.me/${contactInfo.whatsappRaw}`} 
           target="_blank" 
@@ -126,7 +123,6 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
         }`}>
           
           <Link href="/" className="flex items-center gap-2 group relative z-50">
-            <span className="text-xl animate-spin" style={{ animationDuration: '20s' }}>🎃</span>
             <img src="/api/logo" alt="Montano Antilia Logo" className={`w-auto object-contain transition-all duration-500 brightness-110 drop-shadow-[0_0_10px_rgba(255,106,0,0.5)] ${isScrolled ? 'h-8' : 'h-10'}`} />
           </Link>
 
@@ -168,17 +164,17 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
       {/* Menú Móvil Fullscreen Halloween */}
       <div className={`fixed inset-0 bg-[#0a0414]/98 backdrop-blur-3xl z-40 transition-all duration-700 flex flex-col justify-center px-10 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className="flex flex-col gap-8 text-left">
-          <a href="#inicio" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-orange-400 transition-colors flex items-center gap-3">
-            <span>🎃</span> {t.nav.home}
+          <a href="#inicio" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-orange-400 transition-colors">
+            {t.nav.home}
           </a>
-          <Link href="/productos" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-orange-400 transition-colors flex items-center gap-3">
-            <span>🦇</span> {t.nav.catalog}
+          <Link href="/productos" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-orange-400 transition-colors">
+            {t.nav.catalog}
           </Link>
-          <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-orange-400 transition-colors flex items-center gap-3">
-            <span>📜</span> {t.nav.about}
+          <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-orange-400 transition-colors">
+            {t.nav.about}
           </Link>
-          <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-orange-400 transition-colors flex items-center gap-3">
-            <span>🕯️</span> {t.nav.contact}
+          <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-white text-4xl font-extrabold tracking-tighter hover:text-orange-400 transition-colors">
+            {t.nav.contact}
           </a>
           
           <div className="h-px w-full bg-orange-500/20 my-4"></div>
@@ -206,7 +202,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
             {/* Badge Halloween de Ultratumba */}
             <div className={`inline-flex items-center gap-2 bg-[#1b0c2e]/90 border border-orange-500/50 text-orange-400 px-6 py-2 rounded-full text-xs font-bold tracking-[0.25em] uppercase mb-8 shadow-[0_0_25px_rgba(255,106,0,0.4)] transition-all duration-1000 delay-100 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               <span className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-ping"></span>
-              <span>🎃 EDICIÓN ESPECIAL HALLOWEEN 🎃</span>
+              <span>EDICIÓN ESPECIAL HALLOWEEN</span>
             </div>
 
             <h1 className={`heading font-extrabold text-6xl md:text-8xl lg:text-[9.5rem] text-white tracking-tighter leading-none mb-6 drop-shadow-[0_10px_35px_rgba(0,0,0,0.9)] transition-all duration-1000 delay-300 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
@@ -217,7 +213,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
             </h1>
 
             <p className={`text-xl md:text-3xl text-orange-100/90 font-medium italic mb-12 max-w-2xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] transition-all duration-1000 delay-500 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-              {t.hero.subtitle} <span className="block text-base md:text-lg font-normal text-purple-300/90 mt-2">¡Sabor legendario que despierta hasta a los seres del más allá! 👻</span>
+              {t.hero.subtitle} <span className="block text-base md:text-lg font-normal text-purple-300/90 mt-2">¡Sabor legendario que despierta hasta a los seres del más allá!</span>
             </p>
 
             <div className={`transition-all duration-1000 delay-700 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
@@ -232,7 +228,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
 
           {/* Scroll Indicator Spooky */}
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce opacity-70">
-            <span className="text-[9px] uppercase font-bold tracking-[0.3em] text-orange-400">Desliza 🕷️</span>
+            <span className="text-[9px] uppercase font-bold tracking-[0.3em] text-orange-400">Desliza</span>
             <div className="w-px h-10 bg-gradient-to-b from-orange-400 via-purple-500 to-transparent"></div>
           </div>
         </section>
@@ -250,7 +246,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
               <div className="max-w-2xl">
                 <div className="inline-flex items-center gap-3 mb-4">
-                  <span className="text-xl">🎃</span>
+                  <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
                   <span className="text-orange-400 font-bold tracking-[0.2em] uppercase text-xs">Especialidades del Más Allá</span>
                 </div>
                 <h2 className="heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight drop-shadow-md">
@@ -270,7 +266,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                     className="group relative overflow-hidden bg-[#180d2c] border border-orange-500/30 text-orange-200 px-8 py-4 rounded-full text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:bg-orange-950/40 hover:border-orange-500 flex items-center gap-2 whitespace-nowrap shadow-sm"
                   >
                     <svg className="w-4 h-4 text-orange-400 transition-transform group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                    <span>Descargar PDF 🦇</span>
+                    <span>Descargar PDF</span>
                   </a>
                 )}
                 <Link href="/productos" className="group relative overflow-hidden bg-gradient-to-r from-orange-600 to-amber-600 text-black px-8 py-4 rounded-full text-xs font-extrabold tracking-[0.2em] uppercase transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,106,0,0.6)] hover:scale-105">
@@ -292,7 +288,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                     <div className="absolute top-6 left-6 z-20 flex flex-wrap gap-2">
                       {prod.tag && (
                         <span className="bg-gradient-to-r from-orange-600 to-amber-500 text-black text-[9px] font-black uppercase tracking-[0.2em] px-4 py-1.5 rounded-full shadow-[0_0_12px_rgba(255,106,0,0.4)]">
-                          🎃 {prod.tag}
+                          {prod.tag}
                         </span>
                       )}
                     </div>
@@ -327,7 +323,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                       
                       <div className="flex items-center justify-between pt-4 mt-4 border-t border-purple-950/60">
                         <span className="text-xs font-bold text-orange-400 uppercase tracking-widest flex items-center gap-1.5">
-                          <span>Ver detalle</span> <span>👻</span>
+                          <span>Ver detalle</span>
                         </span>
                         <div className="w-10 h-10 rounded-full bg-orange-950/60 text-orange-400 border border-orange-500/40 flex items-center justify-center group-hover/card:bg-orange-500 group-hover/card:text-black transition-all duration-300 shadow-md">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
@@ -358,7 +354,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                 
                 <div className="relative z-10">
                   <div className="inline-flex items-center gap-3 mb-6">
-                    <span className="text-xl">📜</span>
+                    <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
                     <div className="w-8 h-[2px] bg-orange-500"></div>
                     <span className="text-orange-400 font-bold tracking-[0.2em] uppercase text-xs">Nuestra Historia de Leyenda</span>
                   </div>
@@ -378,7 +374,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                   </div>
                   
                   <Link href="/about" className="group relative inline-flex items-center gap-4 bg-[#1a0e2e] border border-orange-500/40 text-white px-8 py-4 rounded-full text-xs font-bold tracking-[0.2em] uppercase overflow-hidden transition-all duration-300 hover:bg-orange-500 hover:text-black hover:border-orange-400 shadow-[0_0_20px_rgba(255,106,0,0.25)]">
-                    <span>{t.about.btn} 📜</span>
+                    <span>{t.about.btn}</span>
                     <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                   </Link>
                 </div>
@@ -429,7 +425,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
             <div className="flex flex-col md:flex-row justify-between items-center gap-8 bg-gradient-to-r from-[#170a2a] via-[#1f0d38] to-[#130722] border border-orange-500/30 p-8 md:p-12 rounded-[2.5rem] shadow-[0_0_40px_rgba(0,0,0,0.8)]">
               <div className="text-center md:text-left">
                 <div className="inline-flex items-center justify-center md:justify-start gap-2 mb-4">
-                  <span className="text-xl">🕸️</span>
+                  <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
                   <span className="text-orange-400 font-bold tracking-[0.2em] uppercase text-xs">Aquelarre en Redes</span>
                 </div>
                 <h2 className="heading text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
@@ -472,7 +468,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                     )
                   ) : null}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#08040f]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                    <span className="text-xs font-bold text-orange-400">🎃 Montano Halloween</span>
+                    <span className="text-xs font-bold text-orange-400">Montano Halloween</span>
                   </div>
                 </div>
               );
@@ -491,7 +487,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
               {/* Columna Izquierda: Información */}
               <div className="w-full lg:w-5/12 flex flex-col justify-center">
                 <div className="inline-flex items-center gap-3 mb-6">
-                  <span className="text-xl">🕯️</span>
+                  <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
                   <div className="w-8 h-[2px] bg-orange-500"></div>
                   <span className="text-orange-400 font-bold tracking-[0.2em] uppercase text-xs">{t.contact.badge}</span>
                 </div>
@@ -540,13 +536,8 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
               <div className="w-full lg:w-7/12">
                 <div className="bg-gradient-to-b from-[#180c2c] to-[#11061e] p-8 md:p-12 lg:p-14 rounded-[2.5rem] border border-orange-500/30 shadow-[0_0_50px_rgba(0,0,0,0.9)] relative overflow-hidden">
                   
-                  {/* Araña en esquina del formulario */}
-                  <div className="absolute top-4 right-6 text-2xl opacity-60 animate-bounce pointer-events-none">
-                    🕷️
-                  </div>
-
                   <h3 className="heading text-3xl font-extrabold text-white mb-8 flex items-center gap-3">
-                    <span>{t.contact.formTitle}</span> <span className="text-orange-400">🕯️</span>
+                    <span>{t.contact.formTitle}</span>
                   </h3>
                   
                   <form className="space-y-6" onSubmit={handleContactSubmit}>
@@ -606,7 +597,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
                           "ENVIANDO MENSAJE..."
                         ) : (
                           <>
-                            <span>{t.contact.send}</span> <span>🎃</span>
+                            <span>{t.contact.send}</span>
                             <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                           </>
                         )}

@@ -168,17 +168,16 @@ export default function HalloweenAtmosphere() {
         <button
           onClick={toggleSound}
           title={audioActive ? "Silenciar ambiente espeluznante" : "Activar ambiente sonoro de Halloween"}
-          className={`group flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-xl border transition-all duration-300 shadow-xl ${
+          className={`group flex items-center gap-2.5 px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-xl border transition-all duration-300 shadow-xl ${
             audioActive 
               ? 'bg-orange-500 text-black border-orange-300 shadow-orange-500/40 animate-pulse' 
               : 'bg-[#150a24]/90 text-orange-400 border-orange-500/30 hover:border-orange-500 hover:text-orange-300'
           }`}
         >
-          <span className="text-base">🎃</span>
+          {audioActive ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
           <span className="hidden sm:inline font-mono text-[11px]">
             {audioActive ? "Viento Espectral Activo" : "Ambiente Sonoro"}
           </span>
-          {audioActive ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
         </button>
       </div>
 

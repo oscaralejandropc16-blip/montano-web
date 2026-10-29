@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, Search, Filter, ChevronDown, Globe } from "lucide-react";
+import { ArrowLeft, Search, Filter, ChevronDown, Globe, Ghost } from "lucide-react";
 import Footer from "@/components/Footer";
 import { getOptimizedUrl } from "@/lib/optimizeUrl";
 import { translations, Language } from "@/lib/translations";
@@ -101,7 +101,6 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [], se
       <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${isScrolled ? "bg-[#10061f]/90 backdrop-blur-xl py-3 shadow-2xl border-b border-orange-500/30" : "bg-black/40 backdrop-blur-md py-5 border-b border-purple-950/40"}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl">🎃</span>
             <div className={`transition-all duration-500 relative ${isScrolled ? 'h-9' : 'h-11'}`}>
               <img src="/api/logo" alt="Montano Antilia Logo" className="h-full w-auto object-contain brightness-110 drop-shadow-[0_0_10px_rgba(255,106,0,0.5)]" />
             </div>
@@ -164,7 +163,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [], se
         <div className={`relative z-20 max-w-4xl mx-auto transition-all duration-1000 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <div className="inline-flex items-center gap-3 bg-[#180c2c]/90 backdrop-blur-md border border-orange-500/40 text-orange-300 px-5 py-2 rounded-full text-xs font-bold tracking-[0.25em] uppercase mb-6 shadow-[0_0_20px_rgba(255,106,0,0.3)]">
             <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
-            <span>🎃 CATÁLOGO DE ULTRATUMBA 🦇</span>
+            <span>CATÁLOGO DE ULTRATUMBA</span>
           </div>
           
           <h1 className="heading text-5xl sm:text-6xl md:text-8xl font-black mb-6 tracking-tighter text-white drop-shadow-[0_10px_25px_rgba(0,0,0,0.9)]">
@@ -183,7 +182,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [], se
               className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-black hover:shadow-[0_0_30px_rgba(255,106,0,0.6)] px-9 py-4 rounded-full text-xs font-black tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 shadow-xl group"
             >
               <svg className="w-4 h-4 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-              <span>Descargar Catálogo PDF 🦇</span>
+              <span>Descargar Catálogo PDF</span>
             </a>
           )}
         </div>
@@ -206,7 +205,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [], se
                     : 'bg-[#180c2c] text-slate-300 border border-purple-900/50 hover:border-orange-500/50 hover:text-orange-400 hover:bg-orange-950/20'
                 }`}
               >
-                {cat === "Todos" ? `🎃 ${t.catalogPage.all}` : translateProductData(cat, lang)}
+                {cat === "Todos" ? t.catalogPage.all : translateProductData(cat, lang)}
               </button>
             ))}
           </div>
@@ -231,13 +230,13 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [], se
         
         {filteredProducts.length === 0 ? (
           <div className="text-center py-24 flex flex-col items-center">
-            <div className="w-20 h-20 bg-[#160a26] rounded-full border border-orange-500/30 flex items-center justify-center mb-6 text-3xl shadow-[0_0_25px_rgba(255,106,0,0.2)]">
-              👻
+            <div className="w-20 h-20 bg-[#160a26] rounded-full border border-orange-500/30 flex items-center justify-center mb-6 shadow-[0_0_25px_rgba(255,106,0,0.2)]">
+              <Ghost className="w-9 h-9 text-orange-400" />
             </div>
             <h3 className="text-2xl font-extrabold text-white mb-3 tracking-tight">{t.catalogPage.emptyTitle}</h3>
             <p className="text-slate-400 font-normal text-base mb-6">{t.catalogPage.emptyDesc}</p>
             <button onClick={() => {setSearchQuery(""); setActiveCategory("Todos");}} className="bg-gradient-to-r from-orange-600 to-amber-500 text-black px-8 py-3 rounded-full text-xs font-black tracking-[0.2em] uppercase transition-all hover:shadow-[0_0_20px_rgba(255,106,0,0.5)]">
-              {t.catalogPage.clearBtn} 🎃
+              {t.catalogPage.clearBtn}
             </button>
           </div>
         ) : (
@@ -256,7 +255,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [], se
                     {/* Badge Categoría */}
                     <div className="absolute top-5 left-5 z-20">
                       <span className="bg-orange-600 text-black text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full shadow-[0_0_10px_rgba(255,106,0,0.4)]">
-                        🎃 {translateProductData(prod.category, lang)}
+                        {translateProductData(prod.category, lang)}
                       </span>
                     </div>
 
@@ -289,7 +288,7 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [], se
                       </div>
 
                       <div className="flex items-center justify-between pt-3 border-t border-purple-950/60 mt-2">
-                        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest group-hover/card:text-orange-400 transition-colors">Ver detalle 👻</span>
+                        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest group-hover/card:text-orange-400 transition-colors">Ver detalle</span>
                         <div className="w-8 h-8 rounded-full bg-[#180c2c] text-orange-400 border border-orange-500/30 flex items-center justify-center group-hover/card:bg-orange-500 group-hover/card:text-black transition-colors">
                           <ArrowLeft className="w-4 h-4 rotate-180" />
                         </div>

@@ -135,7 +135,6 @@ export default function ProductClient({ product, relatedProducts, brandObj, bran
             </Link>
             <div className="h-8 md:h-10 w-[1px] bg-orange-500/30 hidden sm:block"></div>
             <Link href="/" className="flex items-center gap-2">
-              <span className="text-xl">🎃</span>
               <div className="h-10 md:h-12 relative">
                 <img src="/api/logo" alt="Montano Antilia Logo" className="h-full w-auto object-contain brightness-110 drop-shadow-[0_0_10px_rgba(255,106,0,0.5)]" />
               </div>
@@ -192,7 +191,7 @@ export default function ProductClient({ product, relatedProducts, brandObj, bran
             <ChevronRight className="w-3 h-3" />
             <Link href="/productos" className="hover:text-orange-400 transition-colors">{t.nav.catalog}</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-orange-400">🎃 {translateProductData(product.category, lang)}</span>
+            <span className="text-orange-400">{translateProductData(product.category, lang)}</span>
           </div>
 
           <div className="flex flex-col lg:flex-row gap-16 items-start">
@@ -206,13 +205,13 @@ export default function ProductClient({ product, relatedProducts, brandObj, bran
                     <ZoomableImage src={product.image_url} alt={translateProductData(product.name, lang)} />
                   ) : (
                     <div className="w-full aspect-square bg-[#140824] rounded-2xl flex items-center justify-center">
-                      <span className="text-orange-400/80 font-extrabold text-2xl tracking-widest">🎃 [EDICIÓN HALLOWEEN]</span>
+                      <span className="text-orange-400/80 font-extrabold text-2xl tracking-widest">[EDICIÓN HALLOWEEN]</span>
                     </div>
                   )}
                   {/* Etiqueta Calidad */}
                   <div className="absolute top-8 left-8 z-20 pointer-events-none">
                     <span className="bg-orange-600 text-black text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-full shadow-[0_0_15px_rgba(255,106,0,0.5)]">
-                      🎃 {lang === 'es' ? 'Receta de Leyenda' : t.aboutPage.stat2}
+                      {lang === 'es' ? 'Receta de Leyenda' : t.aboutPage.stat2}
                     </span>
                   </div>
                 </div>
@@ -225,7 +224,7 @@ export default function ProductClient({ product, relatedProducts, brandObj, bran
               <div className="mb-8">
                 <div className="flex items-center gap-6 mb-4">
                   <span className="inline-block px-4 py-1.5 rounded-full bg-orange-950/70 border border-orange-500/40 text-orange-400 font-extrabold tracking-[0.2em] uppercase text-[10px]">
-                    🎃 {translateProductData(product.category, lang)}
+                    {translateProductData(product.category, lang)}
                   </span>
                   {brandObj && brandObj.logo_url && (
                     <div className="h-16 w-32 flex items-center justify-start brightness-110">
@@ -255,7 +254,6 @@ export default function ProductClient({ product, relatedProducts, brandObj, bran
                 <div className="absolute top-0 right-0 w-32 h-32 bg-orange-600/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
                 <h3 className="text-xl font-extrabold text-white mb-2 flex items-center gap-2">
                   <span>{lang === 'es' ? '¿Deseas encargar esta especialidad?' : 'Interested in this product?'}</span>
-                  <span>🎃</span>
                 </h3>
                 <p className="text-sm text-slate-300 mb-6">
                   {lang === 'es' ? 'Contáctanos directamente vía WhatsApp para coordinar tu pedido y conocer disponibilidad.' : 'Contact us via WhatsApp to confirm availability and updated prices.'}
@@ -343,7 +341,6 @@ export default function ProductClient({ product, relatedProducts, brandObj, bran
             <div className="mt-32 pt-20 border-t border-purple-950/60">
               <h2 className="heading text-3xl font-extrabold text-white mb-10 text-center flex items-center justify-center gap-3">
                 <span>{lang === 'es' ? 'Otras Especialidades Embrujadas' : 'You might also like'}</span>
-                <span>🦇</span>
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 {relatedProducts.map((rel: any) => (
@@ -353,7 +350,7 @@ export default function ProductClient({ product, relatedProducts, brandObj, bran
                         {rel.image_url ? (
                           <img src={rel.image_url} alt={translateProductData(rel.name, lang)} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                         ) : (
-                          <span className="text-orange-400/70 font-bold text-sm">🎃 [FOTO {rel.id}]</span>
+                          <span className="text-orange-400/70 font-bold text-sm">[FOTO {rel.id}]</span>
                         )}
                       </div>
                       <div className="px-2 pb-2">

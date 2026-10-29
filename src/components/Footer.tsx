@@ -90,7 +90,7 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
 
             <div className="max-w-xl text-center lg:text-left">
               <div className="inline-flex items-center justify-center lg:justify-start gap-2 mb-3">
-                <span className="text-lg">🎃</span>
+                <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
                 <span className="text-orange-400 font-bold tracking-[0.2em] uppercase text-[10px]">Boletín de Noche de Brujas</span>
               </div>
               <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-3 tracking-tight">
@@ -105,7 +105,7 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
               {success ? (
                 <div className="bg-emerald-950/70 border border-emerald-500/50 text-emerald-300 px-8 py-4 rounded-2xl flex items-center justify-center gap-3 w-full lg:w-[380px] shadow-lg">
                   <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-emerald-400" /> 
-                  <span className="font-bold text-sm tracking-wide">¡Hechizo completado! Suscripción exitosa 🦇</span>
+                  <span className="font-bold text-sm tracking-wide">¡Hechizo completado! Suscripción exitosa</span>
                 </div>
               ) : (
                 <>
@@ -127,7 +127,7 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
                       <Loader2 className="w-4 h-4 animate-spin text-black" />
                     ) : (
                       <>
-                        <span>{mergedTexts.subscribeBtn} 🎃</span> 
+                        <span>{mergedTexts.subscribeBtn}</span> 
                         <ArrowRight className="w-4 h-4" />
                       </>
                     )}
@@ -143,8 +143,7 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
           
           {/* Brand Column */}
           <div className="lg:col-span-5 flex flex-col items-start pr-0 lg:pr-10">
-            <div className="h-14 mb-6 flex items-center gap-3">
-              <span className="text-3xl animate-bounce">🎃</span>
+            <div className="h-14 mb-6 flex items-center">
               <img src="/api/logo" alt="Montano Antilia" className="h-full w-auto object-contain brightness-110 drop-shadow-[0_0_12px_rgba(255,106,0,0.5)]" />
             </div>
             <p className="text-slate-300 text-sm leading-relaxed mb-8 font-normal">
@@ -218,7 +217,7 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
         {/* Copyright */}
         <div className="pt-8 border-t border-purple-950/60 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-slate-500 text-xs tracking-wider uppercase text-center md:text-left font-semibold">
-            {mergedTexts.footer} • Edición Especial Halloween 🎃
+            {mergedTexts.footer} • Edición Especial Halloween
           </p>
         </div>
       </div>

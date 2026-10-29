@@ -92,7 +92,6 @@ export default function AboutClient({ settings }: { settings: Record<string, str
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-[#10061f]/90 backdrop-blur-xl py-3 shadow-2xl border-b border-orange-500/30" : "bg-black/40 backdrop-blur-md py-5 border-b border-purple-950/40"}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl">🎃</span>
             <div className={`transition-all duration-500 relative ${isScrolled ? 'h-9' : 'h-11'}`}>
               <img src="/api/logo" alt="Montano Antilia Logo" className="h-full w-auto object-contain brightness-110 drop-shadow-[0_0_10px_rgba(255,106,0,0.5)]" />
             </div>
@@ -157,7 +156,7 @@ export default function AboutClient({ settings }: { settings: Record<string, str
           <div className={`relative z-20 px-6 max-w-4xl mx-auto flex flex-col items-center transition-all duration-1000 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <div className="inline-flex items-center gap-3 bg-[#180c2c]/90 backdrop-blur-md border border-orange-500/40 text-orange-300 px-5 py-2 rounded-full text-xs font-bold tracking-[0.25em] uppercase mb-6 shadow-[0_0_20px_rgba(255,106,0,0.3)]">
               <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
-              <span>📜 HISTORIA DE LEYENDA 🎃</span>
+              <span>HISTORIA DE LEYENDA</span>
             </div>
             <h1 className="heading font-extrabold text-5xl md:text-7xl text-white mb-6 tracking-tight drop-shadow-[0_10px_25px_rgba(0,0,0,0.9)]">
               {t.aboutPage.heroTitle}
@@ -179,12 +178,12 @@ export default function AboutClient({ settings }: { settings: Record<string, str
                   {settings.about_page_img ? (
                     <img src={settings.about_page_img} alt="Plato de Embutidos" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter contrast-110" />
                   ) : (
-                    <span className="font-bold text-lg text-orange-400/80">🎃 Tradición Montano Antilia</span>
+                    <span className="font-bold text-lg text-orange-400/80">Tradición Montano Antilia</span>
                   )}
                   
                   <div className="absolute bottom-6 left-6 z-20 bg-[#160a26]/95 backdrop-blur-md px-6 py-3 rounded-2xl border border-orange-500/40 shadow-lg">
-                    <p className="text-orange-400 font-bold text-xs tracking-widest uppercase flex items-center gap-2">
-                      <span>🎃</span> {t.aboutPage.tag}
+                    <p className="text-orange-400 font-bold text-xs tracking-widest uppercase">
+                      {t.aboutPage.tag}
                     </p>
                   </div>
                 </div>
@@ -302,13 +301,13 @@ export default function AboutClient({ settings }: { settings: Record<string, str
         <section className="py-20 px-6 bg-[#0a0414] border-t border-purple-950/60 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="heading text-4xl font-extrabold text-white mb-6 flex items-center justify-center gap-3">
-              <span>{t.aboutPage.ctaTitle}</span> <span>🎃</span>
+              <span>{t.aboutPage.ctaTitle}</span>
             </h2>
             <p className="text-slate-300 mb-10 text-lg font-normal">
               {t.aboutPage.ctaDesc}
             </p>
             <Link href="/productos" className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-black px-10 py-4.5 rounded-full text-xs font-black tracking-[0.2em] shadow-[0_0_25px_rgba(255,106,0,0.5)] hover:shadow-[0_0_40px_rgba(255,106,0,0.8)] transition-all uppercase hover:-translate-y-1">
-              <span>{t.aboutPage.ctaBtn} 🦇</span>
+              <span>{t.aboutPage.ctaBtn}</span>
             </Link>
           </div>
         </section>

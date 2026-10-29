@@ -143,12 +143,9 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
           
           {/* Brand Column */}
           <div className="lg:col-span-5 flex flex-col items-start pr-0 lg:pr-10">
-            <div className="h-14 mb-6 flex items-center">
+            <div className="h-14 mb-8 flex items-center">
               <img src="/api/logo" alt="Montano Antilia" className="h-full w-auto object-contain brightness-110 drop-shadow-[0_0_12px_rgba(255,106,0,0.5)]" />
             </div>
-            <p className="text-slate-300 text-sm leading-relaxed mb-8 font-normal">
-              {mergedTexts.aboutText} Llevando a tu mesa embutidos de calidad superior elaborados con tradición y un toque embrujado.
-            </p>
             
             {/* Social Icons */}
             <div className="flex items-center gap-4">

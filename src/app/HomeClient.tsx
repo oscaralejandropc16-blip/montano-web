@@ -13,7 +13,7 @@ const contactInfo = {
   whatsappRaw: "584243249097",
   whatsappDisplay: "+58 424-3249097",
   email: "admonmontanoantilia@gmail.com",
-  mapAddress: "314 Av. Bolívar, Oeste 2103, Carabobo",
+  mapAddress: "314 Av. Bolívar, Oeste 2103, Aragua",
   mapLink: "https://maps.app.goo.gl/rc7EWhCkYtGJkcB9A",
   instagram: "https://www.instagram.com/montanoantilia.ca/",
   tiktok: "https://www.tiktok.com/@montanoantilia.ca"

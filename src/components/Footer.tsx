@@ -29,7 +29,7 @@ interface FooterProps {
 const defaultContact = {
   instagram: "https://www.instagram.com/montanoantilia.ca/",
   tiktok: "https://www.tiktok.com/@montanoantilia.ca",
-  mapAddress: "314 Av. Bolívar, Oeste 2103, Carabobo",
+  mapAddress: "314 Av. Bolívar, Oeste 2103, Aragua",
   whatsappDisplay: "+58 424-3249097",
   email: "admonmontanoantilia@gmail.com"
 };

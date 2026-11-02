@@ -62,7 +62,6 @@ export const metadata: Metadata = {
 
 import { Toaster } from 'react-hot-toast';
 import ScrollToTop from '@/components/ScrollToTop';
-import HalloweenAtmosphere from '@/components/HalloweenAtmosphere';
 
 export default function RootLayout({
   children,
@@ -70,12 +69,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth dark">
+    <html lang="es" className="scroll-smooth">
       <body
-        className="antialiased bg-[#090511] text-[#F8FAFC]"
+        className="antialiased"
       >
-        <HalloweenAtmosphere />
-        <Toaster position="bottom-right" toastOptions={{ style: { background: '#1c0f2b', color: '#ff8c00', border: '1px solid rgba(255,106,0,0.3)', borderRadius: '14px' } }} />
+        <Toaster position="bottom-right" toastOptions={{ style: { background: '#333', color: '#fff', borderRadius: '10px' } }} />
         {children}
         <ScrollToTop />
       </body>

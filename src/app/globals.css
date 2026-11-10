@@ -108,3 +108,44 @@ h1, h2, h3, h4, h5, h6, .heading {
   mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
+
+/* Animaciones Navideñas Especiales */
+@keyframes holidayTwinkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1.25);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.92);
+    filter: brightness(0.75);
+  }
+}
+
+@keyframes holidayGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(220, 38, 38, 0.35), 0 0 25px rgba(245, 158, 11, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(220, 38, 38, 0.6), 0 0 40px rgba(245, 158, 11, 0.35);
+  }
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(2deg);
+  }
+}
+
+.animate-holiday-float {
+  animation: gentleFloat 4s ease-in-out infinite;
+}
+
+.animate-holiday-glow {
+  animation: holidayGlow 3s ease-in-out infinite;
+}
+

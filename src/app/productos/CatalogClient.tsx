@@ -6,6 +6,8 @@ import { ArrowLeft, Search, Filter, ChevronDown, Globe } from "lucide-react";
 import Footer from "@/components/Footer";
 import { getOptimizedUrl } from "@/lib/optimizeUrl";
 import { translations, Language } from "@/lib/translations";
+import ChristmasSantaHat from "@/components/christmas/ChristmasSantaHat";
+
 
 const defaultCategories = ["Todos", "Jamones", "Ahumados", "Fiambres", "Especialidades"];
 
@@ -100,11 +102,15 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [], se
       {/* NAVEGACIÓN MODERNA */}
       <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${isScrolled ? "bg-white/90 backdrop-blur-xl py-3 shadow-md border-b border-slate-200/80" : "bg-transparent py-5"}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center group relative">
+            <div className="absolute -top-3.5 left-2 z-20 group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
+              <ChristmasSantaHat size={isScrolled ? 22 : 26} />
+            </div>
             <div className={`transition-all duration-500 relative ${isScrolled ? 'h-9' : 'h-11'}`}>
               <img src="/api/logo" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-md" />
             </div>
           </Link>
+
           
           <div className="hidden lg:flex items-center gap-8">
             <Link href="/" className={`transition-colors font-bold tracking-widest text-xs uppercase ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.home}</Link>

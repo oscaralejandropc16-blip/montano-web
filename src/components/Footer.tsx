@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { MapPin, Phone, Mail, ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
+import { MapPin, Phone, Mail, ArrowRight, Loader2, CheckCircle2, Sparkles } from "lucide-react";
 import { subscribeNewsletter } from "@/lib/actions";
+import ChristmasSantaHat from "@/components/christmas/ChristmasSantaHat";
+
+
 
 interface FooterProps {
   texts?: {
@@ -126,14 +129,45 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
           </div>
         </div>
 
+        {/* Tarjeta de Felicitación Navideña en Footer */}
+        <div className="mb-14 rounded-3xl bg-gradient-to-r from-[#7F1D1D] via-[#14532D] to-[#991B1B] p-6 sm:p-8 text-white border border-amber-300/40 shadow-xl relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-amber-400/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="flex items-center gap-4 text-center sm:text-left relative z-10">
+            <div className="w-14 h-14 rounded-2xl bg-white/10 border border-amber-300/30 flex items-center justify-center text-3xl shrink-0 shadow-inner">
+              🎄
+            </div>
+            <div>
+              <span className="text-amber-300 text-[10px] font-bold tracking-[0.25em] uppercase block mb-1">
+                Temporada Navideña • Montano Antilia
+              </span>
+              <h4 className="heading text-xl sm:text-2xl font-extrabold text-white">
+                ¡Feliz Navidad y Próspero Año Nuevo!
+              </h4>
+              <p className="text-white/80 text-xs sm:text-sm mt-1 max-w-xl">
+                Que en cada hogar reine la paz, la unión y el auténtico sabor de nuestras tradiciones culinarias en familia.
+              </p>
+            </div>
+          </div>
+          <a
+            href="/#navidad"
+            className="shrink-0 bg-amber-400 hover:bg-amber-300 text-slate-950 px-6 py-3 rounded-full text-xs font-bold tracking-wider uppercase transition-all shadow-md hover:scale-105 relative z-10"
+          >
+            Especial Navideño 🎅
+          </a>
+        </div>
+
         {/* Footer Navigation Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16 relative z-10">
           
           {/* Brand Column */}
           <div className="lg:col-span-5 flex flex-col items-start pr-0 lg:pr-10">
-            <div className="h-16 mb-8 flex items-center">
+            <div className="h-16 mb-8 flex items-center relative group">
+              <div className="absolute -top-3 left-3 z-20 group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
+                <ChristmasSantaHat size={28} />
+              </div>
               <img src="/api/logo" alt="Montano Antilia" className="h-full w-auto object-contain" />
             </div>
+
             
             {/* Social Icons */}
             <div className="flex items-center gap-4">

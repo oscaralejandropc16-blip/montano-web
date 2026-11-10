@@ -6,6 +6,8 @@ import { ArrowLeft, Info, MessageCircle, ChevronRight, Check, Globe, ChevronDown
 import ZoomableImage from "./ZoomableImage";
 import Footer from "@/components/Footer";
 import { translations, Language } from "@/lib/translations";
+import ChristmasSantaHat from "@/components/christmas/ChristmasSantaHat";
+
 
 const translateProductData = (text: string, lang: Language) => {
   if (!text || lang === 'es') return text;
@@ -134,11 +136,15 @@ export default function ProductClient({ product, relatedProducts, brandObj, bran
               <span className="font-bold tracking-[0.2em] text-[10px] uppercase hidden sm:block">{t.aboutPage.back}</span>
             </Link>
             <div className="h-8 md:h-10 w-[1px] bg-gray-200 hidden sm:block"></div>
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center group relative">
+              <div className="absolute -top-3.5 left-2 z-20 group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
+                <ChristmasSantaHat size={26} />
+              </div>
               <div className="h-12 md:h-14 relative">
                 <img src="/api/logo" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-sm" />
               </div>
             </Link>
+
           </div>
           
           <div className="hidden lg:flex items-center gap-8">

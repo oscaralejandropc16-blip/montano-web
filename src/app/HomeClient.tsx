@@ -7,6 +7,10 @@ import Footer from "@/components/Footer";
 import { getOptimizedUrl } from "@/lib/optimizeUrl";
 import { saveContactMessage, registerVisit } from "@/lib/actions";
 import { translations, Language } from "@/lib/translations";
+import ChristmasBanner from "@/components/christmas/ChristmasBanner";
+import ChristmasSantaHat from "@/components/christmas/ChristmasSantaHat";
+import ChristmasSection from "@/components/christmas/ChristmasSection";
+import ChristmasGreetingModal from "@/components/christmas/ChristmasGreetingModal";
 
 // --- DATOS DE CONTACTO ---
 const contactInfo = {
@@ -25,6 +29,8 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
   const [lang, setLang] = useState<Language>("es");
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [isGreetingOpen, setIsGreetingOpen] = useState(false);
+
   
   // Estado para el menú móvil
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -99,23 +105,51 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-slate-900 selection:bg-primary selection:text-white overflow-hidden font-sans">
       
-      {/* Botón WhatsApp Flotante */}
-      <a href={`https://wa.me/${contactInfo.whatsappRaw}`} target="_blank" rel="noopener noreferrer" className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_8px_25px_rgba(37,211,102,0.4)] hover:scale-110 transition-all duration-300">
-        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
-        </svg>
-      </a>
+      {/* Banner Navideño Superior */}
+      <ChristmasBanner onOpenGreeting={() => setIsGreetingOpen(true)} />
+
+      {/* Modal de Saludo Navideño */}
+      <ChristmasGreetingModal
+        isOpen={isGreetingOpen}
+        onClose={() => setIsGreetingOpen(false)}
+        whatsappRaw={contactInfo.whatsappRaw}
+      />
+
+      {/* Botón WhatsApp Flotante Navideño */}
+      <div className="fixed bottom-8 right-8 z-[100] group/wa">
+        <div className="absolute -top-3.5 -right-1 z-20 group-hover/wa:rotate-12 transition-transform duration-300 pointer-events-none">
+          <ChristmasSantaHat size={28} />
+        </div>
+        <a 
+          href={`https://wa.me/${contactInfo.whatsappRaw}?text=${encodeURIComponent("¡Hola Montano Antilia! 🎄 Quisiera información sobre sus productos para esta temporada navideña ✨")}`} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          aria-label="Contactar por WhatsApp"
+          className="relative w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_8px_25px_rgba(37,211,102,0.4)] hover:scale-110 transition-all duration-300"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
+          </svg>
+        </a>
+      </div>
 
       {/* NAVEGACIÓN - Transparente arriba, Glassmorphism al hacer scroll */}
-      <nav className={`fixed top-6 left-0 right-0 z-50 transition-all duration-700 flex justify-center px-4`}>
+      <nav className={`fixed top-11 sm:top-12 left-0 right-0 z-50 transition-all duration-700 flex justify-center px-4`}>
         <div className={`flex items-center justify-between transition-all duration-500 rounded-full px-6 py-3 ${isScrolled ? "w-full max-w-5xl bg-white/90 backdrop-blur-xl border border-slate-200/80 shadow-lg shadow-slate-900/5 text-slate-800" : "w-full max-w-7xl bg-transparent border-transparent shadow-none text-white"}`}>
           
           <Link href="/" className="flex items-center group relative z-50">
+            <div className="absolute -top-3.5 left-2 sm:left-3 z-20 group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
+              <ChristmasSantaHat size={isScrolled ? 24 : 28} />
+            </div>
             <img src="/api/logo" alt="Montano Antilia Logo" className={`w-auto object-contain transition-all duration-500 ${isScrolled ? 'h-8' : 'h-10'}`} />
           </Link>
 
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-7">
             <a href="#inicio" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.home}</a>
+            <a href="#navidad" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] flex items-center gap-1.5 ${isScrolled ? 'text-red-600 hover:text-red-700' : 'text-amber-300 hover:text-amber-200 drop-shadow-md'}`}>
+              <span>Navidad</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+            </a>
             <Link href="/productos" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.catalog}</Link>
             <Link href="/about" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.about}</Link>
             <a href="#contacto" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.contact}</a>
@@ -153,9 +187,13 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
       <div className={`fixed inset-0 bg-white/98 backdrop-blur-2xl z-40 transition-all duration-700 flex flex-col justify-center px-10 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className="flex flex-col gap-8 text-left">
           <a href="#inicio" onClick={() => setMobileMenuOpen(false)} className="text-slate-900 text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.home}</a>
+          <a href="#navidad" onClick={() => setMobileMenuOpen(false)} className="text-red-600 text-4xl font-extrabold tracking-tighter hover:text-red-700 transition-colors flex items-center gap-2">
+            <span>🎄 Especial Navideño</span>
+          </a>
           <Link href="/productos" onClick={() => setMobileMenuOpen(false)} className="text-slate-900 text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.catalog}</Link>
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-slate-900 text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.about}</Link>
           <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-slate-900 text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.contact}</a>
+
           
           <div className="h-px w-full bg-slate-200 my-4"></div>
           <div className="flex gap-4 flex-wrap">
@@ -175,9 +213,10 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
           </div>
 
           <div className="relative z-10 px-6 w-full max-w-5xl mx-auto flex flex-col items-center mt-16">
-            <div className={`inline-flex items-center gap-2 bg-red-50 border border-red-100 text-primary px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.25em] uppercase mb-8 shadow-sm transition-all duration-1000 delay-100 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              {t.hero.badge}
+            <div className={`inline-flex items-center gap-2 bg-gradient-to-r from-red-600/90 via-red-500 to-emerald-700 text-white px-5 py-2 rounded-full text-xs font-bold tracking-[0.25em] uppercase mb-8 shadow-xl shadow-red-600/30 border border-amber-300/40 transition-all duration-1000 delay-100 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+              <span className="text-sm">🎄</span>
+              <span>Especial de Temporada Navideña • 2026</span>
+              <span className="w-2 h-2 rounded-full bg-amber-300 animate-ping"></span>
             </div>
 
             <h1 className={`heading font-extrabold text-6xl md:text-8xl lg:text-[9.5rem] text-white tracking-tighter leading-none mb-6 drop-shadow-2xl transition-all duration-1000 delay-300 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
@@ -189,15 +228,21 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
               {t.hero.subtitle}
             </p>
 
-            <div className={`transition-all duration-1000 delay-700 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-              <Link href="/productos" className="group relative inline-flex items-center justify-center bg-primary text-white px-12 py-5 rounded-full text-xs font-bold tracking-[0.2em] uppercase overflow-hidden shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-105 hover:bg-red-700">
+            <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-1000 delay-700 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+              <a href="#navidad" className="group relative inline-flex items-center justify-center bg-gradient-to-r from-red-600 to-red-700 text-white px-10 py-4 sm:py-5 rounded-full text-xs font-bold tracking-[0.2em] uppercase overflow-hidden shadow-xl shadow-red-600/30 transition-all duration-300 hover:scale-105 border border-amber-300/40 hover:from-red-700 hover:to-red-800">
+                <span className="relative z-10 flex items-center gap-2">
+                  <span>🎅 Especial Navideño</span>
+                  <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </span>
+              </a>
+              <Link href="/productos" className="group relative inline-flex items-center justify-center bg-white/15 hover:bg-white/25 backdrop-blur-md text-white px-10 py-4 sm:py-5 rounded-full text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 border border-white/30 hover:border-white/50">
                 <span className="relative z-10 flex items-center gap-2">
                   {t.hero.btn}
-                  <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                 </span>
               </Link>
             </div>
           </div>
+
 
           {/* Scroll Indicator */}
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce opacity-60">
@@ -292,8 +337,12 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
           </div>
         </section>
 
+        {/* SECCIÓN ESPECIAL NAVIDEÑA */}
+        <ChristmasSection whatsappRaw={contactInfo.whatsappRaw} />
+
         {/* NOSOTROS - Fondo Limpio e Histórico */}
         <section id="nosotros" className="py-28 md:py-36 relative bg-[#F8FAFC] overflow-hidden">
+
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
               

@@ -62,6 +62,7 @@ export const metadata: Metadata = {
 
 import { Toaster } from 'react-hot-toast';
 import ScrollToTop from '@/components/ScrollToTop';
+import ChristmasSnow from '@/components/christmas/ChristmasSnow';
 
 export default function RootLayout({
   children,
@@ -73,6 +74,7 @@ export default function RootLayout({
       <body
         className="antialiased"
       >
+        <ChristmasSnow />
         <Toaster position="bottom-right" toastOptions={{ style: { background: '#333', color: '#fff', borderRadius: '10px' } }} />
         {children}
         <ScrollToTop />
@@ -80,3 +82,4 @@ export default function RootLayout({
     </html>
   );
 }
+

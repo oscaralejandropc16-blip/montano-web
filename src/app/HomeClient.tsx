@@ -194,12 +194,8 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
           </div>
 
           <div className="relative z-10 px-6 w-full max-w-5xl mx-auto flex flex-col items-center mt-16">
-            <div className={`inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-5 py-2 rounded-full text-xs font-bold tracking-[0.25em] uppercase mb-8 shadow-sm transition-all duration-1000 delay-100 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              <span>Temporada Navideña • 2026</span>
-            </div>
-
             <h1 className={`heading font-extrabold text-6xl md:text-8xl lg:text-[9.5rem] text-white tracking-tighter leading-none mb-6 drop-shadow-2xl transition-all duration-1000 delay-300 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+
               MONTANO
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-primary">ANTILIA</span>
             </h1>

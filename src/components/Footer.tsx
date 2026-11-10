@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MapPin, Phone, Mail, ArrowRight, Loader2, CheckCircle2, Sparkles } from "lucide-react";
 import { subscribeNewsletter } from "@/lib/actions";
 import ChristmasSantaHat from "@/components/christmas/ChristmasSantaHat";
+import FireworksBanner from "@/components/christmas/FireworksBanner";
 
 
 
@@ -129,31 +130,8 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
           </div>
         </div>
 
-        {/* Tarjeta de Felicitación de Temporada en Footer */}
-        <div className="mb-14 rounded-3xl bg-slate-900 p-6 sm:p-8 text-white border border-slate-800 shadow-lg relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4 text-center sm:text-left relative z-10">
-            <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center shrink-0">
-              <Sparkles className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <span className="text-primary text-[10px] font-bold tracking-[0.25em] uppercase block mb-1">
-                Temporada Navideña • Montano Antilia
-              </span>
-              <h4 className="heading text-xl sm:text-2xl font-extrabold text-white">
-                Felices Fiestas y Próspero Año Nuevo
-              </h4>
-              <p className="text-slate-400 text-xs sm:text-sm mt-1 max-w-xl">
-                Que en cada hogar reine la unión, la paz y el auténtico sabor de nuestras tradiciones culinarias en familia.
-              </p>
-            </div>
-          </div>
-          <a
-            href="/#navidad"
-            className="shrink-0 bg-primary hover:bg-red-700 text-white px-6 py-3 rounded-full text-xs font-bold tracking-wider uppercase transition-colors shadow-sm relative z-10"
-          >
-            Ver Recetas Navideñas
-          </a>
-        </div>
+        {/* Banner Interactivo de Fin de Año con Fuegos Artificiales en Vivo */}
+        <FireworksBanner />
 
 
         {/* Footer Navigation Columns */}

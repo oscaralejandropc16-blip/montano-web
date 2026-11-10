@@ -91,9 +91,11 @@ export default function ChristmasSection({
         
         {/* Encabezado de Sección */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-primary px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.25em] uppercase mb-5">
+          <div className="flex items-center justify-center gap-2.5 text-primary font-bold tracking-[0.25em] uppercase text-xs mb-4">
+            <span className="w-8 h-[2px] bg-primary"></span>
             <ChefHat className="w-4 h-4 text-primary" />
             <span>Inspiración Culinaria de Temporada</span>
+            <span className="w-8 h-[2px] bg-primary"></span>
           </div>
 
           <h2 className="heading text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
@@ -126,7 +128,7 @@ export default function ChristmasSection({
                 {/* Badge de Categoría */}
                 <div className="absolute top-5 left-5 z-20">
                   <span
-                    className={`text-[11px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm ${item.tagColor}`}
+                    className={`text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg shadow-sm border border-white/20 backdrop-blur-md ${item.tagColor}`}
                   >
                     {item.tag}
                   </span>
@@ -174,7 +176,7 @@ export default function ChristmasSection({
 
                   <Link
                     href={item.catalogLink}
-                    className="inline-flex items-center gap-2 bg-primary hover:bg-red-700 text-white px-6 py-3 rounded-full text-xs font-bold tracking-wider uppercase transition-colors shadow-sm"
+                    className="inline-flex items-center gap-2 bg-primary hover:bg-red-700 text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-colors shadow-sm"
                   >
                     <span>{item.catalogText}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -189,8 +191,9 @@ export default function ChristmasSection({
         <div className="relative rounded-[2rem] bg-slate-900 text-white p-8 sm:p-12 shadow-lg border border-slate-800 overflow-hidden">
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="max-w-2xl text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 bg-white/10 text-white px-3.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 border border-white/15">
-                <Building2 className="w-3.5 h-3.5 text-red-400" />
+              <div className="flex items-center justify-center lg:justify-start gap-2 text-red-400 text-xs font-bold tracking-widest uppercase mb-3">
+                <span className="w-6 h-[2px] bg-primary"></span>
+                <Building2 className="w-4 h-4" />
                 <span>Atención a Comercios & Distribuidores</span>
               </div>
               <h3 className="heading text-2xl sm:text-3xl font-extrabold text-white mb-3 tracking-tight">
@@ -208,14 +211,14 @@ export default function ChristmasSection({
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-red-700 text-white font-bold text-xs tracking-widest uppercase px-7 py-4 rounded-full shadow-md transition-colors"
+                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-red-700 text-white font-bold text-xs tracking-widest uppercase px-7 py-4 rounded-xl shadow-md transition-colors"
               >
                 <Phone className="w-4 h-4" />
                 <span>Contactar Asesor</span>
               </a>
               <Link
                 href="/productos"
-                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs tracking-widest uppercase px-7 py-4 rounded-full transition-colors"
+                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs tracking-widest uppercase px-7 py-4 rounded-xl transition-colors"
               >
                 <span>Ver Catálogo</span>
               </Link>

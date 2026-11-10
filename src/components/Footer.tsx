@@ -140,10 +140,12 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
           {/* Brand Column */}
           <div className="lg:col-span-5 flex flex-col items-start pr-0 lg:pr-10">
             <div className="h-16 mb-8 flex items-center relative group">
-              <div className="absolute -top-3 left-3 z-20 group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
-                <ChristmasSantaHat size={28} />
+              <div className="relative inline-flex items-center h-full">
+                <div className="absolute -top-5 left-[49%] -translate-x-[44%] z-20 group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
+                  <ChristmasSantaHat size={36} />
+                </div>
+                <img src="/api/logo" alt="Montano Antilia" className="h-full w-auto object-contain" />
               </div>
-              <img src="/api/logo" alt="Montano Antilia" className="h-full w-auto object-contain" />
             </div>
 
             

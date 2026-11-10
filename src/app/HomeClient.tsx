@@ -125,10 +125,12 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
         <div className={`flex items-center justify-between transition-all duration-500 rounded-full px-6 py-3 ${isScrolled ? "w-full max-w-5xl bg-white/90 backdrop-blur-xl border border-slate-200/80 shadow-lg shadow-slate-900/5 text-slate-800" : "w-full max-w-7xl bg-transparent border-transparent shadow-none text-white"}`}>
           
           <Link href="/" className="flex items-center group relative z-50">
-            <div className="absolute -top-3.5 left-2 sm:left-3 z-20 group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
-              <ChristmasSantaHat size={isScrolled ? 24 : 28} />
+            <div className="relative inline-flex items-center">
+              <div className="absolute -top-4 left-[49%] -translate-x-[44%] z-20 group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
+                <ChristmasSantaHat size={isScrolled ? 24 : 28} />
+              </div>
+              <img src="/api/logo" alt="Montano Antilia Logo" className={`w-auto object-contain transition-all duration-500 ${isScrolled ? 'h-8' : 'h-10'}`} />
             </div>
-            <img src="/api/logo" alt="Montano Antilia Logo" className={`w-auto object-contain transition-all duration-500 ${isScrolled ? 'h-8' : 'h-10'}`} />
           </Link>
 
           <div className="hidden lg:flex items-center gap-7">

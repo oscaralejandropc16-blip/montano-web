@@ -103,10 +103,10 @@ export default function CatalogClient({ catalog, dbCategories, dbBrands = [], se
       <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${isScrolled ? "bg-white/90 backdrop-blur-xl py-3 shadow-md border-b border-slate-200/80" : "bg-transparent py-5"}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center group relative">
-            <div className="absolute -top-3.5 left-2 z-20 group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
-              <ChristmasSantaHat size={isScrolled ? 22 : 26} />
-            </div>
-            <div className={`transition-all duration-500 relative ${isScrolled ? 'h-9' : 'h-11'}`}>
+            <div className={`transition-all duration-500 relative inline-flex items-center ${isScrolled ? 'h-9' : 'h-11'}`}>
+              <div className="absolute -top-4 left-[49%] -translate-x-[44%] z-20 group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
+                <ChristmasSantaHat size={isScrolled ? 22 : 26} />
+              </div>
               <img src="/api/logo" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-md" />
             </div>
           </Link>

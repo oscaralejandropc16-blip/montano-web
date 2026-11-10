@@ -137,10 +137,10 @@ export default function ProductClient({ product, relatedProducts, brandObj, bran
             </Link>
             <div className="h-8 md:h-10 w-[1px] bg-gray-200 hidden sm:block"></div>
             <Link href="/" className="flex items-center group relative">
-              <div className="absolute -top-3.5 left-2 z-20 group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
-                <ChristmasSantaHat size={26} />
-              </div>
-              <div className="h-12 md:h-14 relative">
+              <div className="h-12 md:h-14 relative inline-flex items-center">
+                <div className="absolute -top-4 left-[49%] -translate-x-[44%] z-20 group-hover:rotate-12 transition-transform duration-300 pointer-events-none">
+                  <ChristmasSantaHat size={26} />
+                </div>
                 <img src="/api/logo" alt="Montano Antilia Logo" className="h-full w-auto object-contain drop-shadow-sm" />
               </div>
             </Link>

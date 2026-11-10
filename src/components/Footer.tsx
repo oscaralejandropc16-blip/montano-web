@@ -129,32 +129,32 @@ export default function Footer({ texts = defaultTexts, contactInfo = defaultCont
           </div>
         </div>
 
-        {/* Tarjeta de Felicitación Navideña en Footer */}
-        <div className="mb-14 rounded-3xl bg-gradient-to-r from-[#7F1D1D] via-[#14532D] to-[#991B1B] p-6 sm:p-8 text-white border border-amber-300/40 shadow-xl relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-amber-400/10 rounded-full blur-2xl pointer-events-none" />
+        {/* Tarjeta de Felicitación de Temporada en Footer */}
+        <div className="mb-14 rounded-3xl bg-slate-900 p-6 sm:p-8 text-white border border-slate-800 shadow-lg relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4 text-center sm:text-left relative z-10">
-            <div className="w-14 h-14 rounded-2xl bg-white/10 border border-amber-300/30 flex items-center justify-center text-3xl shrink-0 shadow-inner">
-              🎄
+            <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center shrink-0">
+              <Sparkles className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <span className="text-amber-300 text-[10px] font-bold tracking-[0.25em] uppercase block mb-1">
+              <span className="text-primary text-[10px] font-bold tracking-[0.25em] uppercase block mb-1">
                 Temporada Navideña • Montano Antilia
               </span>
               <h4 className="heading text-xl sm:text-2xl font-extrabold text-white">
-                ¡Feliz Navidad y Próspero Año Nuevo!
+                Felices Fiestas y Próspero Año Nuevo
               </h4>
-              <p className="text-white/80 text-xs sm:text-sm mt-1 max-w-xl">
-                Que en cada hogar reine la paz, la unión y el auténtico sabor de nuestras tradiciones culinarias en familia.
+              <p className="text-slate-400 text-xs sm:text-sm mt-1 max-w-xl">
+                Que en cada hogar reine la unión, la paz y el auténtico sabor de nuestras tradiciones culinarias en familia.
               </p>
             </div>
           </div>
           <a
             href="/#navidad"
-            className="shrink-0 bg-amber-400 hover:bg-amber-300 text-slate-950 px-6 py-3 rounded-full text-xs font-bold tracking-wider uppercase transition-all shadow-md hover:scale-105 relative z-10"
+            className="shrink-0 bg-primary hover:bg-red-700 text-white px-6 py-3 rounded-full text-xs font-bold tracking-wider uppercase transition-colors shadow-sm relative z-10"
           >
-            Especial Navideño 🎅
+            Ver Recetas Navideñas
           </a>
         </div>
+
 
         {/* Footer Navigation Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16 relative z-10">

@@ -9,6 +9,7 @@ import { saveContactMessage, registerVisit } from "@/lib/actions";
 import { translations, Language } from "@/lib/translations";
 import ChristmasSantaHat from "@/components/christmas/ChristmasSantaHat";
 import ChristmasSection from "@/components/christmas/ChristmasSection";
+import SocialBanner from "@/components/SocialBanner";
 
 
 // --- DATOS DE CONTACTO ---
@@ -315,7 +316,7 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
         </section>
 
         {/* SECCIÓN ESPECIAL NAVIDEÑA */}
-        <ChristmasSection whatsappRaw={contactInfo.whatsappRaw} />
+        <ChristmasSection whatsappRaw={contactInfo.whatsappRaw} settings={settings} />
 
         {/* NOSOTROS - Fondo Limpio e Histórico */}
         <section id="nosotros" className="py-28 md:py-36 relative bg-[#F8FAFC] overflow-hidden">
@@ -394,39 +395,12 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
         {/* GALERÍA SOCIAL / COMUNIDAD */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6 mb-16">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-8 bg-slate-50 border border-slate-200/80 p-8 md:p-12 rounded-[2.5rem] shadow-sm">
-              <div className="text-center md:text-left">
-                <div className="inline-flex items-center justify-center md:justify-start gap-2 mb-4">
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
-                  </span>
-                  <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs">Comunidad</span>
-                </div>
-                <h2 className="heading text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
-                  {t.social.title}
-                </h2>
-                <p className="text-slate-600 text-base md:text-lg font-normal max-w-md">
-                  {t.social.sub}
-                </p>
-              </div>
-              
-              <div className="flex flex-wrap justify-center md:justify-end gap-4">
-                <a href={contactInfo.instagram} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 px-6 py-4 rounded-2xl bg-white border border-slate-200 hover:border-pink-500 hover:shadow-md transition-all duration-300">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#FD1D1D] to-[#E1306C] flex items-center justify-center text-white shadow-sm">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                  </div>
-                  <span className="font-bold text-slate-900 text-sm tracking-wide">Instagram</span>
-                </a>
-                
-                <a href={contactInfo.tiktok} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 px-6 py-4 rounded-2xl bg-white border border-slate-200 hover:border-slate-900 hover:shadow-md transition-all duration-300">
-                  <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white shadow-sm">
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" /></svg>
-                  </div>
-                  <span className="font-bold text-slate-900 text-sm tracking-wide">TikTok</span>
-                </a>
-              </div>
-            </div>
+            <SocialBanner
+              instagramUrl={contactInfo.instagram}
+              tiktokUrl={contactInfo.tiktok}
+              title={t.social.title}
+              subtitle={t.social.sub}
+            />
           </div>
 
           {/* Grid de Imágenes de Galería */}

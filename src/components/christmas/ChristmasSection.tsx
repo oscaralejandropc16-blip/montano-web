@@ -6,82 +6,87 @@ import { ArrowRight, ChefHat, Check, Building2, Phone, Sparkles } from "lucide-r
 
 interface ChristmasSectionProps {
   whatsappRaw?: string;
+  settings?: Record<string, string>;
 }
-
-const RECIPE_CARDS = [
-  {
-    id: "pan-de-jamon",
-    title: "Pan de Jamón Casero",
-    subtitle: "Elaborado con Jamón Ahumado y Tocineta Montano Antilia",
-    tag: "Receta Tradicional",
-    tagColor: "bg-black/70 text-white",
-    description:
-      "Para lograr el auténtico pan de jamón venezolano en casa, el secreto está en usar jamón ahumado tierno con corte generoso y tocineta crocante bien distribuida, junto a uvas pasas y aceitunas verdes.",
-    image: "/christmas/pan_de_jamon.jpg",
-    ingredients: [
-      "Jamón Ahumado Montano Antilia en rebanadas",
-      "Tocineta Ahumada en tiras para hornear",
-      "Uvas pasas selectas y aceitunas verdes rellenas",
-    ],
-    catalogLink: "/productos",
-    catalogText: "Ver Jamones en Catálogo",
-  },
-  {
-    id: "jamon-planchado",
-    title: "Jamón Planchado Glaseado",
-    subtitle: "Elaborado con Jamón Cocido Montano Antilia",
-    tag: "Cena de Nochebuena",
-    tagColor: "bg-primary/90 text-white",
-    description:
-      "Una tradición para compartir en familia: corte de Jamón Cocido Montano Antilia horneado a fuego medio con caramelo de azúcar morena o papelón, rodajas de piña fresca y clavos de olor.",
-    image: "/christmas/jamon_planchado.jpg",
-    ingredients: [
-      "Jamón Cocido Montano Antilia (bloque o cilindro)",
-      "Glaseado de papelón o azúcar morena y piña",
-      "Clavos de olor y cerezas para decorar",
-    ],
-    catalogLink: "/productos",
-    catalogText: "Ver Jamón Cocido",
-  },
-  {
-    id: "ingredientes-hallacas",
-    title: "El Guiso para tus Hallacas",
-    subtitle: "Con Tocineta Ahumada Montano Antilia",
-    tag: "Guiso Navideño",
-    tagColor: "bg-emerald-900/90 text-white",
-    description:
-      "El sabor profundo del guiso tradicional venezolano comienza con un buen sofrito realzado con tocineta ahumada natural, aportando esa textura y aroma inconfundible a cada hallaca.",
-    image: "/christmas/hallacas.jpg",
-    ingredients: [
-      "Tocineta Ahumada Montano Antilia en cubos",
-      "Ahumado natural a leña que enriquece el guiso",
-      "Carne seleccionada con proporción balanceada",
-    ],
-    catalogLink: "/productos",
-    catalogText: "Ver Ahumados",
-  },
-  {
-    id: "tabla-navidena",
-    title: "Tabla de Charcutería Festiva",
-    subtitle: "Surtido de Especialidades y Chorizos",
-    tag: "Compartir & Brindis",
-    tagColor: "bg-slate-800/90 text-white",
-    description:
-      "Arma una presentación elegante para tus reuniones de fin de año con nuestra línea de chorizos parrilleros, salchichas tipo polaca, fiambres y embutidos artesanales.",
-    image: "/christmas/tabla_navidena.jpg",
-    ingredients: [
-      "Chorizo parrillero con ajo y salchicha tipo polaca",
-      "Fiambres cocidos y jamones seleccionados",
-      "Presentación gourmet para celebraciones",
-    ],
-    catalogLink: "/productos",
-    catalogText: "Ver Especialidades",
-  },
-];
 
 export default function ChristmasSection({
   whatsappRaw = "584243249097",
+  settings = {},
 }: ChristmasSectionProps) {
+  const recipes = [
+    {
+      id: "recipe-1",
+      title: settings.recipe_1_title || "Pan de Jamón Casero",
+      subtitle: settings.recipe_1_subtitle || "Elaborado con Jamón Ahumado y Tocineta Montano Antilia",
+      tag: settings.recipe_1_tag || "Receta Tradicional",
+      tagColor: "bg-black/70 text-white",
+      description: settings.recipe_1_desc || "Para lograr el auténtico pan de jamón venezolano en casa, el secreto está en usar jamón ahumado tierno con corte generoso y tocineta crocante bien distribuida, junto a uvas pasas y aceitunas verdes.",
+      image: settings.recipe_1_image || "/christmas/pan_de_jamon.jpg",
+      ingredients: settings.recipe_1_ingredients
+        ? settings.recipe_1_ingredients.split("\n").map(s => s.trim()).filter(Boolean)
+        : [
+            "Jamón Ahumado Montano Antilia en rebanadas",
+            "Tocineta Ahumada en tiras para hornear",
+            "Uvas pasas selectas y aceitunas verdes rellenas",
+          ],
+      catalogLink: settings.recipe_1_link || "/productos",
+      catalogText: "Ver Jamones en Catálogo",
+    },
+    {
+      id: "recipe-2",
+      title: settings.recipe_2_title || "Jamón Planchado Glaseado",
+      subtitle: settings.recipe_2_subtitle || "Elaborado con Jamón Cocido Montano Antilia",
+      tag: settings.recipe_2_tag || "Cena de Nochebuena",
+      tagColor: "bg-primary/90 text-white",
+      description: settings.recipe_2_desc || "Una tradición para compartir en familia: corte de Jamón Cocido Montano Antilia horneado a fuego medio con caramelo de azúcar morena o papelón, rodajas de piña fresca y clavos de olor.",
+      image: settings.recipe_2_image || "/christmas/jamon_planchado.jpg",
+      ingredients: settings.recipe_2_ingredients
+        ? settings.recipe_2_ingredients.split("\n").map(s => s.trim()).filter(Boolean)
+        : [
+            "Jamón Cocido Montano Antilia (bloque o cilindro)",
+            "Glaseado de papelón o azúcar morena y piña",
+            "Clavos de olor y cerezas para decorar",
+          ],
+      catalogLink: settings.recipe_2_link || "/productos",
+      catalogText: "Ver Jamón Cocido",
+    },
+    {
+      id: "recipe-3",
+      title: settings.recipe_3_title || "El Guiso para tus Hallacas",
+      subtitle: settings.recipe_3_subtitle || "Con Tocineta Ahumada Montano Antilia",
+      tag: settings.recipe_3_tag || "Guiso Navideño",
+      tagColor: "bg-emerald-900/90 text-white",
+      description: settings.recipe_3_desc || "El sabor profundo del guiso tradicional venezolano comienza con un buen sofrito realzado con tocineta ahumada natural, aportando esa textura y aroma inconfundible a cada hallaca.",
+      image: settings.recipe_3_image || "/christmas/hallacas.jpg",
+      ingredients: settings.recipe_3_ingredients
+        ? settings.recipe_3_ingredients.split("\n").map(s => s.trim()).filter(Boolean)
+        : [
+            "Tocineta Ahumada Montano Antilia en cubos",
+            "Ahumado natural a leña que enriquece el guiso",
+            "Carne seleccionada con proporción balanceada",
+          ],
+      catalogLink: settings.recipe_3_link || "/productos",
+      catalogText: "Ver Ahumados",
+    },
+    {
+      id: "recipe-4",
+      title: settings.recipe_4_title || "Tabla de Charcutería Festiva",
+      subtitle: settings.recipe_4_subtitle || "Surtido de Especialidades y Chorizos",
+      tag: settings.recipe_4_tag || "Compartir & Brindis",
+      tagColor: "bg-slate-800/90 text-white",
+      description: settings.recipe_4_desc || "Arma una presentación elegante para tus reuniones de fin de año con nuestra línea de chorizos parrilleros, salchichas tipo polaca, fiambres y embutidos artesanales.",
+      image: settings.recipe_4_image || "/christmas/tabla_navidena.jpg",
+      ingredients: settings.recipe_4_ingredients
+        ? settings.recipe_4_ingredients.split("\n").map(s => s.trim()).filter(Boolean)
+        : [
+            "Chorizo parrillero con ajo y salchicha tipo polaca",
+            "Fiambres cocidos y jamones seleccionados",
+            "Presentación gourmet para celebraciones",
+          ],
+      catalogLink: settings.recipe_4_link || "/productos",
+      catalogText: "Ver Especialidades",
+    },
+  ];
   return (
     <section
       id="navidad"
@@ -135,7 +140,7 @@ export default function ChristmasSection({
 
         {/* Grid de Recetas e Ideas en Fondo Oscuro Gourmet */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-20">
-          {RECIPE_CARDS.map((item) => (
+          {recipes.map((item) => (
             <div
               key={item.id}
               className="group/card relative rounded-[2.2rem] bg-slate-900/80 border border-white/10 shadow-2xl hover:border-primary/50 hover:shadow-red-950/30 transition-all duration-500 flex flex-col overflow-hidden backdrop-blur-md"

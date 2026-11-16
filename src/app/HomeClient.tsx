@@ -8,7 +8,6 @@ import { getOptimizedUrl } from "@/lib/optimizeUrl";
 import { saveContactMessage, registerVisit } from "@/lib/actions";
 import { translations, Language } from "@/lib/translations";
 import ChristmasSantaHat from "@/components/christmas/ChristmasSantaHat";
-import ChristmasSection from "@/components/christmas/ChristmasSection";
 import SocialBanner from "@/components/SocialBanner";
 
 
@@ -136,7 +135,6 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
 
           <div className="hidden lg:flex items-center gap-7">
             <a href="#inicio" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.home}</a>
-            <a href="#navidad" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-primary hover:text-red-700' : 'text-white/90 hover:text-white drop-shadow-md'}`}>Recetas Navideñas</a>
             <Link href="/productos" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.catalog}</Link>
             <Link href="/about" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.about}</Link>
             <a href="#contacto" className={`transition-colors text-[11px] font-bold uppercase tracking-[0.2em] ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white drop-shadow-md'}`}>{t.nav.contact}</a>
@@ -174,7 +172,6 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
       <div className={`fixed inset-0 bg-white/98 backdrop-blur-2xl z-40 transition-all duration-700 flex flex-col justify-center px-10 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className="flex flex-col gap-8 text-left">
           <a href="#inicio" onClick={() => setMobileMenuOpen(false)} className="text-slate-900 text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.home}</a>
-          <a href="#navidad" onClick={() => setMobileMenuOpen(false)} className="text-slate-900 text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">Recetas Navideñas</a>
           <Link href="/productos" onClick={() => setMobileMenuOpen(false)} className="text-slate-900 text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.catalog}</Link>
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-slate-900 text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.about}</Link>
           <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-slate-900 text-4xl font-extrabold tracking-tighter hover:text-primary transition-colors">{t.nav.contact}</a>
@@ -207,16 +204,11 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
               {t.hero.subtitle}
             </p>
 
-            <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-1000 delay-700 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-              <a href="#navidad" className="group relative inline-flex items-center justify-center bg-primary text-white px-10 py-5 rounded-full text-xs font-bold tracking-[0.2em] uppercase overflow-hidden shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-105 hover:bg-red-700">
-                <span className="relative z-10 flex items-center gap-2">
-                  <span>Recetas Navideñas</span>
-                  <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                </span>
-              </a>
-              <Link href="/productos" className="group relative inline-flex items-center justify-center bg-white/15 hover:bg-white/25 backdrop-blur-md text-white px-10 py-5 rounded-full text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 border border-white/30 hover:border-white/50">
+            <div className={`transition-all duration-1000 delay-700 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+              <Link href="/productos" className="group relative inline-flex items-center justify-center bg-primary text-white px-12 py-5 rounded-full text-xs font-bold tracking-[0.2em] uppercase overflow-hidden shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-105 hover:bg-red-700">
                 <span className="relative z-10 flex items-center gap-2">
                   {t.hero.btn}
+                  <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                 </span>
               </Link>
             </div>
@@ -314,9 +306,6 @@ export default function HomeClient({ settings, featuredProducts = [] }: { settin
             </div>
           </div>
         </section>
-
-        {/* SECCIÓN ESPECIAL NAVIDEÑA */}
-        <ChristmasSection whatsappRaw={contactInfo.whatsappRaw} settings={settings} />
 
         {/* NOSOTROS - Fondo Limpio e Histórico */}
         <section id="nosotros" className="py-28 md:py-36 relative bg-[#F8FAFC] overflow-hidden">

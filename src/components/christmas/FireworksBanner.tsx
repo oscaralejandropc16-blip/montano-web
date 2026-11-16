@@ -351,19 +351,19 @@ export default function FireworksBanner() {
         </div>
 
         <div className="shrink-0 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-          <a
-            href="/#navidad"
-            className="inline-flex items-center justify-center gap-2.5 bg-primary hover:bg-red-700 text-white font-bold text-xs tracking-widest uppercase px-8 py-4 rounded-xl shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-105"
-          >
-            <span>Ver Recetas Navideñas</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
           <Link
             href="/productos"
-            className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs tracking-widest uppercase px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center justify-center gap-2.5 bg-primary hover:bg-red-700 text-white font-bold text-xs tracking-widest uppercase px-8 py-4 rounded-xl shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-105"
           >
             <span>Ver Catálogo</span>
+            <ArrowRight className="w-4 h-4" />
           </Link>
+          <a
+            href="#contacto"
+            className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs tracking-widest uppercase px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105"
+          >
+            <span>Contacto</span>
+          </a>
         </div>
       </div>
     </div>
